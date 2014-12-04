@@ -1,4 +1,5 @@
 epeterson320.github.io
 ======================
 
-My Personal Blog
+Currently, all my blogging is at SAP Community Network.
+http://scn.sap.com/people/eric.peterson2/content
