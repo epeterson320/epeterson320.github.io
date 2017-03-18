@@ -1,5 +1,6 @@
 ---
 layout: default
+title: I write software.
 ---
 # Hello World
 
