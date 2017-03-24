@@ -6,7 +6,7 @@ title: I write software.
 I'm Eric, and this is my website. It's hosted with GitHub.
 Pages.
 
-Here are some things I made:
+Here are some things I made. I like them.
 
 * [Occam's Flashlight](
   https://play.google.com/store/apps/details?id=co.ericp.flashlight&hl=en
