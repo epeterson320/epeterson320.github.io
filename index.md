@@ -2,9 +2,8 @@
 layout: default
 title: I write software.
 ---
-# Hello World
 
-I'm Eric, and this is my website. It's hosted with GitHub
+I'm Eric, and this is my website. It's hosted with GitHub.
 Pages.
 
 Here are some things I made:

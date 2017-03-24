@@ -1,4 +1,19 @@
 ---
 ---
 
-@import 'jekyll-theme-architect';
+@import "normalize";
+
+/* LAYOUT STYLES */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666;
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) { }
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) { }
