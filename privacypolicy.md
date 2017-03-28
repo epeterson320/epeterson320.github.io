@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Occam's Flashlight Privacy Policy
 ---
 # Occam's Flashlight Privacy Policy

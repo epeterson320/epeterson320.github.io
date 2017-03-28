@@ -1,15 +1,6 @@
 ---
-layout: default
-title: I write software.
+layout: landing
 ---
 
-I'm Eric, and this is my website. It's hosted with GitHub.
-Pages.
-
-Here are some things I made. I like them.
-
-* [Occam's Flashlight](
-  https://play.google.com/store/apps/details?id=co.ericp.flashlight&hl=en
-  ), the simplest possible Android flashlight.
-* [Codeck](codeck), a tool to encode and decode a message
-  in an ordered deck of cards.
+I'm Eric, and this is my website. It's hosted with GitHub Pages. You could say
+it's a work in progress.

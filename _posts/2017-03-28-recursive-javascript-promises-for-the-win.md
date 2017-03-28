@@ -1,4 +1,5 @@
 ---
+Title: Simple and Recursive Javascript Promises
 ---
 
 Trigger warning: Recursion.
