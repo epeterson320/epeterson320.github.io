@@ -2,18 +2,95 @@
 ---
 
 @import "normalize";
+@import "constants";
+@import "eng_paper_background";
 
 /* LAYOUT STYLES */
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.5;
-  color: #666;
+  color: $text;
+}
+
+h1, p {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  h2, nav, ul, li {
+    display: inline;
+  }
+  nav {
+    float: right;
+  }
+}
+
+main {
+  padding-top: 8px;
+  h1 {
+    padding: 12px 24px;
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 72px;
+  }
+  h2 {
+    clear: both;
+  }
+  p {
+    margin: -4px 0 4px;
+    line-height: 24px;
+    font-size: 16px;
+  }
+  p + p {
+    margin-top: 24px;
+  }
+}
+
+footer {
+}
+
+.profile-pic {
+  position: relative;
+  float: right;
+  margin-right: -8px;
+  margin-left: 16px;
+  transform: rotate(4deg);
+  transform-origin: top right;
+
+  &:hover {
+    .polaroid {
+      transform-origin: top right;
+      transform: rotate(-45deg);
+    }
+
+  }
+  .code-behind {
+    position: absolute;
+    height: 100%;
+    border-radius: 2px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.12);
+  }
+  .polaroid {
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 2px;
+    padding: 8px 8px 48px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.project-list {
+  margin-bottom: 0;
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) { }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px) { }
+@media only screen and (max-width: 479px) {
+  font-size: 14px;
+}
