@@ -29,7 +29,7 @@ header {
 }
 
 main {
-  padding-top: 8px;
+  padding: 8px 0 24px;
   h1 {
     padding: 12px 24px;
     font-size: 45px;
@@ -50,6 +50,8 @@ main {
 }
 
 footer {
+  height: 32px;
+  padding: 8px;
 }
 
 .profile-pic {
@@ -62,24 +64,30 @@ footer {
 
   &:hover {
     .polaroid {
-      transform-origin: top right;
       transform: rotate(-45deg);
+      transition-duration: 350ms;
     }
 
   }
   .code-behind {
     position: absolute;
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border-radius: 2px;
-    width: 100%;
     background-color: rgba(0,0,0,0.12);
+    padding: 8px;
+    font-size: 13px;
   }
   .polaroid {
+    transform-origin: top right;
     position: relative;
     background-color: #fafafa;
     border-radius: 2px;
     padding: 8px 8px 48px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+    transition: transform 1s ease-in-out;
   }
 }
 
