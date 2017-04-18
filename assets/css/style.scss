@@ -19,16 +19,23 @@ h1, p {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: $text;
+}
 code {
   font-family: 'PT Mono', Inconsolata, monospace;
 }
 
 header {
   h2, nav, ul, li {
-    display: inline;
+    display: inline-block;
   }
   nav {
     float: right;
+  }
+  nav, ul {
+    
   }
 }
 
@@ -39,9 +46,10 @@ main {
     font-size: 45px;
     font-weight: 400;
     line-height: 72px;
-    font-family: 'Architects Daughter', cursive;
+    font-family: 'BioRhyme', serif;
   }
   h2 {
+    font-family: 'BioRhyme', serif;
     clear: both;
   }
   p {

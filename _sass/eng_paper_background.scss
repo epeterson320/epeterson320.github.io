@@ -10,23 +10,23 @@ body {
   padding-right: $right-margin;
 
   background:
-      // top rule
-      linear-gradient($divider, $divider)
-      0 #{$header-height} / 100% 1px no-repeat,
-      // left rule
-      linear-gradient($divider, $divider)
-      $left-margin 0 / 1px 100% no-repeat,
-      // right rule
-      linear-gradient($divider, $divider)
-      top right #{$right-margin} / 1px 100% no-repeat,
-      // holes on the side
-      radial-gradient(circle,
-        rgba(0, 0, 0, 0.6) 0,
-        rgba(0, 0, 0, 0.7) 12px,
-        transparent 12px,
-        transparent)
-      24px -104px / 24px 384px repeat-y;
-    background-color: $bg;
+    // top rule
+    linear-gradient($divider, $divider)
+    0 #{$header-height} / 100% 1px no-repeat,
+    // left rule
+    linear-gradient($divider, $divider)
+    $left-margin 0 / 1px 100% no-repeat,
+    // right rule
+    linear-gradient($divider, $divider)
+    top right #{$right-margin} / 1px 100% no-repeat,
+    // holes on the side
+    radial-gradient(circle,
+      rgba(0, 0, 0, 0.6) 0,
+      rgba(0, 0, 0, 0.7) 12px,
+      transparent 12px,
+      transparent)
+    24px -104px / 24px 384px repeat-y;
+  background-color: $bg;
 }
 
 header {
@@ -38,7 +38,7 @@ header {
       $divider 1px,
       transparent 1px,
       transparent)
-    0 / calc(100% / 3) $header-height repeat-x;
+    0 / calc(101% / 3) $header-height repeat-x;
 }
 
 main {
