@@ -30,18 +30,12 @@
 
       <!-- Bio/Content -->
 
-      <div class="content-main">{{ content }}</div>
-
-
-      <h2>Latest Blog Post</h2>
-      <article>
-        <h3><a href="{{ site.posts[0].url }}">{{ site.posts[0].title }}</a></h3>
-        {{ site.posts[0].excerpt }}
-      </article>
-
+      <div class="content-main">
+        {{ content }}
+      </div>
 
       <h2>Projects</h2>
-      <p>Here are some things I made. I like them.</p>
+      <p>Here are some things I made.</p>
       <ul class="project-list">
       {% for project in site.data.projects %}
         <li>
