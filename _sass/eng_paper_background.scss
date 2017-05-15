@@ -4,41 +4,60 @@ $gridline: transparentize($divider, 0.88);
 $cell: 24px;
 
 body {
+  background-color: rgb(236,239,241);
+}
+
+.container {
   margin: 0;
-  padding: 0;
-  padding-left: $left-margin;
-  padding-right: $right-margin;
+
+  @include for-tablet-landscape-up {
+    margin: 24px auto;
+    padding: 0;
+    border-radius: 2px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+  }
 
   background:
     // top rule
     linear-gradient($divider, $divider)
-    0 #{$header-height} / 100% 1px no-repeat,
-    // left rule
-    linear-gradient($divider, $divider)
-    $left-margin 0 / 1px 100% no-repeat,
-    // right rule
-    linear-gradient($divider, $divider)
-    top right #{$right-margin} / 1px 100% no-repeat,
-    // holes on the side
-    radial-gradient(circle,
-      rgba(0, 0, 0, 0.6) 0,
-      rgba(0, 0, 0, 0.7) 12px,
-      transparent 12px,
-      transparent)
-    24px -104px / 24px 384px repeat-y;
-  background-color: $bg;
+    0 #{$header-height} / 100% 1px no-repeat $bg;
+
+  @include for-tablet-landscape-up {
+    padding-left: $left-margin;
+    padding-right: $right-margin;
+
+    background:
+      // top rule
+      linear-gradient($divider, $divider)
+      0 #{$header-height} / 100% 1px no-repeat,
+      // left rule
+      linear-gradient($divider, $divider)
+      $left-margin 0 / 1px 100% no-repeat,
+      // right rule
+      linear-gradient($divider, $divider)
+      top right #{$right-margin} / 1px 100% no-repeat,
+      // holes on the side
+      radial-gradient(circle,
+        (rgb(236, 239, 241) - #111) 0,
+        (rgb(236, 239, 241) - #222) 12px,
+        transparent 12px,
+        transparent)
+      24px -104px / 24px 384px repeat-y $bg;
+  }
 }
 
 header {
   height: $header-height;
   // top section divider lines
-  background:
-    linear-gradient(90deg,
-      $divider 0,
-      $divider 1px,
-      transparent 1px,
-      transparent)
-    0 / calc(101% / 3) $header-height repeat-x;
+  @include for-tablet-landscape-up {
+    background:
+      linear-gradient(90deg,
+        $divider 0,
+        $divider 1px,
+        transparent 1px,
+        transparent)
+      0 / calc(101% / 3) $header-height repeat-x;
+  }
 }
 
 main {
@@ -90,4 +109,5 @@ main {
       transparent)
      0 0 / 120px 100% repeat-x;
   border-bottom: 1px solid $gridline;
+  min-height: 780px;
 }

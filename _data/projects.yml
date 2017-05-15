@@ -4,3 +4,6 @@
 - name: Occam's Flashlight
   description: The simplest possible Android flashlight.
   link: https://play.google.com/store/apps/details?id=co.ericp.flashlight
+- name: Triangle Calculator
+  description: A web app that solves and displays triangles based on partially known measurements.
+  link: triangle-calculator

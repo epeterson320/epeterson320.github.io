@@ -14,6 +14,10 @@ body {
   color: $text;
 }
 
+.container {
+  max-width: 900px;
+}
+
 h1, p {
   margin: 0;
   padding: 0;
@@ -30,27 +34,33 @@ code {
 header {
   h2, nav, ul, li {
     display: inline-block;
+    margin: 0;
+    padding: 0;
   }
   nav {
     float: right;
   }
-  nav, ul {
-    
+  h2, li {
+    height: $header-height - 16px;
+    padding: 8px;
+    vertical-align: bottom;
   }
 }
 
 main {
-  padding: 8px 0 24px;
+  padding: 8px 16px 24px;
   h1 {
     padding: 12px 24px;
     font-size: 45px;
     font-weight: 400;
     line-height: 72px;
     font-family: 'BioRhyme', serif;
+    @include for-phone-only {
+      font-size: 33px;
+    }
   }
   h2 {
     font-family: 'BioRhyme', serif;
-    clear: both;
   }
   p {
     margin: -4px 0 4px;
@@ -81,36 +91,45 @@ footer {
       transition-duration: 350ms;
     }
   }
-  .code-behind {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-radius: 2px;
-    background-color: rgba(0,0,0,0.12);
-    padding: 8px;
-    font-size: 13px;
-  }
-  .polaroid {
-    transform-origin: top right;
-    position: relative;
-    background-color: #fafafa;
-    border-radius: 2px;
-    padding: 8px 8px 48px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
-    transition: transform 1s ease-in-out;
+}
+.code-behind {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 2px;
+  background-color: rgba(0,0,0,0.12);
+  padding: 8px;
+  font-size: 13px;
+}
+.polaroid {
+  transform-origin: top right;
+  position: relative;
+  background-color: #fafafa;
+  border-radius: 2px;
+  padding: 8px 8px 48px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.12);
+  transition: transform 1s ease-in-out;
+  @include for-phone-only {
+    padding-bottom: 24px;
   }
 }
-
+.pic {
+  width: 300px;
+  height: 300px;
+  @include for-phone-only {
+    width: 120px;
+    height: 120px;
+  }
+}
 .project-list {
-  margin-bottom: 0;
-}
-
-/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-@media only screen and (min-width: 480px) and (max-width: 767px) { }
-
-/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px) {
-  font-size: 14px;
+  margin: 0;
+  li {
+    margin-bottom: 8px;
+  }
+  a {
+    color: #0091EA;
+    font-weight: 600;
+  }
 }
