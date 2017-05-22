@@ -2,6 +2,8 @@ $text: rgba(0, 0, 0, 0.87);
 $left-margin: 96px;
 $right-margin: 48px;
 $header-height: 48px;
+$footer-height: 32px;
+$page-margin: 16px;
 $horiz-margins: $left-margin + $right-margin;
 
 @mixin for-phone-only {
