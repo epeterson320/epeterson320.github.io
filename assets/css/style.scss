@@ -42,8 +42,38 @@ header {
   }
   h2, li {
     height: $header-height - 16px;
-    padding: 8px;
+    padding: 14px 8px 2px;
     vertical-align: bottom;
+  }
+  h2 {
+    margin-top: 10px;
+  }
+}
+
+.hdr-link {
+  transition: color .15s ease-in;
+  color: rgba(0, 0, 0, 0.54);
+
+  &:hover {
+    //transition: color .15s ease-in;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.hdr-icon, .hdr-link-text {
+  display: inline-block;
+}
+
+.hdr-icon {
+  height: 32px;
+  width: 32px;
+}
+.hdr-link-text {
+  padding-right: 4px;
+  margin-bottom: 8px;
+  vertical-align: middle;
+  @include for-phone-only {
+    display: none;
   }
 }
 
