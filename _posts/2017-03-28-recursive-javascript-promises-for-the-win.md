@@ -2,9 +2,9 @@
 Title: Simple and Recursive Javascript Promises
 ---
 
-Trigger warning: Recursion.
+When I learned functional programming, one of the most exciting moments was the realization that recursion can replace all for- and while-loops. Being able to use recursion effectively means that you can generalize `for` and `while` into something simpler _and_ more powerful. Not that you always should, but this post is an example of exactly why such a thing is both powerful and practical.
 
-Here's a recursive factorial function, the "Hello World" of recursion.
+To start with, here's a recursive factorial function, the "Hello World" of recursion.
 
     function factorial(n) {
       if (n < 2) return 1;
@@ -14,9 +14,7 @@ Here's a recursive factorial function, the "Hello World" of recursion.
 It's not too difficult to understand or write, because multiplication is instantaneous, but what if the multiplication function returned a promise, like this?
 
     function multiplyAsync(a, b) {
-      return new Promise((resolve, reject) => {
-        resolve(a * b);
-      });
+      return Promise.resolve(a * b);
     }
 
 How would you write a factorial function if you had to use the above `multiplyAsync`? Since the multiply function returns a promise, the factorial function will have to return a Promise too. Here's one way to do it:
@@ -68,3 +66,6 @@ Here's the best I could come up with:
       return db.insertRecords(batch)
         .then(() => insertToDatabaseInBatches(remaining, batchSize));
     }
+
+Inserting a bunch of records into a database, in batches, asynchronously, in 7 lines of code. Not bad, recursion.
+
