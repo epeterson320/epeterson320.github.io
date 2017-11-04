@@ -1,0 +1,7 @@
+Elm in production: a mixed bag.
+
+JSON deserializing: A pure intellectual joy. It was difficult, but I am a better programmer because of it.
+Effects: Too painful. Couldn't get a mouse wheel library working properly.
+The need for a mouse wheel library wouldn't have been necessary if there was a good table component. So I was held back by the lack of libraries too.
+
+Since I was coming from a JS background, not Haskell or any ML language, it was a great experience to learn its syntax and see the strongest type safety I've ever seen so far.
