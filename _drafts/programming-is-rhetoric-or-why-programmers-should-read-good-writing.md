@@ -3,7 +3,7 @@ Screaming Arch
 How to read a book.
 Knuth, Literate programming
 
-# Programming is Rhetoric, or, Why Programmers Should Read Good Works
+# Programming is Rhetoric, or, Why Programmers Should Read Good Writing
 
 One of my favorite things about programming, aside from having an excuse to drink coffee past noon, is how much creative work it allows. Designers may have a reputation as the more creative role, but good creative thinking rightly applied to a codebase can make it much easier to understand and work with. I'm not talking about the creativity that makes cute animations or funny commercials, but the creativity that it takes to turn complexity into simplicity. And I don't just mean "easy to work with" as in consistent indentation and sensible line breaks, important as those are, but easy for another developer to look at and understand the point of it all.
 
