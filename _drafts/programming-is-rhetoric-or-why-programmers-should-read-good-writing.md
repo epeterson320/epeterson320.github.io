@@ -5,9 +5,9 @@ Knuth, Literate programming
 
 # Programming is Rhetoric, or, Why Programmers Should Read Good Writing
 
-One of my favorite things about programming, aside from having an excuse to drink coffee past noon, is how much creative work it allows. Designers may have a reputation as the more creative role, but good creative thinking rightly applied to a codebase can make it much easier to understand and work with. I'm not talking about the creativity that makes cute animations or funny commercials, but the creativity that it takes to turn complexity into simplicity. And I don't just mean "easy to work with" as in consistent indentation and sensible line breaks, important as those are, but easy for another developer to look at and understand the point of it all.
+One of my favorite things about programming, aside from having an excuse to drink coffee past noon, is how much creative work it allows. Designers may have a reputation as the more creative role, but good creative thinking rightly applied to a codebase can make it much easier to understand and work with. I'm not talking about the creativity that makes cute animations or funny commercials, but the creativity required to turn complexity into simplicity. And by "easy to work with," I don't just mean that a program should have consistent indentation and sensible line breaks, important as those are, but that it should be easy for another developer to look at and understand the point of it all.
 
-Every program must at least be logical. Code may be more than that, but it certainly can't be less. Programming is the discipline of describing an approximation of a part of the world with no ambiguity. Code must compile, and compilers don't do ambiguity. I've truncated a number of conversations with a "You know what I mean, right?" while still getting my point across. None of those conversations were with a compiler. So programs at the very least have to make sense logically.
+Every program must at least be logical. It may be more than that, but it certainly can't be less. Programming is the discipline of describing an approximation of a part of the world with no ambiguity. Code must compile, and compilers don't do ambiguity. I've truncated a number of conversations with a "You know what I mean, right?" while still getting my point across. None of those conversations were with a compiler. So programs at the very least have to make sense logically.
 
 Not just that, though - a program must be rhetorical. If you read a lot of good code, and especially if you read a lot of bad code, you'll realize that logical consistency (defined as successfully compiling) is not a sufficient condition for code quality. I think the missing piece is rhetoric. Rhetoric comes immediately after logic in classical education, and I think the order applies in programming too.
 
@@ -15,4 +15,4 @@ What I mean when I say that programming is _rhetorical_ is that it makes a subje
 
 This isn't a new idea.
 
-What I'm really trying to say is that the best programming happens when you use both your left and right brain together.
+What I'm really trying to say is that the best programming happens when you use both your left and right brain together. And also that I would pay handsomely for a compiler that understands the phrase, "You get the idea, right?"
