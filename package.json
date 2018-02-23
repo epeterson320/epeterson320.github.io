@@ -1,0 +1,28 @@
+{
+  "name": "erics-blog",
+  "description": "Eric's Blog",
+  "version": "1.0.0",
+  "author": "Eric Douglas Peteron <eric@ericp.co>",
+  "repository": "https://github.com/epeterson320/epeterson320.github.io",
+  "dependencies": {
+    "gatsby": "^1.9.207",
+    "gatsby-link": "^1.6.37",
+    "gatsby-plugin-react-helmet": "^2.0.5",
+    "react-helmet": "^5.2.0"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "prettier": "^1.10.2"
+  }
+}

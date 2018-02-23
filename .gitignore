@@ -1,4 +1,7 @@
-_site/
-.sass-cache/
-.jekyll-metadata
+# Dependencies
+node_modules
 
+# Build Folder
+public
+
+.cache
