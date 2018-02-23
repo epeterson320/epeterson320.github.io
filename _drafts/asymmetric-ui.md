@@ -18,3 +18,7 @@ because the apps that need to be built are for asymmetric relationships, and req
 understanding of multiple user roles. Even with Starbucks, customer/PoS is an oversimplification.
 Managers, business analysts, and supply chain folks need the same data in completely different
 formats.
+
+Usually when I enter data into a UI, it's not because I want to read it later, it's because I want
+someone else to read it. Most of the time, when I consume data, it's not data that's been entered
+by me.
