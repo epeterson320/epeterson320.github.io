@@ -11,7 +11,7 @@ Current Table Maintenance
 
 The standard way to show a table maintenance dialog is via SM30, Call View Maintenance –
 
-/wp-content/uploads/2013/08/sm30_265731.png
+![SM30 screenshot](sm30.png)
 
 – or a custom parameter transaction that calls SM30 for a specific table, with parameters VIEWNAME and UPDATE = ‘X’.
 
@@ -37,7 +37,7 @@ PARAMETERS: p_param1 TYPE z_mytable–myfield3,
 
              p_param2 TYPE z_mytable–myfield4.
 
-sel_screen.PNG
+![Selection screen screenshot](sel_screen.png)
 
 Calling Function Modules
 
@@ -119,6 +119,6 @@ START-OF-SELECTION.
 
 Horray!  That is all. In only 46 lines (plus two for every select-option or parameter), this will bring the user to from the selection-screen to the table maintenance screen.
 
-tab_maint.PNG
+![Table maintenance dialog screenshot](tab_maint.png)
 
 This is a collaborative document.  If there are better ways of achieving this functionality don’t hesitate to chime in and contribute!
