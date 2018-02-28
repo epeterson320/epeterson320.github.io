@@ -1,4 +1,11 @@
+---
+title: Best Practices for Users to Maintain a Z-Table
+date: 2013-10-01
+---
+
 Originally posted at https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/
+
+Computer.PNG
 
 UI design is one of the most exciting parts about my job as a developer.  It is art, programming, and psychology at the same time.  A few weeks ago I had the requirement to create a table maintenance program for our business users to maintain a large custom database table.  A few administrators were then going to add, modify and delete entries in this custom table that would in turn be used by other background programs.  Sounds simple, I thought.  It wasn’t.  I learned a lot about creating a table maintenance dialog, not the least of which was how to spell “maintenance” correctly.  I wanted to summarize a few things I learned from this adventure.
 
@@ -65,9 +72,13 @@ Rule of thumb: Be less annoying than this.
 To change the standard screen:
 
 From SE11 (ABAP Dictionary), open the screen to modify your Z-Table.  On the menu, choose Utilities ->Table Maintenance Generator.
+
 /wp-content/uploads/2013/10/screen1_254163.png
+
 From the menu, choose Environment -> Modification -> Maintenance Screens and select the screen you want to change.
+
 /wp-content/uploads/2013/10/screen2_254164.png
+
 To widen the overview window, click “Layout” and simply drag the side of the table control to widen it.  If there are a great many fields, you may not be able to fit all of them on the screen.  Your users would have to scroll horizontally, and now would be appropriate for you to shed a tear.  Save and activate the screen.
 
 /wp-content/uploads/2013/10/dragscreen_254167.png

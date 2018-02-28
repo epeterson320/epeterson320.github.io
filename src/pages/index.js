@@ -48,15 +48,17 @@ export default ({ data }) => (
     <section>
       <h2>Latest Blog Posts</h2>
       <p>
-        I write as succinctly as I can, and I don't try to make my
-        posts appear longer by using a large font-size.
+        I try to write succinctly. If you're looking for content that
+        pretends it's longer than it is by using a large font size, I
+        would suggest you check out Medium.
       </p>
 
-      {data.allFile.edges.map(({ node }, index) => (
+      {data.allMarkdownRemark.edges.map(({ node }, index) => (
         <section key={index}>
-          <h3>{node.name}</h3>
-          <p>One day, as I was walking along...</p>
-          <Link to="/posts/article">Continue reading...</Link>
+          <h3>{node.frontmatter.title}</h3>
+          <p>{node.fields.date}</p>
+          <p>{node.excerpt}</p>
+          <Link to={node.fields.slug}>Continue reading...</Link>
         </section>
       ))}
     </section>
@@ -64,16 +66,23 @@ export default ({ data }) => (
 );
 
 export const query = graphql`
-  query AboutQuery {
+  query IndexQuery {
     site {
       siteMetadata {
         title
       }
     }
-    allFile {
+    allMarkdownRemark(sort: {fields: [fields___date], order: DESC}) {
       edges {
         node {
-          name
+          frontmatter {
+            title
+          }
+          fields {
+            slug
+            date(formatString: "MMMM DD, YYYY")
+          }
+          excerpt
         }
       }
     }

@@ -1,3 +1,8 @@
+---
+title: Add a Selection Screen to a Table Maintenance Dialog
+date: 2013-08-22
+---
+
 Originally posted at https://blogs.sap.com/2013/08/22/add-a-selection-screen-to-a-table-maintenance-dialog/.
 
 When end users will maintain a z-table with 100+ rows, it helps to be able to restrict the selection by any number of selection criteria.  This document attempts to define a “best practice” method for calling a table maintenance dialog from a selection screen.

@@ -1,3 +1,8 @@
+---
+title: 'A Dream for SE80: Github Integration'
+date: 2013-09-18
+---
+
 Originally posted at https://blogs.sap.com/2013/09/18/a-dream-for-se80-github-integration/
 
 When I heard Code Exchange was closing, I was bummed.  I read that a new code exchange 2.0 is being developed, but as I write this it is still under construction.  As many people have pointed out, however, that doesn’t need to stop SAP developers from sharing code with one another.

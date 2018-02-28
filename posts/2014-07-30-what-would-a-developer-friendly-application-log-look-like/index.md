@@ -1,3 +1,8 @@
+---
+title: What Would a Developer-Friendly Application Log Look Like?
+date: 2014-07-30
+---
+
 Originally posted at https://blogs.sap.com/2014/07/30/what-would-a-developer-friendly-application-log-look-like/.
 
 9/30/14 UPDATE: I’ve begun work on a tool like I describe here.  It’s detailed in this post: Show SCN: The better logger I promised

@@ -14,6 +14,8 @@ const ListLink = props => (
           clipRule="evenodd"
           strokeLinejoin="round"
           strokeMiterlimit="1.414"
+          height={16}
+          width={16}
         >
           <path d={props.path} />
         </svg>

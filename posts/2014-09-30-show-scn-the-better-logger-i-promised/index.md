@@ -1,3 +1,8 @@
+---
+title: 'Show SCN: The Better Logger I Promised'
+date: 2014-09-30
+---
+
 Originally posted at https://blogs.sap.com/2014/09/30/show-scn-the-better-logger-i-promised/.
 
 A month back, I wrote a short blog about the application log, and how great it would be to have yet another object oriented wrapper around the SBAL function group and friends.  Well, I wasn’t kidding.  I just put up a working version on Github, and added some documentation to explain some of the features I thought would make a logger tool great.  It’s been done fifty times before, but I haven’t seen any of them with the features I describe.  It’s all working, so feel free to kick the tires, fork the project, and please, please, let me know what you think!
