@@ -1,12 +1,25 @@
 import React from 'react';
+import Link from 'gatsby-link';
+import g from 'glamorous';
+
+import Main from '../components/Main';
+import Headline from '../components/Headline';
+import { rhythm } from '../utils/typography'
 
 export default ({ data }) => {
-  const post = data.markdownRemark;
+  const { html, frontmatter, fields } = data.markdownRemark;
   return (
-    <div>
-      <h1>{post.frontmatter.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
-    </div>
+    <Main>
+      <Headline>{frontmatter.title}</Headline>
+      <g.Div
+        color="rgba(0,0,0,0.54)"
+        textAlign="center"
+        marginBottom={rhythm(3)}
+      >
+        <time dateTime={fields.datetime}>{fields.date}</time>
+      </g.Div>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </Main>
   )
 }
 
@@ -16,6 +29,10 @@ export const query = graphql`
       html
       frontmatter {
         title
+      }
+      fields {
+        date: date(formatString: "MMMM DD, YYYY")
+        datetime: date
       }
     }
   }

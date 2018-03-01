@@ -1,8 +1,11 @@
 import React from "react"
-import PropTypes from "prop-types"
+import g from 'glamorous'
 import Helmet from "react-helmet"
 
 import Header from "../components/Header"
+import Footer from '../components/Footer'
+
+import './global.css';
 
 export default ({ children, data }) => (
   <div>
@@ -20,7 +23,7 @@ export default ({ children, data }) => (
     />
     <Header />
     {children()}
-    <footer>This part is the website footer. Thanks for reading.</footer>
+    <Footer />
   </div>
 )
 

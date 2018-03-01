@@ -8,13 +8,16 @@
   "dependencies": {
     "gatsby": "^1.9.207",
     "gatsby-link": "^1.6.37",
+    "gatsby-plugin-glamor": "^1.6.13",
     "gatsby-plugin-react-helmet": "^2.0.5",
     "gatsby-plugin-sharp": "^1.6.37",
+    "gatsby-plugin-typography": "^1.7.16",
     "gatsby-remark-images": "^1.5.53",
     "gatsby-source-filesystem": "^1.5.24",
     "gatsby-transformer-remark": "^1.7.33",
     "gatsby-transformer-sharp": "^1.6.22",
     "gatsby-transformer-yaml": "^1.5.16",
+    "glamorous": "^4.11.6",
     "react-helmet": "^5.2.0"
   },
   "description": "Eric's Blog",

@@ -1,55 +1,51 @@
 import React from "react";
+import g from "glamorous";
+import { css } from "glamor";
 import Link from "gatsby-link";
 
+import Main from '../components/Main';
+import Headline from '../components/Headline';
+
+import { rhythm, scale } from "../utils/typography";
+
 export default ({ data }) => (
-  <main>
-    <h1>{data.site.siteMetadata.title}</h1>
-    <p>
-      Software engineer serving the D.C. Metro area,
-      <span>or, </span>
-      Blogger and 1x developer,
-      <span>or, </span>
-      Vocal advocate of JavaScript and duct tape
-    </p>
+  <Main>
+    <Headline>Software engineer serving the D.C. Metro area,</Headline>
+    <Or>or,</Or>
+    <AltHeadline>Blogger and 1x developer,</AltHeadline>
+    <Or>or,</Or>
+    <AltHeadline>Heavy user of JavaScript and duct tape.</AltHeadline>
 
-    <p>
-      <span>I'm Eric, and </span>
-      I'm a mobile and web app developer in Northern Virginia. I've
-      built highly interactive tools using the React.js library and
-      Android platform. Career experts say you should know your niche,
-      so I'll keep the focus on modern app development. I know other
-      things, like how to write performant SQL statements and OAuth 2.0
-      authorization flows, but I'll keep that to myself.
-    </p>
-
-    <section>
+    <g.P marginTop={rhythm(1)}>
+      <g.Em {...scale(0.5)}>I'm Eric, and </g.Em>
+      I'm a mobile and web app developer in Northern Virginia. I've worked
+      for enterprises and small companies in the energy, publishing, and
+      healthcare industries. Most of my work has involved building highly
+      interactive tools using the React.js library and Android platform. Career
+      experts say you should know your niche, so I focus on modern
+      app development. I know other things, like how to write performant SQL
+      statements and implement custom OAuth 2.0 authorization flows, but I'll
+      keep that to myself.
+    </g.P>
+    <g.Section marginTop={rhythm(3)}>
       <h2>Projects</h2>
       {data.allIndexYaml.edges.map(({ node }, index) => (
-        <section key={index}>
-          <h3><a href={node.link}>{node.name}</a></h3>
-          <p>{node.description}</p>
-        </section>
+        <Project key={index} {...node} />
       ))}
-    </section>
-
-    <section>
+    </g.Section>
+    <g.Section marginTop={rhythm(3)}>
       <h2>Latest Blog Posts</h2>
       <p>
-        I try to write succinctly. If you're looking for content that
-        pretends it's longer than it is by using a large font size, I
-        would suggest you check out Medium.
+        I try to write succinctly. If you're looking for content that pretends
+        it's longer than it is by using a large font size, I would suggest you
+        check out Medium.
       </p>
 
       {data.allMarkdownRemark.edges.map(({ node }, index) => (
-        <section key={index}>
-          <h3>{node.frontmatter.title}</h3>
-          <p>{node.fields.date}</p>
-          <p>{node.excerpt}</p>
-          <Link to={node.fields.slug}>Continue reading...</Link>
-        </section>
+        <BlogLink {...node} key={index} />
       ))}
-    </section>
-  </main>
+    </g.Section>
+  </Main>
 );
 
 export const query = graphql`
@@ -68,7 +64,7 @@ export const query = graphql`
         }
       }
     }
-    allMarkdownRemark(sort: {fields: [fields___date], order: DESC}) {
+    allMarkdownRemark(sort: { fields: [fields___date], order: DESC }) {
       edges {
         node {
           frontmatter {
@@ -76,11 +72,45 @@ export const query = graphql`
           }
           fields {
             slug
-            date(formatString: "MMMM DD, YYYY")
+            date: date(formatString: "MMMM DD, YYYY")
+            datetime: date
           }
-          excerpt
+          excerpt(pruneLength: 280)
         }
       }
     }
   }
-`
+`;
+
+const Project = ({ link, name, description }) => (
+  <g.Section>
+    <g.H3 margin={rhythm(0)} {...scale(0)}>
+      <a href={link}>{name}</a>
+    </g.H3>
+    <p>{description}</p>
+  </g.Section>
+);
+
+const Or = g.span({
+  fontStyle: "italic",
+  display: "block",
+  textAlign: "center",
+  color: "rgba(0,0,0,0.54)"
+});
+
+const AltHeadline = g.span({
+  display: "block",
+  textAlign: "center",
+  ...scale(0.5)
+});
+
+const BlogLink = ({ frontmatter, fields, excerpt, slug }) => (
+  <g.Section marginBottom={rhythm(2)}>
+    <g.H3 display="inline"><Link to={fields.slug} rel="bookmark">{frontmatter.title}</Link></g.H3>
+    <g.P display="inline" color="rgba(0,0,0,0.54)"> --- <time dateTime={fields.datetime}>{fields.date}</time></g.P>
+    <g.P paddingTop={rhythm(0.5)}>
+      {excerpt}
+      <Link to={fields.slug} rel="bookmark">(Read more...)</Link>
+    </g.P>
+  </g.Section>
+);
