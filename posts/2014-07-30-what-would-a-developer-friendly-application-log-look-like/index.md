@@ -1,6 +1,5 @@
 ---
 title: What Would a Developer-Friendly Application Log Look Like?
-date: 2014-07-30
 ---
 
 Originally posted at https://blogs.sap.com/2014/07/30/what-would-a-developer-friendly-application-log-look-like/.

@@ -1,11 +1,10 @@
 ---
 title: Best Practices for Users to Maintain a Z-Table
-date: 2013-10-01
 ---
 
 Originally posted at https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/
 
-Computer.PNG
+![Warning sign of man tripping on computer](computer.png)
 
 UI design is one of the most exciting parts about my job as a developer.  It is art, programming, and psychology at the same time.  A few weeks ago I had the requirement to create a table maintenance program for our business users to maintain a large custom database table.  A few administrators were then going to add, modify and delete entries in this custom table that would in turn be used by other background programs.  Sounds simple, I thought.  It wasn’t.  I learned a lot about creating a table maintenance dialog, not the least of which was how to spell “maintenance” correctly.  I wanted to summarize a few things I learned from this adventure.
 
@@ -37,7 +36,7 @@ The good news is, the bulk of a good table maintenance dialog will be built by S
 
 If you didn’t know, SAP transaction SM30 allows end-users to maintain database tables directly.  It’s far prettier than any dialog you have time to create, and you can use the ABAP dictionary to integrate your custom table into this transaction.
 
-tmd.PNG
+![Table maintenance dialog screenshot](tmd.png)
 
 Isn’t it (comparatively) pretty?
 
@@ -65,7 +64,7 @@ ABAP Report: Easier to customize.  Build a custom report and call function modul
 4. Widen the Overview Window for Tables With 5-10 Fields.
 Making your users scroll horizontally is as annoying as websites that automatically play music or game invitations from distant friends on Facebook.  If you have more than 4 fields in the table, this is essential!
 
-/wp-content/uploads/2013/10/candy_287799.jpg  
+![Candy crush character](candy.jpg)
 
 Rule of thumb: Be less annoying than this.
 
@@ -73,15 +72,15 @@ To change the standard screen:
 
 From SE11 (ABAP Dictionary), open the screen to modify your Z-Table.  On the menu, choose Utilities ->Table Maintenance Generator.
 
-/wp-content/uploads/2013/10/screen1_254163.png
+![Selection screen screenshot 1](screen1.png)
 
 From the menu, choose Environment -> Modification -> Maintenance Screens and select the screen you want to change.
 
-/wp-content/uploads/2013/10/screen2_254164.png
+![Selection screen screenshot 2](screen2.png)
 
 To widen the overview window, click “Layout” and simply drag the side of the table control to widen it.  If there are a great many fields, you may not be able to fit all of them on the screen.  Your users would have to scroll horizontally, and now would be appropriate for you to shed a tear.  Save and activate the screen.
 
-/wp-content/uploads/2013/10/dragscreen_254167.png
+![Screenshot of dragging the table wider](dragscreen.png)
 
 I’ve recently seen another way of doing this via an enhancement which is slightly more complicated, but far more adaptive and robust. It’s described in the blog SM30, change standard width of Tablecontrol.
 
@@ -93,7 +92,7 @@ If the table has more than 10 fields, you’ll be unable to avoid making your us
 
 One way to disable input is to mark the fields as “Read-Only” in the ABAP dictionary, but this is only possible for database views, not transparent tables.  If you are working with a transparent table and not a maintenance view, customizing this screen is easier than creating and maintaining a separate database view.  Open the screen for modification as in step 4.  Click the “Element List” tab and un-check the boxes in the Input column for those fields you do not want users to control (in case you will be filling them in automatically with custom code).  Examples of this are “Created By” and “Created On.” 
 
-/wp-content/uploads/2013/10/disableinput_287798.png
+![](disableinput.png)
 
 7. Use Custom Logic When Appropriate.
 A good database table needs validated, clean data.  If you cannot ensure this via check tables in the table definition, there are many points in the SAP standard dialog where you can add custom code to validate entries or do whatever else you need.  Enhancing a table maintenance dialog can get complicated, however, so the ins and outs will not be discussed here.
@@ -109,7 +108,7 @@ If the custom table is large, its administrators may not want to see every entry
 
 It’s quite easy to restrict the display via SM30, but this is only after everything has been loaded.  The built-in selection criteria also gives only a small dialog box (not to mention you’re directly using SM30).
 
-/wp-content/uploads/2013/10/no_sel_screen_254169.png
+![](no_sel_screen.png)
 
 This is no selection screen for end users!
 

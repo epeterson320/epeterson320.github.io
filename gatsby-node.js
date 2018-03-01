@@ -14,7 +14,7 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
     const [year, month, day, ...titleWords] = dirName.split('-');
     const date = new Date(year, month - 1, day);
     const slugSegment = titleWords.join('-');
-    const slug = path.posix.join('/posts', slugSegment, '/');
+    const slug = path.posix.join('/posts', slugSegment);
 
     createNodeField({
       node,
@@ -44,7 +44,6 @@ exports.createPages = ({ graphql, boundActionCreators }) =>
       }
     }
   `).then(result => {
-    console.log(JSON.stringify(result, null, 4));
     const { createPage } = boundActionCreators
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       createPage({

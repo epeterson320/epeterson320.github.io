@@ -1,6 +1,5 @@
 ---
 title: Add a Selection Screen to a Table Maintenance Dialog
-date: 2013-08-22
 ---
 
 Originally posted at https://blogs.sap.com/2013/08/22/add-a-selection-screen-to-a-table-maintenance-dialog/.

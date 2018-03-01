@@ -1,6 +1,5 @@
 ---
 title: Simple and Recursive Javascript Promises
-date: 2017-03-28
 ---
 
 When I learned functional programming, one of the most exciting moments was the realization that recursive functions can replace all for- and while-loops. Being able to use recursion effectively means that you can generalize `for` and `while` into something simpler _and_ more powerful. Not that you always should, but this post is an example of exactly why such a thing is both powerful and practical.

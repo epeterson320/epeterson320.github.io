@@ -1,6 +1,5 @@
 ---
 title: 'Show SCN: The Better Logger I Promised'
-date: 2014-09-30
 ---
 
 Originally posted at https://blogs.sap.com/2014/09/30/show-scn-the-better-logger-i-promised/.

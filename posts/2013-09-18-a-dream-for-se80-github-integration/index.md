@@ -1,6 +1,5 @@
 ---
 title: 'A Dream for SE80: Github Integration'
-date: 2013-09-18
 ---
 
 Originally posted at https://blogs.sap.com/2013/09/18/a-dream-for-se80-github-integration/
@@ -13,7 +12,7 @@ I want to take the idea behind SAPLink one step further.  Instead of searching t
 
 So rather than spending 5 minutes explaining it, I spent half an hour stumbling through MS Paint, drawing what I had in mind.
 
-Github Mockup SCN.png
+![Screenshot of desired functionality](github_mockup_scn.png)
 
 Seriously, how cool would this be?
 
