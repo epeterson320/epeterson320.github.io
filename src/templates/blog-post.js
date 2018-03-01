@@ -1,10 +1,13 @@
 import React from 'react';
-import Link from 'gatsby-link';
 import g from 'glamorous';
 
 import Main from '../components/Main';
 import Headline from '../components/Headline';
-import { rhythm } from '../utils/typography'
+import { rhythm } from '../utils/typography';
+
+/* eslint-disable react/no-danger */
+// since it's recommended in:
+// gatsbyjs.org/docs/adding-markdown-pages/#create-a-page-template-for-the-markdown-data
 
 export default ({ data }) => {
   const { html, frontmatter, fields } = data.markdownRemark;
@@ -20,8 +23,8 @@ export default ({ data }) => {
       </g.Div>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </Main>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query BlogPostQuery($slug: String!) {

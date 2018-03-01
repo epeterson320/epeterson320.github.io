@@ -12,24 +12,25 @@ The obvious solution is to put an object-oriented wrapper around these functions
 
 So why do we need another OO wrapper?  Well, because I believe in the power of collaboration, for one.  None of the other logs have been designed by the developer community.  Another reason is that logs have come a long way since 1999, when SAP released their function modules for the application log, and developers are used to a more concise syntax.  For instance, if I want to write to the console in javascript, it’s:
 
+```javascript
 console.log(‘The System is Down’);
+```
 
 but in SAP, I have to declare 2 variables, then spend a page of code calling function modules BAL_LOG_CREATE, BAL_LOG_MSG_ADD, and BAL_DB_SAVE.  Part of the reason is that SAP has multiple logs, while a web browser only logs messages in one console.  So when you log anything in SAP, it must go to a specific application log object and sub-object.  Android (java) also writes to multiple logs.  Its logs are called with two arguments, tag and message, like:
 
+```java
 Log.e(“SystemMsgs”, “The system is Down”);
+```
 
 If logging in ABAP was going to be just as awesome (and I know it can be), what would it look like?  Please post your ideas and discuss!  Once enough good ideas are gathered, I’d like to start building something on github.  Anyone is welcome to contribute code or just ideas and insights.  Here’s an example what I think would make a good application log API:
 
+```abap
 log = zcl_app_log=>get( object = ‘ZFICO’ subobject = ‘INTERFACES’ ).
 
 TRY.
-
     zcl_accounting=>do_some_important_upload( ).
-
     log->add( ‘The interface has finished’ ).
-
   CATCH zcx_upload_failed INTO err.
-
     log->add( err ).
-
 ENDTRY.
+```

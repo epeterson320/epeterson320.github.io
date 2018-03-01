@@ -13,16 +13,24 @@
     "gatsby-plugin-sharp": "^1.6.37",
     "gatsby-plugin-typography": "^1.7.16",
     "gatsby-remark-images": "^1.5.53",
+    "gatsby-remark-prismjs": "^1.2.16",
     "gatsby-source-filesystem": "^1.5.24",
-    "gatsby-transformer-remark": "^1.7.33",
+    "gatsby-transformer-remark": "^1.7.34",
     "gatsby-transformer-sharp": "^1.6.22",
     "gatsby-transformer-yaml": "^1.5.16",
     "glamorous": "^4.11.6",
-    "react-helmet": "^5.2.0"
+    "prismjs": "^1.11.0",
+    "react": "^16.2.0",
+    "react-helmet": "^5.2.0",
+    "typography": "^0.16.6"
   },
   "description": "Eric's Blog",
   "devDependencies": {
     "eslint": "^4.18.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
     "prettier": "^1.10.2"
   },
   "keywords": [
@@ -36,7 +44,8 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "version": "1.0.0"
 }

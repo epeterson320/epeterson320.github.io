@@ -3,12 +3,12 @@
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
-const path = require("path");
+const path = require('path');
 
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators;
 
-  if (node.internal.type === "MarkdownRemark") {
+  if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent);
     const dirName = fileNode.relativeDirectory;
     const [year, month, day, ...titleWords] = dirName.split('-');
@@ -18,14 +18,14 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
 
     createNodeField({
       node,
-      name: "slug",
-      value: slug
+      name: 'slug',
+      value: slug,
     });
 
     createNodeField({
       node,
-      name: "date",
-      value: date
+      name: 'date',
+      value: date,
     });
   }
 };
@@ -43,8 +43,8 @@ exports.createPages = ({ graphql, boundActionCreators }) =>
         }
       }
     }
-  `).then(result => {
-    const { createPage } = boundActionCreators
+  `).then((result) => {
+    const { createPage } = boundActionCreators;
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
@@ -55,5 +55,5 @@ exports.createPages = ({ graphql, boundActionCreators }) =>
         },
       });
     });
-    //console.log(JSON.stringify(result, null, 4))
-  })
+    // console.log(JSON.stringify(result, null, 4))
+  });

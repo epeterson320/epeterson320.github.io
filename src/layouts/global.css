@@ -16,3 +16,8 @@ header a, h1 a, h2 a, h3 a {
 p, ol, ul {
   max-width: 38em;
 }
+
+.gatsby-highlight {
+  min-width: 38em;
+  width: fit-content;
+}

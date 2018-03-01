@@ -1,11 +1,11 @@
-import React from "react";
-import g from "glamorous";
-import Link from "gatsby-link";
+import React from 'react';
+import g from 'glamorous';
+import Link from 'gatsby-link';
 
 const ListLink = props => (
   <g.Li display="inline" margin="8">
     <a href={props.href}>
-    {/* Paths at http://tachyons.io/components/footers/social-simple/index.html */ }
+      {/* Paths at http://tachyons.io/components/footers/social-simple/index.html */ }
       {props.path ? (
         <svg
           fill="currentColor"
@@ -25,6 +25,9 @@ const ListLink = props => (
     </a>
   </g.Li>
 );
+
+/* eslint-disable max-len */
+// I don't feel like doing something else with the SVG paths right now
 
 const Header = () => (
   <g.Header height="48px" position="relative" borderBottom="1px solid rgba(0, 0, 0, 0.54)">

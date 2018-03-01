@@ -1,12 +1,15 @@
 import React from 'react';
 import g from 'glamorous';
 
+import { rhythm } from '../utils/typography';
+
 export default () => (
   <g.Footer
     height="72px"
     backgroundColor="#444"
     color="#FFF"
     position="relative"
+    marginTop={rhythm(2)}
   >
     <g.Div
       position="absolute"
@@ -20,4 +23,4 @@ export default () => (
       This part is the website footer. Thanks for reading.
     </g.Div>
   </g.Footer>
-)
+);

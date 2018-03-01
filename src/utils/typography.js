@@ -1,22 +1,22 @@
-import Typography from "typography";
+import Typography from 'typography';
 
 const typography = new Typography({
-  baseFontSize: "16px",
+  baseFontSize: '16px',
   baseLineHeight: 1.6,
-  bodyFontFamily: ["georgia", "times", "serif"],
+  bodyFontFamily: ['georgia', 'times', 'serif'],
   headerFontFamily: [
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "avenir next",
-    "avenir",
-    "helvetica",
-    "helvetica neue",
-    "ubuntu",
-    "roboto",
-    "noto",
-    "segoe ui",
-    "arial",
-    "sans-serif"
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'avenir next',
+    'avenir',
+    'helvetica',
+    'helvetica neue',
+    'ubuntu',
+    'roboto',
+    'noto',
+    'segoe ui',
+    'arial',
+    'sans-serif',
   ],
 });
 

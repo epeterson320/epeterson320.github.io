@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Eric Peterson — I write software',
     description: 'The blog and portfolio of Eric Peterson, a software engineer in northern Virginia.',
-    keywords: "software, engineering, Virginia, Washington, javascript",
+    keywords: 'software, engineering, Virginia, Washington, javascript',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -10,15 +10,15 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-typography',
       options: {
-        pathToConfigModule: 'src/utils/typography'
-      }
+        pathToConfigModule: 'src/utils/typography',
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'posts',
         path: `${__dirname}/posts/`,
-      }
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
@@ -32,15 +32,15 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          'gatsby-plugin-sharp',
+          'gatsby-remark-prismjs',
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 590
-            }
-          }
-        ]
-      }
+              maxWidth: 590,
+            },
+          },
+        ],
+      },
     },
     'gatsby-transformer-yaml',
   ],
