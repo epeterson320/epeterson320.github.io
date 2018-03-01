@@ -24,25 +24,12 @@ export default ({ data }) => (
 
     <section>
       <h2>Projects</h2>
-      <section>
-        <h3>Codeck</h3>
-        <p>
-          A tool to encode and decode a message in an ordered deck of cards.
-        </p>
-      </section>
-
-      <section>
-        <h3>Triangle Calculator</h3>
-        <p>
-          A web app that solves and displays triangles based on partially known
-          measurements.
-        </p>
-      </section>
-
-      <section>
-        <h3>Occam's Flashlight</h3>
-        <p>The simplest possible Android flashlight.</p>
-      </section>
+      {data.allIndexYaml.edges.map(({ node }, index) => (
+        <section key={index}>
+          <h3><a href={node.link}>{node.name}</a></h3>
+          <p>{node.description}</p>
+        </section>
+      ))}
     </section>
 
     <section>
@@ -70,6 +57,15 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    allIndexYaml {
+      edges {
+        node {
+          name
+          description
+          link
+        }
       }
     }
     allMarkdownRemark(sort: {fields: [fields___date], order: DESC}) {

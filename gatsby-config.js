@@ -13,6 +13,13 @@ module.exports = {
         path: `${__dirname}/posts/`,
       }
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'projects',
+        path: `${__dirname}/projects/`,
+      },
+    },
     'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-transformer-remark',
@@ -27,6 +34,7 @@ module.exports = {
           }
         ]
       }
-    }
+    },
+    'gatsby-transformer-yaml',
   ],
 };
