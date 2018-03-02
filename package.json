@@ -12,6 +12,7 @@
     "gatsby-plugin-react-helmet": "^2.0.5",
     "gatsby-plugin-sharp": "^1.6.37",
     "gatsby-plugin-typography": "^1.7.16",
+    "gatsby-remark-autolink-headers": "^1.4.13",
     "gatsby-remark-images": "^1.5.53",
     "gatsby-remark-prismjs": "^1.2.16",
     "gatsby-source-filesystem": "^1.5.24",
