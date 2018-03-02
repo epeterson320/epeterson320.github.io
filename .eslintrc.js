@@ -5,6 +5,8 @@ module.exports = {
     graphql: false, 
   },
   rules: {
+    // I want to see code side-by-side
+    'max-len': ['error', { code: 80 }],
     // Gatsby's <Link> component doesn't need an href for accessibility
     'jsx-a11y/anchor-is-valid': ['error', { components: [] }],
     // .jsx as an extension doesn't really matter, everything is React

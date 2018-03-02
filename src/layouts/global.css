@@ -1,11 +1,23 @@
+a, input[type=submit] {
+  transition: all 0.1s ease-in-out;
+}
+
 a {
   text-decoration: underline;
   color: #001b44;
-  transition: all 0.1s ease-in-out;
 }
 
 a:hover {
   color: #b27629;
+}
+
+input[type=submit]:hover {
+  background-color: #b27629;
+}
+
+input[type=submit]:active {
+  background-color: #7e531b;
+  transform: translateY(4px);
 }
 
 header a, h1 a, h2 a, h3 a {

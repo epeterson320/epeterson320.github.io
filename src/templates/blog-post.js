@@ -3,11 +3,9 @@ import g from 'glamorous';
 
 import Main from '../components/Main';
 import Headline from '../components/Headline';
+import ContactForm from '../components/ContactForm';
 import { rhythm } from '../utils/typography';
 
-/* eslint-disable react/no-danger */
-// since it's recommended in:
-// gatsbyjs.org/docs/adding-markdown-pages/#create-a-page-template-for-the-markdown-data
 
 export default ({ data }) => {
   const { html, frontmatter, fields } = data.markdownRemark;
@@ -21,7 +19,11 @@ export default ({ data }) => {
       >
         <time dateTime={fields.datetime}>{fields.date}</time>
       </g.Div>
+      {/* eslint-disable react/no-danger */}
+      {/* it's recommended in gatsbyjs.org/docs/adding-markdown-pages */}
       <div dangerouslySetInnerHTML={{ __html: html }} />
+      {/* eslint-enable react/no-danger */}
+      <ContactForm />
     </Main>
   );
 };
