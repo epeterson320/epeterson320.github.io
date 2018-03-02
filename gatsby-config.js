@@ -1,3 +1,5 @@
+const rssConfig = require('./gatsby-plugin-feed');
+
 module.exports = {
   siteMetadata: {
     title: 'Eric Peterson — I write software',
@@ -5,9 +7,14 @@ module.exports = {
       'The blog and portfolio of Eric Peterson, a ' +
       'software engineer in northern Virginia.',
     keywords: 'software, engineering, Virginia, Washington, javascript',
+    siteUrl: 'https://www.ericp.co',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: { siteUrl: 'https://www.ericp.co' },
+    },
     'gatsby-plugin-glamor',
     {
       resolve: 'gatsby-plugin-typography',
@@ -29,7 +36,6 @@ module.exports = {
         path: `${__dirname}/projects/`,
       },
     },
-    'gatsby-transformer-sharp',
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -37,14 +43,16 @@ module.exports = {
           'gatsby-remark-prismjs',
           {
             resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 590,
-            },
+            options: { maxWidth: 590 },
           },
           'gatsby-remark-autolink-headers',
         ],
       },
     },
     'gatsby-transformer-yaml',
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: rssConfig,
+    },
   ],
 };
