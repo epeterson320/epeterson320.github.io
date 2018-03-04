@@ -54,5 +54,6 @@ module.exports = {
       resolve: 'gatsby-plugin-feed',
       options: rssConfig,
     },
+    'gatsby-plugin-sitemap',
   ],
 };
