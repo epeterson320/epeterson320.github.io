@@ -78,8 +78,8 @@ const BlogLink = ({ frontmatter, fields, excerpt }) => (
       </Link>
     </g.H3>
     <g.P display="inline" color="rgba(0,0,0,0.54)">
-      {' '}
-      --- <time dateTime={fields.datetime}>{fields.date}</time>
+      {' — '}
+      <time dateTime={fields.datetime}>{fields.date}</time>
     </g.P>
     <g.P paddingTop={rhythm(0.5)}>
       {excerpt}

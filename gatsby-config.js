@@ -40,6 +40,10 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
+          {
+            resolve: 'gatsby-remark-smartypants',
+            options: { dashes: 'oldschool' },
+          },
           'gatsby-remark-prismjs',
           {
             resolve: 'gatsby-remark-images',
