@@ -33,7 +33,7 @@ export default ({ data }) => {
       ) : null}
       {next ? (
         <PrevNextLink to={next.fields.slug}>
-          Next: {previous.frontmatter.title}
+          Next: {next.frontmatter.title}
         </PrevNextLink>
       ) : null}
       <ContactForm />
