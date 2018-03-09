@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import './global.css';
 
 export default ({ children, data }) => (
-  <div>
+  <div id="root">
     <Helmet
       title={data.site.siteMetadata.title}
       meta={[

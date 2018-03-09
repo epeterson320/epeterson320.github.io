@@ -1,9 +1,10 @@
 import React from 'react';
 import g from 'glamorous';
-import Link from 'gatsby-link';
 import Img from 'gatsby-image';
+
 import Main from '../components/Main';
 import Headline from '../components/Headline';
+import BlogExcerpt from '../components/BlogExcerpt';
 
 import { rhythm, scale } from '../utils/typography';
 
@@ -40,7 +41,7 @@ export default ({ data }) => (
       </p>
 
       {data.allMarkdownRemark.edges.map(({ node }) => (
-        <BlogLink key={node.fields.slug} {...node} />
+        <BlogExcerpt key={node.fields.slug} {...node} />
       ))}
     </g.Section>
   </Main>
@@ -70,27 +71,8 @@ const AltHeadline = g.span({
 
 const ProfileImg = g(Img)({
   float: 'right',
+  marginTop: rhythm(1.5),
 });
-
-const BlogLink = ({ frontmatter, fields, excerpt }) => (
-  <g.Section marginBottom={rhythm(2)}>
-    <g.H3 display="inline">
-      <Link to={fields.slug} rel="bookmark">
-        {frontmatter.title}
-      </Link>
-    </g.H3>
-    <g.P display="inline" color="rgba(0,0,0,0.54)">
-      {' — '}
-      <time dateTime={fields.datetime}>{fields.date}</time>
-    </g.P>
-    <g.P paddingTop={rhythm(0.5)}>
-      {excerpt}
-      <Link to={fields.slug} rel="bookmark">
-        (Read more...)
-      </Link>
-    </g.P>
-  </g.Section>
-);
 
 export const query = graphql`
   query IndexQuery {

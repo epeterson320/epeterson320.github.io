@@ -4,7 +4,6 @@ import Link from 'gatsby-link';
 
 import Main from '../components/Main';
 import Headline from '../components/Headline';
-import ContactForm from '../components/ContactForm';
 import { rhythm } from '../utils/typography';
 
 export default ({ data }) => {
@@ -35,7 +34,6 @@ export default ({ data }) => {
           Next: {next.frontmatter.title}
         </PrevNextLink>
       ) : null}
-      <ContactForm />
     </Main>
   );
 };
