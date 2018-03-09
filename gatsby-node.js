@@ -33,12 +33,17 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
 exports.createPages = async ({ graphql, boundActionCreators }) => {
   const queryResult = await graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(sort: { fields: [fields___date], order: ASC }) {
         edges {
+          previous {
+            id
+          }
           node {
-            fields {
-              slug
-            }
+            id
+            fields { slug }
+          }
+          next {
+            id
           }
         }
       }
@@ -47,13 +52,15 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   const { edges } = queryResult.data.allMarkdownRemark;
 
-  edges.forEach(({ node }) => {
+  edges.forEach(({ node, previous, next }) => {
     createPage({
       path: node.fields.slug,
       component: path.resolve('./src/templates/blog-post.js'),
       context: {
         // Data passed to context is available in page queries as GraphQL data
-        slug: node.fields.slug,
+        id: node.id,
+        prevId: previous && previous.id,
+        nextId: next && next.id,
       },
     });
   });

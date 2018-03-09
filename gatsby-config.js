@@ -10,6 +10,8 @@ module.exports = {
     siteUrl: 'https://www.ericp.co',
   },
   plugins: [
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-canonical-urls',
@@ -20,6 +22,13 @@ module.exports = {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/utils/typography',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'assets',
+        path: `${__dirname}/assets`,
       },
     },
     {

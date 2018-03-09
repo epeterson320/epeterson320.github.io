@@ -1,7 +1,7 @@
 import React from 'react';
 import g from 'glamorous';
 import Link from 'gatsby-link';
-
+import Img from 'gatsby-image';
 import Main from '../components/Main';
 import Headline from '../components/Headline';
 
@@ -14,16 +14,13 @@ export default ({ data }) => (
     <AltHeadline>Blogger and 1x developer,</AltHeadline>
     <Or>or,</Or>
     <AltHeadline>Heavy user of JavaScript and duct tape.</AltHeadline>
-
+    <ProfileImg resolutions={data.file.childImageSharp.resolutions} />
     <g.P marginTop={rhythm(1)}>
       <g.Em {...scale(0.5)}>I'm Eric, and </g.Em>
       I'm a mobile and web app developer in Northern Virginia. I've worked for
       enterprises and small companies in the energy, publishing, and healthcare
-      industries. Most of my work has involved building highly interactive tools
-      using the React.js library and Android platform. Career experts say you
-      should know your niche, so I focus on modern app development. I know other
-      things, like how to write performant SQL statements and implement custom
-      OAuth 2.0 authorization flows, but I'll keep that to myself.
+      industries. I build highly interactive web applications, with a focus on
+      data visualization and clean UI.
     </g.P>
 
     <g.Section marginTop={rhythm(3)}>
@@ -36,9 +33,10 @@ export default ({ data }) => (
     <g.Section marginTop={rhythm(3)}>
       <h2>Latest Blog Posts</h2>
       <p>
-        I try to write succinctly. If you're looking for content that pretends
-        it's longer than it is by using a large font size, I would suggest you
-        check out Medium.
+        Career experts say you should know your niche, so I focus on modern app
+        development. I know other things, like how to write performant SQL
+        statements and implement custom OAuth 2.0 authorization flows, but I'll
+        keep that to myself.
       </p>
 
       {data.allMarkdownRemark.edges.map(({ node }) => (
@@ -68,6 +66,10 @@ const AltHeadline = g.span({
   display: 'block',
   textAlign: 'center',
   ...scale(0.5),
+});
+
+const ProfileImg = g(Img)({
+  float: 'right',
 });
 
 const BlogLink = ({ frontmatter, fields, excerpt }) => (
@@ -118,6 +120,13 @@ export const query = graphql`
             datetime: date
           }
           excerpt(pruneLength: 280)
+        }
+      }
+    }
+    file(relativePath: { eq: "ericp-sq.jpg" }) {
+      childImageSharp {
+        resolutions(width: 350, height: 350) {
+          ...GatsbyImageSharpResolutions
         }
       }
     }

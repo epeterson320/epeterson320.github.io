@@ -8,10 +8,9 @@ import ContactForm from '../components/ContactForm';
 import { rhythm } from '../utils/typography';
 
 export default ({ data }) => {
-  const { html, frontmatter, fields } = data.markdownRemark;
-  const { date, datetime, slug } = fields;
-  const { edges } = data.allMarkdownRemark;
-  const { next, previous } = edges.find(edge => edge.node.fields.slug === slug);
+  const { post, next, previous } = data;
+  const { html, frontmatter, fields } = post;
+  const { date, datetime } = fields;
   return (
     <Main>
       <Headline>{frontmatter.title}</Headline>
@@ -49,8 +48,8 @@ const PrevNextLink = g(Link)({
 });
 
 export const query = graphql`
-  query BlogPostQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query BlogPostQuery($id: String!, $prevId: String, $nextId: String) {
+    post: markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
         title
@@ -61,30 +60,17 @@ export const query = graphql`
         datetime: date
       }
     }
-    allMarkdownRemark(sort: { fields: [fields___date], order: ASC }) {
-      edges {
-        previous {
-          frontmatter {
-            title
-          }
-          fields {
-            slug
-          }
-        }
-        next {
-          frontmatter {
-            title
-          }
-          fields {
-            slug
-          }
-        }
-        node {
-          fields {
-            slug
-          }
-        }
+    previous: markdownRemark(id: { eq: $prevId }) {
+      frontmatter {
+        title
       }
+      fields {
+        slug
+      }
+    }
+    next: markdownRemark(id: { eq: $nextId }) {
+      frontmatter { title }
+      fields { slug }
     }
   }
 `;
