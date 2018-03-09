@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Eric Peterson — I write software]]></title><description><![CDATA[The blog and portfolio of Eric Peterson, a software engineer in northern Virginia.]]></description><link>https://www.ericp.co</link><generator>RSS for Node</generator><lastBuildDate>Fri, 09 Mar 2018 23:50:19 GMT</lastBuildDate><item><title><![CDATA[Simple and Recursive Javascript Promises]]></title><description><![CDATA[When I learned functional programming, one of the most exciting moments was the realization that recursive functions can replace all for…]]></description><link>https://www.ericp.co/posts/recursive-javascript-promises-for-the-win</link><guid isPermaLink="false">https://www.ericp.co/posts/recursive-javascript-promises-for-the-win</guid><content:encoded>&lt;p&gt;When I learned functional programming, one of the most exciting moments was the realization that recursive functions can replace all for- and while-loops. Being able to use recursion effectively means that you can generalize &lt;code&gt;for&lt;/code&gt; and &lt;code&gt;while&lt;/code&gt; into something simpler &lt;em&gt;and&lt;/em&gt; more powerful. Not that you always should, but this post is an example of exactly why such a thing is both powerful and practical.&lt;/p&gt;
+&lt;p&gt;To start with, here’s a recursive factorial function, the “Hello World” of recursion.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; n &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;It’s not too difficult to understand or write, because multiplication is instantaneous, but what if the multiplication function returned a promise, like this?&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;multiplyAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Promise&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;How would you write a factorial function if you had to use the above &lt;code&gt;multiplyAsync&lt;/code&gt;? Since the multiply function returns a promise, the factorial function will have to return a Promise too. Here’s one way to do it:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;factorialAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Promise&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;factorialAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n1 &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;multiplyAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; n&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;This technique works for factorials, but not when order of operations matter, since it works “right-to-left”. What if we were trying to apply a list of changes to a database? Given:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Jeff&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; food&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Ice Cream&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Sonic&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; food&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Chili Dogs&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Donatello&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; food&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Pizza&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; user&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Jeff&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; food&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Cheesecake&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;You would expect the fourth entry to overwrite the first. If we use the technique above, the code would expand to:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Jeff&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Cheesecake&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Donatello&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Pizza&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Sonic&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Chili Dogs&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Jeff&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Ice Cream&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Backwards.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For example, what if we were trying to insert over 9000 things into a database in groups of 500? The above method would insert the &lt;em&gt;last&lt;/em&gt; 500 things first, then the previous 500, and so on. Not very desirable behavior.&lt;/p&gt;
+&lt;p&gt;So, if your database library gives you a function like&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insertRecords&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;records&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// returns a promise&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;How would you write the following function?&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;insertToDatabaseInBatches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;recordsToInsert&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; batchSize&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// A little help?&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Here’s the best I could come up with:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;insertToDatabaseInBatches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;recordsToInsert&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; batchSize&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;recordsToInsert&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;length &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; Promise&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; batch &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; recordsToInsert&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; batchSize&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; remaining &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; recordsToInsert&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;batchSize&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insertRecords&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;batch&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;insertToDatabaseInBatches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;remaining&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; batchSize&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Inserting a bunch of records into a database, in batches, asynchronously, in 7 lines of code. Not bad, recursion.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Show SCN: The Better Logger I Promised]]></title><description><![CDATA[Originally posted at  https://blogs.sap.com/2014/09/30/show-scn-the-better-logger-i-promised/ . A month back, I wrote a short blog about the…]]></description><link>https://www.ericp.co/posts/show-scn-the-better-logger-i-promised</link><guid isPermaLink="false">https://www.ericp.co/posts/show-scn-the-better-logger-i-promised</guid><content:encoded>&lt;p&gt;Originally posted at &lt;a href=&quot;https://blogs.sap.com/2014/09/30/show-scn-the-better-logger-i-promised/&quot;&gt;https://blogs.sap.com/2014/09/30/show-scn-the-better-logger-i-promised/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;A month back, I wrote a short blog about the application log, and how great it would be to have yet another object oriented wrapper around the SBAL function group and friends.  Well, I wasn’t kidding.  I just put up a working version on Github, and added some documentation to explain some of the features I thought would make a logger tool great.  It’s been done fifty times before, but I haven’t seen any of them with the features I describe.  It’s all working, so feel free to kick the tires, fork the project, and please, please, let me know what you think!&lt;/p&gt;
+&lt;p&gt;epeterson320/ABAP-Logger · GitHub&lt;/p&gt;
+&lt;p&gt;Here is my original post: What Would a Developer-Friendly Application Log Look Like?&lt;/p&gt;
+&lt;p&gt;Below is most of the readme from Github:&lt;/p&gt;
+&lt;h2 id=&quot;zcl_logger&quot;&gt;&lt;a href=&quot;#zcl_logger&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;ZCL_LOGGER&lt;/h2&gt;
+&lt;p&gt;SAP Logging as painless as any other language&lt;/p&gt;
+&lt;p&gt;One of these things is not like the others
+One of the most effective ways of debugging and inspecting a program’s operations is by writing to a log.  Logging is so powerful, just about every language has some way of doing it.  For example, if you want to write to a log in javascript, you just need to write the following line of code:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;“Leapin’ lizards&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; something went wrong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;”&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Or how about in Ruby? Ruby has the added benefit of different levels of messages.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-ruby&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;require&lt;/span&gt; ‘logger’
+log &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;Logger&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;‘logfile&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;log’&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;“&lt;span class=&quot;token constant&quot;&gt;You&lt;/span&gt;’re on thin ice&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bud&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;”&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;“&lt;span class=&quot;token constant&quot;&gt;Things&lt;/span&gt; are normal again&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;”&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Writing an Android app? You’re in luck – you can log and optionally tag messages, all in one line of Java.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-java&quot;&gt;&lt;code&gt;Log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;‘MAPS_INTERFACE’&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; ‘The system is down&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;’&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;So, how does ABAP logging stack up to the other languages? What code is required to log a string to be viewed later?&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;header&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; bal_s_log&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;handle&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; balloghndl&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        handles_to_save &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; bal_t_logh&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;header&lt;/span&gt;-object &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘ZINTERFACES’&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;header&lt;/span&gt;-subobject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘ACCOUNTING’&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;header&lt;/span&gt;-extnumber &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘Stuff imported &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;legacy&lt;/span&gt; systems’&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FUNCTION&lt;/span&gt; ‘BAL_LOG_CREATE’
+    &lt;span class=&quot;token keyword&quot;&gt;EXPORTING&lt;/span&gt;
+    i_s_log      &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;header&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;IMPORTING&lt;/span&gt;
+    e_log_handle &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FUNCTION&lt;/span&gt; ‘BAL_LOG_MSG_ADD_FREE_TEXT’
+    &lt;span class=&quot;token keyword&quot;&gt;EXPORTING&lt;/span&gt;
+    i_log_handle &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;handle&lt;/span&gt;
+    i_msgty &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘E’
+    i_text &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘You see&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; what had happened was…’&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FUNCTION&lt;/span&gt; ‘BAL_DB_SAVE’
+    &lt;span class=&quot;token keyword&quot;&gt;EXPORTING&lt;/span&gt;
+    i_t_log_handle &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; handles_to_save&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;If you’re not asleep after writing all that, then you’ve at least forgot what you were programming before you had to write to a log.  If anything, logging should be QUICK so you can get on with the real programming!&lt;/p&gt;
+&lt;h3 id=&quot;get-out-of-my-way&quot;&gt;&lt;a href=&quot;#get-out-of-my-way&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Get out of my way&lt;/h3&gt;
+&lt;p&gt;A better log would barely interrupt my code, so I can output messages in one line, and you don’t lose the big picture as you are reading it. What do you wish the ABAP example above looked like?  How about this:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;REF&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TO&lt;/span&gt; zcl_logger&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; zcl_logger&lt;span class=&quot;token token-operator punctuation&quot;&gt;=&gt;&lt;/span&gt;new&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘ZINTERFACES’
+                        subobject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘ACCOUNTING’
+                        desc &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘Stuff imported &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;legacy&lt;/span&gt; systems’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;e&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; ‘You see&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; what had happened was…’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;All the information, none of the boilerplate. This is the goal of ZCL_LOGGER.&lt;/p&gt;
+&lt;h3 id=&quot;log-anything&quot;&gt;&lt;a href=&quot;#log-anything&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Log anything&lt;/h3&gt;
+&lt;p&gt;Making use of SAP’s run-time type services, we can pass almost anything we might want to log to an instance of ZCL_LOGGER, and it will do the heavy lifting.&lt;/p&gt;
+&lt;p&gt;Log a string!&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;s&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; ‘Document &lt;span class=&quot;token number&quot;&gt;4800095710&lt;/span&gt; created successfully’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Log a bapi return message!&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; rtn &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; bapiret2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;add&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; rtn &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Log a…gasp…TABLE of bapi return messages!&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; msgs &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;OF&lt;/span&gt; bapiret2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;add&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; msgs &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Log an exception? Yep!&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;TRY&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    rubber_band_powered_spaceship&lt;span class=&quot;token token-operator punctuation&quot;&gt;=&gt;&lt;/span&gt;fly_to&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; the_moon &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;CATCH&lt;/span&gt; zcx_not_enough_power &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; err&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;e&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; err &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;ENDTRY&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Log the current system message.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;MESSAGE&lt;/span&gt; e001&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;oo&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;WITH&lt;/span&gt; foo bar baz &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;dummy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;add&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; “you don’t even need &lt;span class=&quot;token keyword&quot;&gt;to&lt;/span&gt; pass anything &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; bro&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Log the return of a BDC call.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TRANSACTION&lt;/span&gt; ‘CO07’ &lt;span class=&quot;token keyword&quot;&gt;USING&lt;/span&gt; bdc_tab &lt;span class=&quot;token keyword&quot;&gt;MESSAGES&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; bdc_messages&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;add&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; bdc_messages &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;And that’s every scenario I’ve been able to think of, so far.&lt;/p&gt;
+&lt;h3 id=&quot;dont-ignore-saps-strengths&quot;&gt;&lt;a href=&quot;#dont-ignore-saps-strengths&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Don’t Ignore SAP’s Strengths&lt;/h3&gt;
+&lt;p&gt;As frustrating as it can sometimes be, the SAP environment has a lot of power, and it would be good not to ignore it.  Transaction code SLG1 views and filters logs with ease, and it allows for added context variables and parameters. A new logger class should not reinvent the wheel, the wheelbarrow, or the mechanisms for saving and displaying logs.&lt;/p&gt;
+&lt;p&gt;If you have an instance of a log object, you can add context variables and a problem class, two of a few things that SLG1 handles well.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;w&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; obj_to_log &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘Document created &lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;errors&lt;/span&gt;’ “&amp;lt;– Which document? Needs &lt;span class=&quot;token keyword&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; new_document &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; “&amp;lt;– Here’s the &lt;span class=&quot;token keyword&quot;&gt;context&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Since this log is designed to be simple, it has compromised a lot of the more exotic function modules in the SBAL family. If your log needs to use one of these function modules, the log header, handle and database id are all read-only members of the class, so you can pass them right along to the function module.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;i&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; ‘Results &lt;span class=&quot;token keyword&quot;&gt;of&lt;/span&gt; system &lt;span class=&quot;token keyword&quot;&gt;analysis&lt;/span&gt;’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FUNCTION&lt;/span&gt; ‘BAL_LOG_MSG_CUMULATE’
+    &lt;span class=&quot;token keyword&quot;&gt;EXPORTING&lt;/span&gt;
+    i_log_handle &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;handle
+    i_s_msg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; l_msg
+    i_compare_attributes &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; abap_true&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3 id=&quot;chainable&quot;&gt;&lt;a href=&quot;#chainable&quot; aria-hidden=&quot;true&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Chainable&lt;/h3&gt;
+&lt;p&gt;It’s 2014, so yes, you can chain method calls.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;zcl_logger&lt;span class=&quot;token token-operator punctuation&quot;&gt;=&gt;&lt;/span&gt;new&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘foo’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;-&gt;e&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; ‘Bad things happened&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; See details’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;-&gt;e&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; error &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[What Would a Developer-Friendly Application Log Look Like?]]></title><description><![CDATA[Originally posted at  https://blogs.sap.com/2014/07/30/what-would-a-developer-friendly-application-log-look-like/ . 9/30/14 UPDATE: I’ve…]]></description><link>https://www.ericp.co/posts/what-would-a-developer-friendly-application-log-look-like</link><guid isPermaLink="false">https://www.ericp.co/posts/what-would-a-developer-friendly-application-log-look-like</guid><content:encoded>&lt;p&gt;Originally posted at &lt;a href=&quot;https://blogs.sap.com/2014/07/30/what-would-a-developer-friendly-application-log-look-like/&quot;&gt;https://blogs.sap.com/2014/07/30/what-would-a-developer-friendly-application-log-look-like/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;9/30/14 UPDATE: I’ve begun work on a tool like I describe here.  It’s detailed in this post: Show SCN: The better logger I promised&lt;/p&gt;
+&lt;p&gt;Do you ever have this problem?  You’re in the middle of writing a fantastic ABAP program.  It hums, it purrs, it looks reeeeally good.  The code is so clean uncle Bob would be proud.  You use the best design patterns and your application is modularized well.  Then you realize you need to log a few lines of text to view later in SLG1.  Your heart sinks.  Your robust, clean application is about to become polluted by countless 10-line calls to FM ‘BAL&lt;em&gt;LOG&lt;/em&gt;CREATE’ and its fellow hoodlums, all because you wanted to save the output of a BAPI you called.  First world problems, AMIRITE?  Anyone?&lt;/p&gt;
+&lt;p&gt;The obvious solution is to put an object-oriented wrapper around these functions.  This solution is so obvious, in fact, that every department in SAP has written their own verison of it, and my company has added two more.  This is consistent with SAP’s approach to developer tools: Quantity Guaranteed.&lt;/p&gt;
+&lt;p&gt;So why do we need another OO wrapper?  Well, because I believe in the power of collaboration, for one.  None of the other logs have been designed by the developer community.  Another reason is that logs have come a long way since 1999, when SAP released their function modules for the application log, and developers are used to a more concise syntax.  For instance, if I want to write to the console in javascript, it’s:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-javascript&quot;&gt;&lt;code&gt;console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;‘The System is Down’&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;but in SAP, I have to declare 2 variables, then spend a page of code calling function modules BAL&lt;em&gt;LOG&lt;/em&gt;CREATE, BAL&lt;em&gt;LOG&lt;/em&gt;MSG&lt;em&gt;ADD, and BAL&lt;/em&gt;DB_SAVE.  Part of the reason is that SAP has multiple logs, while a web browser only logs messages in one console.  So when you log anything in SAP, it must go to a specific application log object and sub-object.  Android (java) also writes to multiple logs.  Its logs are called with two arguments, tag and message, like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-java&quot;&gt;&lt;code&gt;Log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;“SystemMsgs”&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; “The system is Down”&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;If logging in ABAP was going to be just as awesome (and I know it can be), what would it look like?  Please post your ideas and discuss!  Once enough good ideas are gathered, I’d like to start building something on github.  Anyone is welcome to contribute code or just ideas and insights.  Here’s an example what I think would make a good application log API:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; zcl_app_log&lt;span class=&quot;token token-operator punctuation&quot;&gt;=&gt;&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘ZFICO’ subobject &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘INTERFACES’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;TRY&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    zcl_accounting&lt;span class=&quot;token token-operator punctuation&quot;&gt;=&gt;&lt;/span&gt;do_some_important_upload&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;add&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; ‘The &lt;span class=&quot;token keyword&quot;&gt;interface&lt;/span&gt; has finished’ &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;CATCH&lt;/span&gt; zcx_upload_failed &lt;span class=&quot;token keyword&quot;&gt;INTO&lt;/span&gt; err&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;log&lt;/span&gt;-&gt;add&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; err &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;ENDTRY&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;</content:encoded></item><item><title><![CDATA[Best Practices for Users to Maintain a Z-Table]]></title><description><![CDATA[Originally posted at  https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/ UI design is one of the most exciting…]]></description><link>https://www.ericp.co/posts/best-practices-for-users-to-maintain-a-z-table</link><guid isPermaLink="false">https://www.ericp.co/posts/best-practices-for-users-to-maintain-a-z-table</guid><content:encoded>&lt;p&gt;Originally posted at &lt;a href=&quot;https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/&quot;&gt;https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/computer-4ef923403e484251b1818ca9feef082e-0055c.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 150px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 90.66666666666666%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsSAAALEgHS3X78AAAEDUlEQVQ4y4VTf0zUZRh/7sWsPxo4Sf9oom3yY20uF7bFEQxrEveF4w7OQ+CAiXAcHIdwIHegB8FQuigtWDhwpdbKCGhtZs42N4EtCzUVxU7CtZU2t9qsVrTRfb/3fnq/7yVZ2Xq3Z8/zfb/v5/N8nud5X6J/rEgkQllZWTIeHR2L0X3VjqpBl6vuztqE1av0702bUg2693q99L8rOztb+m3b7Ez3Ho/naYejFMa0jfB4mob1vcOHj8hERqNRCvjPFQ6HKScnR8YApIpqV9sZd8U6DAVIzbOUoKWp5kl935JvZncx9116pqSkJIqW0igVtLf5ivOtW3F6iDTMk1pS8BicrtaTfyaUhJmZmfdXqWkaDQ8P04q4WPmdFEsPbq9qvtFQEQvMCsJQDD/RT5q1sBjt/l15+pmaGqdMnJyc/G/ClJQU6QcG+pfp3ucLBCyWLQiNUxizDOo5Ieoqac6S1XC522fuxTqdTlJV9a8NXXa0yWmyb421SkKxw/1LT4MBotRIeJq4dp44QgzTb5NqL7IjEOh062f37u2RAhITE6NkCwsLZDKZZDw5OSVLaGoOHLVZUvHjGaHuMkPkfJRQJ/7tM4rUlz2M+oY9t9OeoDj9fELCGpEZZLPZiLq7uyWZw1ESHYTPbbQVVeLNLqFo3iBJcFmUe53w61niax5laCyjcM0OMwIdLwZ1zPj4mFSZnp5OS+ruXpM6z+7J8q3rgC9IxUUDhCK+308IfUjo9hDfuIH43HHiQS+Dqz6w6Ko0rddxGRnPsKUetjR7pbrd7W2l1kI7PhkUZHOMLwoyMWGcPkTYbCQYDARxjDeUMXx3itTiomexr/fAMR0rhiI5KD5+pVT2+CP0UGX1rq/ry8Q1uUHa4rQQPRMtl18kfPqOJEO5heAsIr5w1sBfbRX93BlAu682Q+ew2+0xdHBwMHpN/J2dhdZs3Jmg8LtBhq56QfalBKNwC8GUESV872VCsFn8u8Tw0wSppfan8FLf61P3to3cTvNaR4VnocNtQF8L6deer08gfrCL8EZXdCDVdkJTuVSNm6dITh7zjA+LJ9nQtAf7egIlSz1s9Ha+VVSQiq+Ok7oijsk+xa8kTB0VBN8TDvgILdtFHBLlXxD+EkE7R5xfMOD3z0lz2JLR98rQvMAtpxc6fMbSMieOBUXG2zF87iPGn0tn8LsYfphgwLcM+1sZRvpEfEvYjDDxcnBN2BXGcfMBfNxPYW+LHwP9r/mpssoTej5rFa6MkDb7vijnJPG6YsLyZYQNiYTrHxCOdBN6dxK+OUG4OkK4NrpkXLfQGHFlcyx6g/0/k9lsnrdacmE253IlV+G5uQry8xXkmBTosW4FVgW2QgWKoiAv7+8m/nOBjVgEpra29tYf3nYp2X4d0FYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Warning sign of man tripping on computer&quot;
+        title=&quot;&quot;
+        src=&quot;/static/computer-4ef923403e484251b1818ca9feef082e-0055c.png&quot;
+        srcset=&quot;/static/computer-4ef923403e484251b1818ca9feef082e-2193e.png 148w,
+/static/computer-4ef923403e484251b1818ca9feef082e-0055c.png 150w&quot;
+        sizes=&quot;(max-width: 150px) 100vw, 150px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;UI design is one of the most exciting parts about my job as a developer.  It is art, programming, and psychology at the same time.  A few weeks ago I had the requirement to create a table maintenance program for our business users to maintain a large custom database table.  A few administrators were then going to add, modify and delete entries in this custom table that would in turn be used by other background programs.  Sounds simple, I thought.  It wasn’t.  I learned a lot about creating a table maintenance dialog, not the least of which was how to spell “maintenance” correctly.  I wanted to summarize a few things I learned from this adventure.&lt;/p&gt;
+&lt;p&gt;Bad Doctors, T.V. Writers and User Interfaces
+The television show The Walking Dead is getting ready to premiere its fourth season and has the highest viewership among any cable TV show in the U.S.  It also received much criticism for being very slow-moving and having “filler episodes” some weeks with little to no action.  “Our heroes should be fighting off more zombies and rescuing other survivors in the post-apocalyptic world,” said the fans.  But the writers knew better.  An hour of baseball bats and machine guns and blood n’ guts every week would get old quickly.  So the writers added complex father-son relationships, outcasts trying to find their place, and familiar love triangles set amidst an extreme environment.  As a result, people kept watching.&lt;/p&gt;
+&lt;p&gt;Likewise, If I went to the doctor and he or she said “I’m not sure what to prescribe, let me know what medicine you want and I’ll give that to you,” I’d run out of the clinic as fast as possible.  Actually I might steal all the tongue depressors on the way out, because I’m never returning to that doctor, and tongue depressors intrigue me.&lt;/p&gt;
+&lt;p&gt;What’s the point of these examples?  I’m trying to show that the consumer often doesn’t know what they want.  I’m not going to crowdsource medical advice, and neither will I give the user the interface they tell me they want.  I’m going to tell him or her what’s best, because I’m a designer/developer and they don’t know the appropriate time to use a radiobutton vs. a checkbox, let alone design the screen layout and flow for a program they need.&lt;/p&gt;
+&lt;p&gt;Certainly you, the developer, need to listen closely to the user’s needs (and to any functional analyst) but the technical details of the final application, including UI “feel,” ought to be your responsibility.  Users and functional types may strongly disagree with your UI choices, so it is important to communicate as clearly and effectively as possible.  You must convince them why their UI is the wrong choice.  In this age of agile development, it’s not a good excuse to say “But I gave you exactly what the design spec asked for!” when the user whines about your program.&lt;/p&gt;
+&lt;p&gt;If you give the user exactly what they want, they’ll likely be back every month wanting some little change in the program.  If you seek to understand their need and argue well for a better (read: more standard) UI, they will be very pleased with the final result, and the program will require less maintenance over its lifecycle.&lt;/p&gt;
+&lt;p&gt;Users and Z-Tables
+Now that I’ve got that rant out of the way, one of the toughest UI challenges for me was creating a table maintenance dialog.  TMD’s, as I’ll call them, are programs with a very simple task that are very complicated “under the hood.”  I’ve compiled nine tips and tricks about how to create one well.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;This is 5% Table and 95% User
+Any database table can be maintained by only the four CRUD operations (create, read, update, and delete).  So, how difficult can it be to put a front end on four different database operations?  Not difficult, if you’re okay with annoying everyone in your company, filling the database with bad data, and all-around mediocrity in your life.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you want to implement a good table maintenance dialog, however, you need to worry about security, data validation, message handling, view restrictions, and more.  Users (at least the human ones) will do everything they can to screw up and misuse a program.  Some may be downright evil.  As said in a 2008 commentary about Craigslist spammers, “When you fail to design for evil, you have failed your community.”&lt;/p&gt;
+&lt;p&gt;Most TMD design requirements will fall into one of two categories:&lt;/p&gt;
+&lt;p&gt;Getting the correct slice of data FROM the database to the user’s display.
+Making sure only good user input goes INTO the database.&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Use SAP’s Table Maintenance Generator
+The good news is, the bulk of a good table maintenance dialog will be built by SAP.  This may seem painfully obvious to some, but when I got the requirement to build a table maintenance dialog I was told, “We’ve done this for another Z-table before; here is a program for you to copy.”  The program was a module pool with 1300 lines of code, 7 dynpro screens, and five GUI statuses.  All to create, read, change, and delete entries from one database table!  I would not let that program near children.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you didn’t know, SAP transaction SM30 allows end-users to maintain database tables directly.  It’s far prettier than any dialog you have time to create, and you can use the ABAP dictionary to integrate your custom table into this transaction.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-c1cff.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 555px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 94.77477477477477%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAIAAAAf7rriAAAACXBIWXMAAAsSAAALEgHS3X78AAAC8UlEQVQ4y6VS23LaSBDVj+d1/2ErW5XKPjl4TbIhBq+9mJstbJC4CBACJNCM7tJoNLog7N19SEtyEr/kaataXa0zc7pPdw+nu8nHm8f61aDRHn25HX/pCGefbxttodmbXnbFT9d843Z89mf74198vXX36WYI4B/N/vllf7xEnKx7F91Zvbf4fK9cDuXz6+FFe1Zr82c33XpvdjVSW6Pd5cMGfLP0V4LWfNw0hgovmxxyQl7S+AW+m6PRGg9Gc36i3c2VrigNpjvpEK6MeIWZbMSymZRBAvESxzs74WTVrN88NHtisz85bw1qrbsaqGrdNzpioyMA2BU3/al6db+4Hq46wqY5mP39KF8/LDtjidvtsaxiO2C65Y9nK340EeeyoqKD6ZsOefvu4s0vv777/cNEFNcbTd7uH4T5dKGMp9JEWnBbDUlr1aexH6VrVZ9KwNST/F+anoIoFcRln58IwtTAyLLtvY7l7QFSLNaq5dCisiitbZ96NFV2OqSU1jua5IQdA5a5nh/4nuO6pu0YpgHkpaItN9oMPuwBGQlzGchQWZRWinawfBrGOYkLMsImxlhHGGHDNE31gJYbFUySt4REhezZcuvRxGcZSNpoSDfdMMnBgG+7nuO4tuNa4G0HGdZ2jxUNrXcHxtKCvDc9uAqVvTB2wQgDWlW5SAo4TcoggVO4WniaJElekLFDovQElYFQ1CyZFblCgvK3CNixUkSTU5qeOJBRkYurLAPmdyPfkOBVUOEwlDSFynv0P8gaRg6hpexKJ3klu0L8VwF5SZFn2anoGdk/rRwU7eXf+/dLpCADGCbcHplWwFj2VK2Hpj8sTIvhBRFkOSbZMxhLn0p/gsoeibmAMtuPnODFYE9OwNyg9IRZbqgbHvgoSih9sYDEhk08wrg0f/6hlh1h1SFLSFT4kMVhnNFqeWVT5NtQAIlgYFn+DMfQMyiH5z3o1SKzJo1+20nvqfEhCFR2/A9SbDQd9mIVr+kfuAwDjrOnr+K+7rXtg2emAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Table maintenance dialog screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-c1cff.png&quot;
+        srcset=&quot;/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-63669.png 148w,
+/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-b6aa5.png 295w,
+/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-c1cff.png 555w&quot;
+        sizes=&quot;(max-width: 555px) 100vw, 555px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Isn’t it (comparatively) pretty?&lt;/p&gt;
+&lt;p&gt;Table maintenance dialogs are deceptively complex.  To keep the amount of code you need to write under control, stay as close to SAP standard as possible.  To save you and your coworkers many headaches, generate a table maintenance dialog the standard way.  If you don’t know how, here’s the documentation.&lt;/p&gt;
+&lt;p&gt;SAP Library – Create a Table Maintenance Dialog.&lt;/p&gt;
+&lt;p&gt;Now you’ve got a program that allows users to maintain a table.  And you wrote zero lines of code!  You must be an amazing programmer.  You can maintain the table via SM30 (Call View Maintenance) now.&lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Use a Custom Transaction Instead of SM30
+At my company, end users do not have access to transaction SM30.  That was the justification given to me when I asked about another custom table maintenance dialog for a different Z-Table (In all fairness, this reinvented wheel was only 300 lines of code and three dynpros).  Instead of using transaction SM30 to maintain a table, there are two better ways to use the table maintenance dialog, and you won’t have to create any dynpro screens.  Have I mentioned I hate dynpros?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Parameter Transaction: Requires no ABAP.  From SE93, create a new transaction.  When prompted for the type, choose “parameter transaction.”  Set SM30 as the default transaction and check “skip initial screen.”  This works great for tables that won’t have many entries – my rule of thumb is fifty or less.&lt;/p&gt;
+&lt;p&gt;Add the following default values:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;Field     Value                 
+UPDATE    X
+VIEWNAME  (name of your Z-Table)&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;ABAP Report: Easier to customize.  Build a custom report and call function module “VIEW&lt;em&gt;MAINTENANCE&lt;/em&gt;CALL”.  This requires maintenance of a custom report, but it has all the flexibility of an ABAP program.  This is a big advantage if you want to add a selection screen or build the TMD into another application.&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Widen the Overview Window for Tables With 5-10 Fields.
+Making your users scroll horizontally is as annoying as websites that automatically play music or game invitations from distant friends on Facebook.  If you have more than 4 fields in the table, this is essential!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/candy-110ab5f37d92db6106821da9f0507c0f-a9c05.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 181px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 97.23756906077348%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAATABQDASIAAhEBAxEB/8QAGQABAAIDAAAAAAAAAAAAAAAAAAMEAQIF/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgMB/9oADAMBAAIQAxAAAAHS7WsjYkyB5mBCcRH/xAAbEAADAAIDAAAAAAAAAAAAAAAAAQIDExEhMv/aAAgBAQABBQKJ5epFY6bm0k7Ng/RL6//EABoRAAICAwAAAAAAAAAAAAAAAAECABAREmH/2gAIAQMBAT8BRABmb9v/xAAZEQEAAgMAAAAAAAAAAAAAAAABAAIQEjH/2gAIAQIBAT8BbL2bYZ//xAAbEAACAgMBAAAAAAAAAAAAAAAAARARITFBgf/aAAgBAQAGPwIVM1fpXTLhz//EABwQAQADAAIDAAAAAAAAAAAAAAEAESExURBhcf/aAAgBAQABPyGnFo7gVtXOJrD7Qy4W5I6FB4Z+kt7Yldn/2gAMAwEAAgADAAAAEKPQQ//EABkRAQACAwAAAAAAAAAAAAAAAAEAEBExsf/aAAgBAwEBPxB8kzyKo7n/xAAbEQACAQUAAAAAAAAAAAAAAAAAARAhMUGh0f/aAAgBAgEBPxBczThb7Fx//8QAHBABAAMAAgMAAAAAAAAAAAAAAQARITFBUZHR/9oACAEBAAE/EDvh5BdQOkqCb3p9bLFRFWPyJAANhjKJBbaDYeBZ0rrAAMBRblNvWdkT/9k=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Candy crush character&quot;
+        title=&quot;&quot;
+        src=&quot;/static/candy-110ab5f37d92db6106821da9f0507c0f-a9c05.jpg&quot;
+        srcset=&quot;/static/candy-110ab5f37d92db6106821da9f0507c0f-60032.jpg 148w,
+/static/candy-110ab5f37d92db6106821da9f0507c0f-a9c05.jpg 181w&quot;
+        sizes=&quot;(max-width: 181px) 100vw, 181px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Rule of thumb: Be less annoying than this.&lt;/p&gt;
+&lt;p&gt;To change the standard screen:&lt;/p&gt;
+&lt;p&gt;From SE11 (ABAP Dictionary), open the screen to modify your Z-Table.  On the menu, choose Utilities -&gt;Table Maintenance Generator.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/screen1-62008f042e1ffe77f2fcbf989dad8547-811f5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 310px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 107.0967741935484%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAIAAADJt1n/AAAACXBIWXMAAA7DAAAOwwHHb6hkAAADKElEQVQ4y4VT2ZLdNBD1B8MUUCxVvAB/xAM8hSHJvDAJk9SdzNzFvt43SV6uN9mW5UUce1JTQB7SdUrVanWru49aGkm54WZHi2EFItZErCZpU3HJch6QkiQfLSUsGQ9pRbfTOKk1ktav78w/3+iv7863H7ys4F6U6FYkBllUfG/4tk9Nl8A4z0ucXGAJ4myaF8dnWll30EzbOeqGbpzbXiil5kXJaRnGeVoWnE6LWpQa5wX27XS1xOyiiWHE3rYs13HCIEjThHPeNHXfd+pfshrruiiKckUJC2G5VjaDUovn+ZZlUUp3u50H8f0sz+GxbAIlSRLbRopVoEzjyPtJe7s74CyO4/1+r+u6+pw83dXyxokvmkUqbMqyYixBRd0qPdD3AqsQom1b6NM0PUdujS9h1miGZUGta3TUwLtepeFti+uApuF5fqmqWkqJyHmep00Q4tFSC2ICDQUfjscwjE6nE+rHGgTB4XB4eHi8XAo4RFEEHxzBaBjGNMo455pPclQDimzHdV2PUua4HnLKcRJiQC2DHKUcoa8Y5DBgB76mqhWa7a+ZQbDjrNGMMfCJp/osc2XTb5mVCsMQVSEMtKMq3/fR5DNDn7LdtZzmjVa1vVpm3/dM00R+Sgm6yrL0v5HLM8DaGtzxS8W1kq/zGISx4/hhRFiS64bJkkyIEf0C4/hJdqVQ11r20Q6VGgJXPz7epcwN3JNn78+ne9O4j0NTP7xnxIHzMrVq7p6wTJhcEaaVFlgvlPdjdPv98cWXzs3Xpz+unJtv7Juv4ttvzy+vzFdX+vUX6d13yv15sX5S9orF/kU5PxD3WrsUsep2xLw+vf81sV8au9/sx9+p9apL/q7jNw19W5M3In+n+L1qdh/BP8jsryI7a/TSogfXp4eTlWS1HzIvYHnRPH3MeWMJyjivOiZr2pSmk4SG2tnx4QC28VRgG5xbluk4thD9NosjBFMZhoGuY/geD/u9oeuYMDckWpys00cJQQBjFDEYJSmH/9GLi4ZBYL6wjqMEsqJZh2SQk2Hau/uHh/0Rf0HIaZAz3gjohISl5u2wGQExrmuS5mnB/wEorY85AkVErgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Selection screen screenshot 1&quot;
+        title=&quot;&quot;
+        src=&quot;/static/screen1-62008f042e1ffe77f2fcbf989dad8547-811f5.png&quot;
+        srcset=&quot;/static/screen1-62008f042e1ffe77f2fcbf989dad8547-3db3b.png 148w,
+/static/screen1-62008f042e1ffe77f2fcbf989dad8547-1434c.png 295w,
+/static/screen1-62008f042e1ffe77f2fcbf989dad8547-811f5.png 310w&quot;
+        sizes=&quot;(max-width: 310px) 100vw, 310px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;From the menu, choose Environment -&gt; Modification -&gt; Maintenance Screens and select the screen you want to change.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/screen2-c761e3e76fdc90c904766513742a4fe5-b088a.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 529px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 48.960302457466916%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAAsSAAALEgHS3X78AAABJUlEQVQoz5XOSU/CQBQH8PlqJn4Ft5MH/QSoB7+PB+ORcpBoK3LBLoIsMt1bKBSk7ZTpMmya+Ig3t0Dyy8tM3vzfG3R8yR2ccUcXpUNwXtovcHuFItg9ufnHDtTTa1QUnnkJ34vdOxHzMhYUnZc1QdHKT/gH9cttDVcVXWy6qNJ4rbnDB70nmF7FGUphJhMmR7lC2F/gjU8oW6yQJNVfZEVV9W5XNU3bMCw4GKaFVV3VjFa73Wp1ms320B9FJA4jAiZBOBgHIWXIdP0opkGchNP0V9D61oVrRPMIwrY3SWerOJ1Ns/lW1mFnENB8ThIG+a3AcmT13+h6TA75jeU0W5BsibxxzBYfCVvC5zf2PolDr2ehRscwbE+z+hvrmc5Iqj9Wy1efb2ACt6CJL+0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Selection screen screenshot 2&quot;
+        title=&quot;&quot;
+        src=&quot;/static/screen2-c761e3e76fdc90c904766513742a4fe5-b088a.png&quot;
+        srcset=&quot;/static/screen2-c761e3e76fdc90c904766513742a4fe5-28aeb.png 148w,
+/static/screen2-c761e3e76fdc90c904766513742a4fe5-4828a.png 295w,
+/static/screen2-c761e3e76fdc90c904766513742a4fe5-b088a.png 529w&quot;
+        sizes=&quot;(max-width: 529px) 100vw, 529px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;To widen the overview window, click “Layout” and simply drag the side of the table control to widen it.  If there are a great many fields, you may not be able to fit all of them on the screen.  Your users would have to scroll horizontally, and now would be appropriate for you to shed a tear.  Save and activate the screen.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/dragscreen-4704b31edd7770b426907655ea535aef-b949b.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 86.12786489746682%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAIAAABSJhvpAAAACXBIWXMAAAsSAAALEgHS3X78AAABfElEQVQ4y8WSS0/CQBSF+6eNS6VE3bjVhdFAEYnRRBPBwtB22tIHlr4ppeUh+icsxLaJtzQYFphATDSZ3JzeM1/nzuQQSofPlsSrsqBK2QKtdPCyj1WZlwQOdGbJQlcWRcwokiCLXLvZIDCLVCnbwSIasy2ebYk8K4u4w7PQ5DmEmWZW2RbXpkGz6Bn21OuPJ0fHhMAhv2/2bb1v9zxHdy1tMhomSRJFURwnb69jx3z5tkDAZzCw725r5CFJwG+WLQ3sdXg+j+JkMxz6zjVVzmC8gqHm3jj04ziOoo/POJ5NR47RXWEaCNvITq5W/hq2e7apBZ5ZLZd2ga2eY2mernqoMeVQ7fKCLBS3hzXH1ocYeYgOXaNWuiIPCtvCMLCrq+HTg8fQoandn5+d7u3vcmcYWxGdrhT4TpUqFbOTmeYuD6bb5tprQ8IGrgEe1FxMx0GapovFPEnT99kEbgsJyS0Phre00dC9qVDLhHEoT89PCXM3Jex3IaH+F/4C0GcuwPuRfusAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Screenshot of dragging the table wider&quot;
+        title=&quot;&quot;
+        src=&quot;/static/dragscreen-4704b31edd7770b426907655ea535aef-fb8a0.png&quot;
+        srcset=&quot;/static/dragscreen-4704b31edd7770b426907655ea535aef-1a291.png 148w,
+/static/dragscreen-4704b31edd7770b426907655ea535aef-2bc4a.png 295w,
+/static/dragscreen-4704b31edd7770b426907655ea535aef-fb8a0.png 590w,
+/static/dragscreen-4704b31edd7770b426907655ea535aef-b949b.png 829w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;I’ve recently seen another way of doing this via an enhancement which is slightly more complicated, but far more adaptive and robust. It’s described in the blog SM30, change standard width of Tablecontrol.&lt;/p&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;Use a Two-Step Dialog for Tables with 10+ fields.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If the table has more than 10 fields, you’ll be unable to avoid making your users scroll horizontally.  One way to make this easier is to use a two-step dialog.  When the users add a new entry, they will be taken to a separate screen where they can edit all the fields for one record.&lt;/p&gt;
+&lt;ol start=&quot;6&quot;&gt;
+&lt;li&gt;Disable Input for Read-only Fields WITHOUT Creating a Database View.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;One way to disable input is to mark the fields as “Read-Only” in the ABAP dictionary, but this is only possible for database views, not transparent tables.  If you are working with a transparent table and not a maintenance view, customizing this screen is easier than creating and maintaining a separate database view.  Open the screen for modification as in step 4.  Click the “Element List” tab and un-check the boxes in the Input column for those fields you do not want users to control (in case you will be filling them in automatically with custom code).  Examples of this are “Created By” and “Created On.” &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-b70da.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 88.57938718662952%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADsUlEQVQ4yz1U2W4bRxDk3wd5CZAAfghgGAgCB3oIjMDwEchxLJISKVEU73O5x8zu7H3yEpWnSs3S0kNjyO3emqru6m1YQYVvAxOticS79hpvv87x94OH9kSgM1eQ6QFuuodM9jwP38/z7+d4zunnjVVwwF+3EhdXBj4NQnwZ+bgc+vh4Z6G5SPFtJNGaBeiuU/w7FPXZnge4GrtoThWaEw+3Rlbn2qxrjM0Il905rh426M5cdCYOrkcm2sMNOlOBm7GF7tRhCLQGBnNWXaPz10PWDTZoPhhoMXoLDw1TZXj/4St+evUWr17/iU+XbXhiiclawvETCNvF2pSw9WkJWEJhZXlY2x42jg/Hi2BJH26QwE8rNJyoYpGHu14fy5WBNM3gKh+WFyIpDwjjFLbLF6ISflIiLXawVAoV83+UY3d8QrU7odoekVSPaFhBAVt6GI3GSLMMGWM8nUH4McJsiyjN4fpkEZQIysf6ma0Ssk8hVIT98REpL88dj7VbNGwWGpaDZqsFpRR830f39g4GJUX5DlIFMB0Xlp8jJGCUb8merQgyEvEJeELOuiKrED8zdFyF8WSCOElQFAWMjfXCMEzYAv62Q0rMj/UzS50BNcPdgQwpN2NExYEMWWja9FynU7OL4xij8RSWG9Qv+xHleQH0xcEzwxfAEIfHJxT7/1Ay4urpLNl0JLrdLsIowul0gucHWJmiBvTCtJ6g4FBmhmQLIpgyJCAHw1ycVzwVwlAgSMIzww0Z9u7vOaltzdDiBXqiz0PR0lScY2HYcAkiOBAvzKA4ZU8JjO9/R6/5C1az92eGGvD65gZlWUJKifliRVZpDahCXiBVPdnRbE35Idb0X82cvZWuBvwNnX9+gDF/d2ZoCRcPgwG2ZBhRtmHaNaMX21Cy5AULRyEYTOD2hvBS7cOM7ZEY9y8wuPkV68Xn77YxHbTabVTVlgxdjCYzSi4IWCFK8pqVZjxlX4P7Adw7BnMeN0lLHvXe4ObLj1hOydAJK2zow37/AY4jaoaCRq/XSfeLk9RedKMCg6UJb76GoHRXK0j0UlBy/w/0Wz/DXH44r57u4Ww+h2FskKQprXCiRE6WDCT75AYMDkAbWQ/LpMm1dQLtSeFgNrzAsPsaxvKzZljWLwh6Te+ljrTc1X6Lubdauk82XrKtWfrZHpvoyDhAxHtEWcmFcBmS/ebnS69UUu5pTgJVh3Pwo5BVx/rjkPLMuQVedkBQcFO4DUa4h0FAi4A6n21p7h2NXZ7wP567GMj9ownjAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;disableinput&quot;
+        title=&quot;&quot;
+        src=&quot;/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-fb8a0.png&quot;
+        srcset=&quot;/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-1a291.png 148w,
+/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-2bc4a.png 295w,
+/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-fb8a0.png 590w,
+/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-b70da.png 718w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ol start=&quot;7&quot;&gt;
+&lt;li&gt;Use Custom Logic When Appropriate.
+A good database table needs validated, clean data.  If you cannot ensure this via check tables in the table definition, there are many points in the SAP standard dialog where you can add custom code to validate entries or do whatever else you need.  Enhancing a table maintenance dialog can get complicated, however, so the ins and outs will not be discussed here.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Some great resources for those who are interested:&lt;/p&gt;
+&lt;p&gt;Table Maintenance Generator and its Modifications&lt;/p&gt;
+&lt;p&gt;SAP Library – Extended Table Maintenance Events.&lt;/p&gt;
+&lt;ol start=&quot;8&quot;&gt;
+&lt;li&gt;Add a Custom Selection Screen for 50+ Records
+If the custom table is large, its administrators may not want to see every entry on the overview screen.  They want to see if specific entries exist before adding new ones. This was a requirement by my business, and based on an SCN search for “filter sm30 selection screen,” I saw others had the same need.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;It’s quite easy to restrict the display via SM30, but this is only after everything has been loaded.  The built-in selection criteria also gives only a small dialog box (not to mention you’re directly using SM30).&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-a621d.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 428px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 82.00934579439252%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAIAAACZeshMAAAACXBIWXMAAAsSAAALEgHS3X78AAACU0lEQVQoz3WRS2/TQBRG5z+xKXuWLNtN2bJjRf8OUsWiSNCipmpLqKhEHwJRSNI0fozf70xiu36NHdtxnKbckE2UEunIGo3u8b3zXZSWdVpMQlo6/giwvTlw6N/n5H84fgbFcTYHybrjB8G7/d8v3xxuvj3e2jnZ3Dl58fpgY/vDxvbeCs9f7T3b2m1eCtV0GtICibJuOeT7RevwrHV03oFv41v70+mvxnn36zVuXvHLnF3jRrPVE8yyqumoRJw2YDWXYWRCiKobsqopmo5F0e6TycND/TBbZjp7zNMRr7mamwHooiVddpSrP1hSzS4rMFhWDEe3h/PnxPC8YpkoLd0gbWPC2RRAej+w3JiVLFk1eEnlRCWkOURI82qRyjLJaOxFmWz5Pq28ZIwEY6CTEGRR0cEUFQPkKIUmxTpZMj03GQ/jEmkkkCwXZNW023dsjxMGfpjk1TrZjzLRcAdxScICecnES2rJcFXDvuMETlCIF0LRejlVncCnNYDC0IwCg8dYNZwui3u8aBGXru/sRSMssFFoDIcqSobNwG502ucWuWexBJ37brC+c+nFxc3PA986lJiPKMom8ajWbBinAAd46gBRmodpDgcvpCaBUKZgoTgrkqxQzSFcLEJe6QkarDcrZ/l4lk8e79OJbrswAohoUaHBrvOKwnpXqbKyjtIMyzdt5gfL9RSuBTL9NyCCv9J8zIkGJ5miZgvqKpJOOEH4crb7+ej98fH+xemepDlpMU8U5AKytfpep8d3GeEptwy+ZUVOtLBs8ZLZE82BHy2i+QspmkuBWsASNgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;no sel screen&quot;
+        title=&quot;&quot;
+        src=&quot;/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-a621d.png&quot;
+        srcset=&quot;/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-b6e32.png 148w,
+/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-f64d6.png 295w,
+/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-a621d.png 428w&quot;
+        sizes=&quot;(max-width: 428px) 100vw, 428px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;This is no selection screen for end users!&lt;/p&gt;
+&lt;p&gt;Instead, it’s better to create a custom report with select-options that calls the function module “VIEW&lt;em&gt;MAINTENANCE&lt;/em&gt;CALL” I mentioned above. The FM requires all the select-options to be in one parameter.  Here are the highlights of the code needed for that.&lt;/p&gt;
+&lt;p&gt;Add a Selection Screen to a Table Maintenance Dialog&lt;/p&gt;
+&lt;ol start=&quot;9&quot;&gt;
+&lt;li&gt;Integrate Your TMD Into a View Cluster or Config Table
+Once the INNER workings of a table maintenance dialog are optimized for user pleasure, give it context in the OUTSIDE environment.  Add it to a view cluster so multiple related tables can be maintained at once, or add it to the IMG config settings if appropriate.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;These activities are detailed in two entries from my favorite series on SCN (so far):&lt;/p&gt;
+&lt;p&gt;Getting the basics right – Creating the perfect config table (Part 2, View Clusters)&lt;/p&gt;
+&lt;p&gt;Getting the basics right – Creating the perfect config table (Part 4, IMG integration)&lt;/p&gt;
+&lt;p&gt;Good UI Goes a Long Way&lt;/p&gt;
+&lt;p&gt;If this is done well, users will be happy, or at least not angry, and that’s what we developers all hope for.  Less time will be spent responding to users’ little requests in the future, and you will be far better off for it.&lt;/p&gt;
+&lt;p&gt;So, what other ways have you been able to improve upon the standard TMD?&lt;/p&gt;</content:encoded></item><item><title><![CDATA[A Dream for SE80: Github Integration]]></title><description><![CDATA[Originally posted at  https://blogs.sap.com/2013/09/18/a-dream-for-se80-github-integration/ When I heard Code Exchange was closing, I was…]]></description><link>https://www.ericp.co/posts/a-dream-for-se80-github-integration</link><guid isPermaLink="false">https://www.ericp.co/posts/a-dream-for-se80-github-integration</guid><content:encoded>&lt;p&gt;Originally posted at &lt;a href=&quot;https://blogs.sap.com/2013/09/18/a-dream-for-se80-github-integration/&quot;&gt;https://blogs.sap.com/2013/09/18/a-dream-for-se80-github-integration/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;When I heard Code Exchange was closing, I was bummed.  I read that a new code exchange 2.0 is being developed, but as I write this it is still under construction.  As many people have pointed out, however, that doesn’t need to stop SAP developers from sharing code with one another.&lt;/p&gt;
+&lt;p&gt;For us ABAPers, we have few choices on how to share code, and it’s not easy to share non-code development objects.  For simple programs, I can copy and paste from any forum, but what about a program has a dozen custom data elements and a few custom global classes?  Well, thanks to the fantastic SAPLink project (with which I am not affiliated), that has become a lot easier.  It’s as easy as downloading a .nugg file and importing it, or so I hear.&lt;/p&gt;
+&lt;p&gt;I want to take the idea behind SAPLink one step further.  Instead of searching the web via browser (and by the web, I mean Google Code and Github) for a .nugg file, downloading it to a file directory, and importing it via SAPGUI, can’t we do this all from SAPGUI?  We’re trying to share code, so why not share while using the place where we work on the code, i.e. SE80?  If you’re thinking, “That’s not where I work on the code!  I use Eclipse!” well, good for you.  I hope to join your smug ranks soon, but most of what I’m proposing is probably applicable to Eclipse development too.  Certainly an ABAP-based github client is reusable.&lt;/p&gt;
+&lt;p&gt;So rather than spending 5 minutes explaining it, I spent half an hour stumbling through MS Paint, drawing what I had in mind.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/github_mockup_scn-b125e01836cc495473cee11dcb321f9e-5b737.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 552px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 101.9927536231884%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAD4UlEQVQ4y42U2XIaVxCGed+8gB8g5aQqyUWqEid2LCfxUo4d4Q3ZlhehWAtikzTsiGUGmIXZmQEBkrcvDXY5JV04vvire041H336dHdCNQL0YUSr59C3Ruj2CMOJxA+xgwntxbk5wg5naHKmmQFOeIyqewz9MT359qIpwfiE6PgNiTCO6VkDJpMZ09mc6XTGbD4nisaMRjGm/KA16GL06gw7Kl4wxrICbGdEIL7thIzHM1w/oNluknDDmEZXwwsl0JF/D2JsfyR2jCnBhh3RNS3anQ5638J0Y7p9yc6TePGH7sKOGVgO9XaDRMcMuXJ3nct3nnDt3gt+vZ3i0q1HpHZrvKoabJb7vKoYvKpZ/LP8HixtWuzCT3/UpsRs1WwSPanZpmKwLUHJlwrX75V4vKXwJKvyvKCy13TINGwydVt8m/yRSa5piMxzMpZKHCplHt2/QWb7HumNO2R27lMprVNW1qkoH+xC1fIz8tk16t0Bw9EM3Ysx5FHOK1HM7/LkxlcoLy4stf/8Aubh1/jVi3iioPYNvihqXkQrfEtbGxDO3uDGUzx5jPNK5As5UqvfcbB7ldLeCkrmKrXC7zSL11ArNwn7SXxtlUhPolX/oqX18SenOKNjHGmX80oU8nk21i7ROPiDqoCM1l3cXpJgcP+D9Af45kMiJ4XWStLSLYLT9zjjOc7kBFcgCznxbGkT+WyWp6s/cLB3jeL2VQpbvzFor+JbKdzBAzw1iVe7TajcRN1coZMrEqg67k4Ot9TAOT79BFvYRDa7S+rvizTkivvbv1AprDAsXSd4+RO+coNg82fC1PeMM5fpp36ks71HoJk4Rypup49baZ7LsLDPs7UV2tUkSu4W2tFD3PZDvPJdPP0pjrqGvbFCkPkT9fEVOuktgt2CZJjHLTdwX27hhpP/gB21R72lSveby2lZTI4fH6O7PoYbEszf4Zo+3jBkUG7SyxSkph6ObuNa3hJ2JsOWzOfBYZl6o0UUT2SeT0SnxNIWba1HtVGhN7SIX4M69OhaLv787fJBlhLQmRq22i36gyaOq+J4A5nZCp2uIvaQkpImn9tkJ6dQkXr1BajqQ2kbAUXHn174TIb1RpON9FOy+R0KB0UqklG5JrDqIUo5R/Egz9p6mscv0hRLdbpL4Omy59wF5JwSbbWPUq2zV8iS3a9xpNmSSSR7L5SA17JdJlSaKuVGl31pE/X/gB0BOqO5rCoHTQrdHYg1XJkIU64ww18szulbhCHwEaphf7zyZ4CWPyGeQzR790nx/D2hgNz4RKCnjORMt8MvAw6DY0bTNwST12cUykr3PgKjLwT+C8XwnajkKTX3AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Screenshot of desired functionality&quot;
+        title=&quot;&quot;
+        src=&quot;/static/github_mockup_scn-b125e01836cc495473cee11dcb321f9e-5b737.png&quot;
+        srcset=&quot;/static/github_mockup_scn-b125e01836cc495473cee11dcb321f9e-9c8c4.png 148w,
+/static/github_mockup_scn-b125e01836cc495473cee11dcb321f9e-13174.png 295w,
+/static/github_mockup_scn-b125e01836cc495473cee11dcb321f9e-5b737.png 552w&quot;
+        sizes=&quot;(max-width: 552px) 100vw, 552px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Seriously, how cool would this be?&lt;/p&gt;
+&lt;p&gt;From what I can tell, although it’s not possible to add tools to SE80 like this, it would still be very helpful to copy the general UI into another transaction.  It could have two or three pushbuttons on the left like SE80, but they would be along the lines of Github Repositories, Search Github, and Package Browser.  From github repositories, you could view your own repos.  Search Github would return a results list of repos, from which you could view the contents, readme, and import as an SAP development package.  Package Browser would allow a user to select and push his or her development packages to github.&lt;/p&gt;
+&lt;p&gt;Right now I’m thinking a 1-to-1 ratio of packages to repositories would work best for code management and sharing.  If I download/clone a repository, it becomes a package, and if I push a package to github, it becomes a repository, and any subpackages do not – they are just part of the .nugg file.&lt;/p&gt;
+&lt;p&gt;There are a few problems that need answers if this will get developed, such as how to handle the github readme files, but boy howdy, this would be a dream come true.&lt;/p&gt;
+&lt;p&gt;If this were developed, would you use it?  What other features would you like to see?&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Add a Selection Screen to a Table Maintenance Dialog]]></title><description><![CDATA[Originally posted at  https://blogs.sap.com/2013/08/22/add-a-selection-screen-to-a-table-maintenance-dialog/ . When end users will maintain…]]></description><link>https://www.ericp.co/posts/add-a-selection-screen-to-a-table-maintenance-dialog</link><guid isPermaLink="false">https://www.ericp.co/posts/add-a-selection-screen-to-a-table-maintenance-dialog</guid><content:encoded>&lt;p&gt;Originally posted at &lt;a href=&quot;https://blogs.sap.com/2013/08/22/add-a-selection-screen-to-a-table-maintenance-dialog/&quot;&gt;https://blogs.sap.com/2013/08/22/add-a-selection-screen-to-a-table-maintenance-dialog/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When end users will maintain a z-table with 100+ rows, it helps to be able to restrict the selection by any number of selection criteria.  This document attempts to define a “best practice” method for calling a table maintenance dialog from a selection screen.&lt;/p&gt;
+&lt;p&gt;Current Table Maintenance&lt;/p&gt;
+&lt;p&gt;The standard way to show a table maintenance dialog is via SM30, Call View Maintenance –&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/sm30-5e5f09ed891f9b147a6e3aba9bfd6259-32a99.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 553px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.91862567811934%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAIAAAAmMtkJAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAB3ElEQVQoz22Re2/aMBTF8/0/x6RtnbS2Ki2lFBraVTAY0FKaQEhs4zwcO+/EIYHtj9ndOmki0k9H5x75Xr+U2dr+1OqftPotdfzxvHveHZ5cqhfq5PNF78vVQPiz2+HUZNMNPUbpjfUPl4+n6tPZ/cvXu/mp+nw11G5+GO2R1v6ut0d6Z7IevOBGFB16sxV+hWxhkiWiC4uYXmL5KXhDGIskGy9qRMmqn2n1Ky73UVGHAl6zbCegb/zxQSP5TsEk0AHe+pFsSEua5HFWxBkXhEnOspK9jzhGsWmsAwd6gRvlTpSThP+bzdKSJM2IbWTzfON2x6v+1OgMX78t8TNOZyiWQMkcNTCFEWJ5KI5t2uFoYd5P9cFE0+zYpKXhFQaRWJQ3svELJ+LyzluaPs708RKI19ZwRGJOE+7H3A1zQDlg5TEm5X+b7XCn2+mGFCjcW3TnRJWX1CTdixyGNQgkwsCgFguA1Bqwyo3loygeJSxyHLJ1CfIDYbBHMcSAMBvbkFDsEGS7UITYleXWgSKhScaySsFolvgDsL7B1i11HlykBu5gvbxi3sPq6ZqgOxv0rHXHQaqhXXvbvlBodGhEWL5XYn7wsz3LD6Kg7yYoDtILzUXyXyhUJlklvuo3zzqyuyMpiWcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;SM30 screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/static/sm30-5e5f09ed891f9b147a6e3aba9bfd6259-32a99.png&quot;
+        srcset=&quot;/static/sm30-5e5f09ed891f9b147a6e3aba9bfd6259-c443a.png 148w,
+/static/sm30-5e5f09ed891f9b147a6e3aba9bfd6259-a37e4.png 295w,
+/static/sm30-5e5f09ed891f9b147a6e3aba9bfd6259-32a99.png 553w&quot;
+        sizes=&quot;(max-width: 553px) 100vw, 553px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;– or a custom parameter transaction that calls SM30 for a specific table, with parameters VIEWNAME and UPDATE = ‘X’.&lt;/p&gt;
+&lt;p&gt;Neither of these provide an initial selection screen.  Entries can be restricted by checking the “Enter conditions” radiobutton, but users are more familiar with selection screens than with the dialog box that pops up.  Therefore it is good UI to use a selection screen instead of the “Enter conditions” radiobutton.&lt;/p&gt;
+&lt;p&gt;Example Selection Screen Definition&lt;/p&gt;
+&lt;p&gt;In this example, an executable report has been created with selection screen.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;REPORT&lt;/span&gt;  z_maintain_mytable&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt; mytable    &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; z_mytable&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selections&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;OF&lt;/span&gt; vimsellist&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;DATA&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt;  &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; vimsellist&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;SELECT-OPTIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; so_selop1 &lt;span class=&quot;token keyword&quot;&gt;FOR&lt;/span&gt; mytable–myfield1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                 so_selop2 &lt;span class=&quot;token keyword&quot;&gt;FOR&lt;/span&gt; mytable–myfield2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;PARAMETERS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; p_param1 &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; z_mytable–myfield3&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            p_param2 &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; z_mytable–myfield4&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/sel_screen-6ad196ab058513986d097e4e3d91a74b-18924.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 45.74961360123647%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAA7DAAAOwwHHb6hkAAABQElEQVQoz62PXU/CMBSG9///ionxI9EYMYYwNREm3qACQxn7oO021m0dajR5Pa0OhvPSiyc958np21Prcc6wd9rDYecGx5e3OKDzpDvA/plt6I8j3LkczrSGwdF9k+ly4637iYcje4gLZ4qOM0FnMDH1ef/J0Bv5sH+4eggM9ijYOM31EycfmtryIgE3jBFlFYKkRJDWKOoL+HyFhcjhU/3CMsxoNhAZOYlFrH2FsTvEPAqoVrAWEcfMZxB5BbYqwbIGqUS6khBSIS3WYImEF8VIZYGYnMjXSNQn3HEXS+4hKT9gBSzGcyjAaWBJgTukOUpVoSgVsqJCVq7NnA7ismrwSnw7K6XBkL7DMtWGQvV2GtPry42wOtichNCBsno36Vr+BW+5Omw3tK4tqd7My+1vbC+Klttu9hvacBv4H3wBp+6b1YU/+5AAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Selection screen screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/static/sel_screen-6ad196ab058513986d097e4e3d91a74b-fb8a0.png&quot;
+        srcset=&quot;/static/sel_screen-6ad196ab058513986d097e4e3d91a74b-1a291.png 148w,
+/static/sel_screen-6ad196ab058513986d097e4e3d91a74b-2bc4a.png 295w,
+/static/sel_screen-6ad196ab058513986d097e4e3d91a74b-fb8a0.png 590w,
+/static/sel_screen-6ad196ab058513986d097e4e3d91a74b-18924.png 647w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Calling Function Modules&lt;/p&gt;
+&lt;p&gt;When the user clicks execute, the program needs to read their selections and call the table maintenance dialog.  The following code shows how this is easily done by using function modules ‘VIEW&lt;em&gt;RANGETAB&lt;/em&gt;TO&lt;em&gt;SELLIST’ and ‘VIEW&lt;/em&gt;MAINTENANCE_CALL’.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-abap&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;START-OF-SELECTION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;DEFINE&lt;/span&gt; addsel&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FUNCTION&lt;/span&gt; ‘VIEW_RANGETAB_TO_SELLIST’
+      &lt;span class=&quot;token keyword&quot;&gt;EXPORTING&lt;/span&gt;
+        fieldname          &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &amp;amp;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+        append_conjunction &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘AND’
+      &lt;span class=&quot;token keyword&quot;&gt;TABLES&lt;/span&gt;
+        sellist            &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selections&lt;/span&gt;
+        rangetab           &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &amp;amp;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;[]&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;END-OF-DEFINITION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;DEFINE&lt;/span&gt; addparam&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;IF&lt;/span&gt; &amp;amp;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;INITIAL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;CLEAR&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt;–viewfield &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &amp;amp;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt;–value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &amp;amp;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt;–and_or &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘AND’&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt;–operator &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘EQ’&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;APPEND&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selection&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selections&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;ENDIF&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;END-OF-DEFINITION&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+  add_sel ‘MYFIELD1’ so_selop1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  add_sel ‘MYFIELD2’ so_selop2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  add_par ‘MYFIELD3′ p_param1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  add_par ‘MYFIELD4′ p_param2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;CALL&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;FUNCTION&lt;/span&gt; ‘VIEW_MAINTENANCE_CALL’
+    &lt;span class=&quot;token keyword&quot;&gt;EXPORTING&lt;/span&gt;
+      action                &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘U’ “for &lt;span class=&quot;token keyword&quot;&gt;Update&lt;/span&gt;
+      view_name             &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘Z_MYTABLE’
+      complex_selconds_used &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ‘X’
+    &lt;span class=&quot;token keyword&quot;&gt;TABLES&lt;/span&gt;
+      dba_sellist           &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;selections&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;EXCEPTIONS&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;OTHERS&lt;/span&gt;                &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;IF&lt;/span&gt; sy–subrc &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;MESSAGE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;ID&lt;/span&gt; sy–msgid &lt;span class=&quot;token keyword&quot;&gt;TYPE&lt;/span&gt; sy–msgty &lt;span class=&quot;token keyword&quot;&gt;NUMBER&lt;/span&gt; sy–msgno
+               &lt;span class=&quot;token keyword&quot;&gt;WITH&lt;/span&gt; sy–msgv1 sy–msgv2 sy–msgv3 sy–msgv4&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;ENDIF&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Horray!  That is all. In only 46 lines (plus two for every select-option or parameter), this will bring the user to from the selection-screen to the table maintenance screen.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/tab_maint-5cd423dd088e8e2e6e3ec3705f929e37-1e249.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 463px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 125.70194384449245%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAZCAYAAAAxFw7TAAAACXBIWXMAAA7DAAAOwwHHb6hkAAACTklEQVQ4y92VaW/aQBCG/f//RJNGCTSiDYQrhNMmAcoNMeYIR7CxMdgGcwTUfnk761ChtI2SVG0V9cOjHb27OzvrmVlz0tDA8XkCx74YTkMC3IEkPl5m4A7ypCeJOM0l4I0XaI7HoSeME38SLuLYF4crkHL2eCIZ0lLgyp0R3gcEvPPxcF1kcRorwJOowBPL4uBTGB8ucjjwxnAUiOIomMRJOAMvX3VwR7I4S1VwRrYvXYdXqILrDDXwxTpS1T5KbRVZ8Q6fpRFKzS6EXAG5chfXtQYSeYEooNiS0RrN0JANNEcWJMWERHbDwQJX748RuKojdFVFOCsieFWDXyiTLcFPeiQvIZS5IV0kvYa0KP+EICqodMfQrCU4qa8izOfhveBxmS6BL4iICEX4IgLOo2n4YxlHy1RauC43kRf7KDQGyDPILrUUxHJ5RHNlzNZfyeHtHVp9BXfaFMOxCWUyI9tATxljoE5o1DGazqGZC8KGSvYjjAVkTUN7IGNib8DdtAfoqQbM1RdH0GZrjOdrTBdbYuOMun0Pfb7D/gHSDFrDDhzTXk7sDNBVJuTsnoQVVPoODGbvWf8aOlijeWu5gWGvHJsT2w8OWTRskWatHHRa/BL+lcPpW46QktIb7SKcv94hC8JabfcOWdnc7rLMBNVcOjzO8tOo1hNXZjX4uGzWz/PslX/rG9KVl9u/nuXpmy/s/71TZlTYpr3+c51i0l7d2r2H9WYPHVl/6BRr3ynstJfCGoK99iwgTtYt9DQT8tTGcDJ/NfL3kX4HLKhvWL4tZxPozu4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Table maintenance dialog screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/static/tab_maint-5cd423dd088e8e2e6e3ec3705f929e37-1e249.png&quot;
+        srcset=&quot;/static/tab_maint-5cd423dd088e8e2e6e3ec3705f929e37-3c529.png 148w,
+/static/tab_maint-5cd423dd088e8e2e6e3ec3705f929e37-4cfd3.png 295w,
+/static/tab_maint-5cd423dd088e8e2e6e3ec3705f929e37-1e249.png 463w&quot;
+        sizes=&quot;(max-width: 463px) 100vw, 463px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;This is a collaborative document.  If there are better ways of achieving this functionality don’t hesitate to chime in and contribute!&lt;/p&gt;</content:encoded></item></channel></rss>

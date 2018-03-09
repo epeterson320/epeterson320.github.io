@@ -1,0 +1,386 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/component---src-layouts-index-js-c89aacc004d040eeec80.js" as="script"/><link rel="preload" href="/component---src-templates-blog-post-js-8be1b4e5aebd6aca75c4.js" as="script"/><link rel="preload" href="/path---posts-best-practices-for-users-to-maintain-a-z-table-863540778e9fcf2da9f6.js" as="script"/><link rel="preload" href="/app-adfa04370a6928757521.js" as="script"/><link rel="preload" href="/commons-c7dfb9dbded02cafe817.js" as="script"/><style id="glamor-styles">.css-xkqmtf,[data-css-xkqmtf]{height:48px;position:relative;border-bottom:1px solid rgba(0, 0, 0, 0.54);}.css-5tz2rk,[data-css-5tz2rk]{display:inline;position:absolute;bottom:8px;left:8px;margin:0px;}.css-5cngm8,[data-css-5cngm8]{display:inline;position:absolute;bottom:8px;right:8px;margin:0px;}.css-qrgxit,[data-css-qrgxit]{display:inline;margin:8px;}.css-1nl7z5y,[data-css-1nl7z5y]{margin-left:4px;}.css-1s37xx0,[data-css-1s37xx0]{margin:0 auto;max-width:60em;padding:0 32px;padding-top:4.8rem;}.css-25lymv,[data-css-25lymv]{text-align:center;margin-bottom:0px;font-weight:500;}.css-1t4y088,[data-css-1t4y088]{color:rgba(0,0,0,0.54);text-align:center;margin-bottom:4.8rem;}.css-14bfekg,[data-css-14bfekg]{display:inline-block;text-decoration:none;width:15em;margin:0.8rem;}.css-ipvwo3,[data-css-ipvwo3]{height:72px;background-color:#444;color:#FFF;position:relative;margin-top:3.2rem;}.css-1ma9wke,[data-css-1ma9wke]{position:absolute;bottom:0px;left:0px;right:0px;margin:0 auto;text-align:center;line-height:1.2em;}</style><script id="glamor-ids">
+        // <![CDATA[
+        window._glamor = ["xkqmtf","5tz2rk","5cngm8","qrgxit","1nl7z5y","1s37xx0","25lymv","1t4y088","14bfekg","ipvwo3","1ma9wke"]
+        // ]]>
+        </script><title data-react-helmet="true">Eric Peterson — I write software</title><meta data-react-helmet="true" name="description" content="The blog and portfolio of Eric Peterson, a software engineer in northern Virginia."/><meta data-react-helmet="true" name="keywords" content="software, engineering, Virginia, Washington, javascript"/><link rel="canonical" href="https://www.ericp.co/posts/best-practices-for-users-to-maintain-a-z-table"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.6 'georgia','times',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:'georgia','times',serif;font-weight:normal;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','avenir next','avenir','helvetica','helvetica neue','ubuntu','roboto','noto','segoe ui','arial',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','avenir next','avenir','helvetica','helvetica neue','ubuntu','roboto','noto','segoe ui','arial',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','avenir next','avenir','helvetica','helvetica neue','ubuntu','roboto','noto','segoe ui','arial',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','avenir next','avenir','helvetica','helvetica neue','ubuntu','roboto','noto','segoe ui','arial',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','avenir next','avenir','helvetica','helvetica neue','ubuntu','roboto','noto','segoe ui','arial',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','avenir next','avenir','helvetica','helvetica neue','ubuntu','roboto','noto','segoe ui','arial',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}ul{margin-left:1.6rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.6rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;font-size:0.85rem;line-height:1.6rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;font-size:1rem;line-height:1.6rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}blockquote{margin-left:1.6rem;margin-right:1.6rem;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.6rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.6rem;}b{font-weight:bold;}strong{font-weight:bold;}dt{font-weight:bold;}th{font-weight:bold;}li{margin-bottom:calc(1.6rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.6rem;margin-bottom:calc(1.6rem / 2);margin-top:calc(1.6rem / 2);}li > ul{margin-left:1.6rem;margin-bottom:calc(1.6rem / 2);margin-top:calc(1.6rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.6rem / 2);}code{font-size:0.85rem;line-height:1.6rem;}kbd{font-size:0.85rem;line-height:1.6rem;}samp{font-size:0.85rem;line-height:1.6rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.06667rem;padding-right:1.06667rem;padding-top:0.8rem;padding-bottom:calc(0.8rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}</style><style type="text/css">
+    .anchor {
+      float: left;
+      padding-right: 4px;
+      margin-left: -20px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var offset = element.offsetTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><link rel="sitemap" type="application/xml" href="/sitemap.xml"/><style id="gatsby-inlined-css">code[class*=language-],pre[class*=language-]{color:#657b83;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::-moz-selection,code[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection{background:#073642}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{background:#073642}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto;border-radius:.3em}:not(pre)>code[class*=language-],pre[class*=language-]{background-color:#fdf6e3}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#93a1a1}.token.punctuation{color:#586e75}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#268bd2}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string,.token.url{color:#2aa198}.token.entity{color:#657b83;background:#eee8d5}.token.atrule,.token.attr-value,.token.keyword{color:#859900}.token.function{color:#b58900}.token.important,.token.regex,.token.variable{color:#cb4b16}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}#root{min-height:100vh;display:-ms-flexbox;display:flex;-ms-flex-flow:column nowrap;flex-flow:column nowrap}main{-ms-flex:1;flex:1}a,input[type=submit]{transition:all .1s ease-in-out}a{text-decoration:underline;color:#001b44}a:hover{color:#b27629}input[type=submit]:hover{background-color:#b27629}input[type=submit]:active{background-color:#7e531b;transform:translateY(4px)}h1 a,h2 a,h3 a,header a{color:#000;text-decoration:none}ol,p,ul{max-width:38em}.gatsby-highlight{min-width:38em;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}</style></head><body><div id="___gatsby"><div id="root" data-reactroot="" data-reactid="1" data-react-checksum="-1373423995"><!-- react-empty: 2 --><header class="css-xkqmtf" data-reactid="3"><nav data-reactid="4"><h2 class="css-5tz2rk" data-reactid="5"><a href="/" data-reactid="6">Eric Peterson</a></h2><ul class="css-5cngm8" data-reactid="7"><li class="css-qrgxit" data-reactid="8"><a href="/posts" data-reactid="9"><span class="css-1nl7z5y" data-reactid="10">Blog</span></a></li><li class="css-qrgxit" data-reactid="11"><a href="https://www.github.com/epeterson320" data-reactid="12"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" height="16" width="16" data-reactid="13"><path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.083-.202-.358-1.015.077-2.117 0 0 .672-.215 2.2.82.638-.178 1.323-.266 2.003-.27.68.004 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.915.08 2.117.513.56.823 1.274.823 2.147 0 3.073-1.87 3.75-3.653 3.947.287.246.543.735.543 1.48 0 1.07-.01 1.933-.01 2.195 0 .215.144.463.55.385C13.71 14.53 16 11.534 16 8c0-4.418-3.582-8-8-8" data-reactid="14"></path></svg><span class="css-1nl7z5y" data-reactid="15">Github</span></a></li><li class="css-qrgxit" data-reactid="16"><a href="https://www.linkedin.com/in/eric-p" data-reactid="17"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" height="16" width="16" data-reactid="18"><path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" data-reactid="19"></path></svg><span class="css-1nl7z5y" data-reactid="20">LinkedIn</span></a></li><li class="css-qrgxit" data-reactid="21"><a href="https://codepen.io/epeterson320/" data-reactid="22"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" height="16" width="16" data-reactid="23"><path d="M15.988 5.443c-.004-.02-.007-.04-.012-.058l-.01-.033c-.006-.017-.012-.034-.02-.05-.003-.012-.01-.023-.014-.034l-.023-.045-.02-.032-.03-.04-.024-.03c-.01-.013-.022-.026-.034-.038l-.027-.027-.04-.032-.03-.024-.012-.01L8.38.117c-.23-.155-.53-.155-.76 0L.305 4.99.296 5c-.012.007-.022.015-.032.023-.014.01-.027.02-.04.032l-.027.027-.034.037-.024.03-.03.04c-.006.012-.013.022-.02.033l-.023.045-.015.034c-.007.016-.012.033-.018.05l-.01.032c-.005.02-.01.038-.012.058l-.006.03C.002 5.5 0 5.53 0 5.56v4.875c0 .03.002.06.006.09l.007.03c.003.02.006.04.013.058l.01.033c.006.018.01.035.018.05l.015.033c.006.016.014.03.023.047l.02.03c.008.016.018.03.03.042.007.01.014.02.023.03.01.012.02.025.034.036.01.01.018.02.028.026l.04.033.03.023.01.01 7.31 4.876c.116.078.248.117.382.116.134 0 .266-.04.38-.116l7.314-4.875.01-.01c.012-.007.022-.015.032-.023.014-.01.027-.02.04-.032l.027-.027.034-.037.024-.03.03-.04.02-.032.023-.046.015-.033.018-.052.01-.033c.005-.02.01-.038.013-.058 0-.01.003-.02.004-.03.004-.03.006-.06.006-.09V5.564c0-.03-.002-.06-.006-.09l-.007-.03zM8 9.626L5.568 8 8 6.374 10.432 8 8 9.626zM7.312 5.18l-2.98 1.993-2.406-1.61 5.386-3.59v3.206zM3.095 8l-1.72 1.15v-2.3L3.095 8zm1.237.828l2.98 1.993v3.208l-5.386-3.59 2.406-1.61zm4.355 1.993l2.98-1.993 2.407 1.61-5.387 3.59v-3.206zM12.905 8l1.72-1.15v2.3L12.905 8zm-1.237-.827L8.688 5.18V1.97l5.386 3.59-2.406 1.61z" data-reactid="24"></path></svg><span class="css-1nl7z5y" data-reactid="25">CodePen</span></a></li><li class="css-qrgxit" data-reactid="26"><a href="/contact" data-reactid="27"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="104 104 320 320" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" height="16" width="16" data-reactid="28"><path d="M101.3 141.6v228.9h0.3 308.4 0.8V141.6H101.3zM375.7 167.8l-119.7 91.5 -119.6-91.5H375.7zM127.6 194.1l64.1 49.1 -64.1 64.1V194.1zM127.8 344.2l84.9-84.9 43.2 33.1 43-32.9 84.7 84.7L127.8 344.2 127.8 344.2zM384.4 307.8l-64.4-64.4 64.4-49.3V307.8z" data-reactid="29"></path></svg><span class="css-1nl7z5y" data-reactid="30">Contact</span></a></li><li class="css-qrgxit" data-reactid="31"><a href="/rss.xml" data-reactid="32"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="104 104 320 320" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" height="16" width="16" data-reactid="33"><path d="M201.8 347.2c0 20.3-16.5 36.8-36.8 36.8 -20.3 0-36.8-16.5-36.8-36.8s16.5-36.8 36.8-36.8C185.3 310.4 201.8 326.8 201.8 347.2zM128.2 204.7v54.5c68.5 0.7 124 56.3 124.7 124.7h54.5C306.7 285.3 226.9 205.4 128.2 204.7zM128.2 166.6c57.9 0.3 112.3 22.9 153.2 63.9 41 41 63.7 95.5 63.9 153.5h54.5c-0.3-149.9-121.7-271.4-271.6-271.9V166.6L128.2 166.6z" data-reactid="34"></path></svg><span class="css-1nl7z5y" data-reactid="35"></span></a></li></ul></nav></header><main class="css-1s37xx0" data-reactid="36"><h1 class="css-25lymv" data-reactid="37">Best Practices for Users to Maintain a Z-Table</h1><div class="css-1t4y088" data-reactid="38"><time datetime="2013-10-01T04:00:00.000Z" data-reactid="39">October 01, 2013</time></div><div data-reactid="40"><p>Originally posted at <a href="https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/">https://blogs.sap.com/2013/10/01/best-practices-for-users-to-maintain-a-z-table/</a></p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/computer-4ef923403e484251b1818ca9feef082e-0055c.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 150px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 90.66666666666666%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsSAAALEgHS3X78AAAEDUlEQVQ4y4VTf0zUZRh/7sWsPxo4Sf9oom3yY20uF7bFEQxrEveF4w7OQ+CAiXAcHIdwIHegB8FQuigtWDhwpdbKCGhtZs42N4EtCzUVxU7CtZU2t9qsVrTRfb/3fnq/7yVZ2Xq3Z8/zfb/v5/N8nud5X6J/rEgkQllZWTIeHR2L0X3VjqpBl6vuztqE1av0702bUg2693q99L8rOztb+m3b7Ez3Ho/naYejFMa0jfB4mob1vcOHj8hERqNRCvjPFQ6HKScnR8YApIpqV9sZd8U6DAVIzbOUoKWp5kl935JvZncx9116pqSkJIqW0igVtLf5ivOtW3F6iDTMk1pS8BicrtaTfyaUhJmZmfdXqWkaDQ8P04q4WPmdFEsPbq9qvtFQEQvMCsJQDD/RT5q1sBjt/l15+pmaGqdMnJyc/G/ClJQU6QcG+pfp3ucLBCyWLQiNUxizDOo5Ieoqac6S1XC522fuxTqdTlJV9a8NXXa0yWmyb421SkKxw/1LT4MBotRIeJq4dp44QgzTb5NqL7IjEOh062f37u2RAhITE6NkCwsLZDKZZDw5OSVLaGoOHLVZUvHjGaHuMkPkfJRQJ/7tM4rUlz2M+oY9t9OeoDj9fELCGpEZZLPZiLq7uyWZw1ESHYTPbbQVVeLNLqFo3iBJcFmUe53w61niax5laCyjcM0OMwIdLwZ1zPj4mFSZnp5OS+ruXpM6z+7J8q3rgC9IxUUDhCK+308IfUjo9hDfuIH43HHiQS+Dqz6w6Ko0rddxGRnPsKUetjR7pbrd7W2l1kI7PhkUZHOMLwoyMWGcPkTYbCQYDARxjDeUMXx3itTiomexr/fAMR0rhiI5KD5+pVT2+CP0UGX1rq/ry8Q1uUHa4rQQPRMtl18kfPqOJEO5heAsIr5w1sBfbRX93BlAu682Q+ew2+0xdHBwMHpN/J2dhdZs3Jmg8LtBhq56QfalBKNwC8GUESV872VCsFn8u8Tw0wSppfan8FLf61P3to3cTvNaR4VnocNtQF8L6deer08gfrCL8EZXdCDVdkJTuVSNm6dITh7zjA+LJ9nQtAf7egIlSz1s9Ha+VVSQiq+Ok7oijsk+xa8kTB0VBN8TDvgILdtFHBLlXxD+EkE7R5xfMOD3z0lz2JLR98rQvMAtpxc6fMbSMieOBUXG2zF87iPGn0tn8LsYfphgwLcM+1sZRvpEfEvYjDDxcnBN2BXGcfMBfNxPYW+LHwP9r/mpssoTej5rFa6MkDb7vijnJPG6YsLyZYQNiYTrHxCOdBN6dxK+OUG4OkK4NrpkXLfQGHFlcyx6g/0/k9lsnrdacmE253IlV+G5uQry8xXkmBTosW4FVgW2QgWKoiAv7+8m/nOBjVgEpra29tYf3nYp2X4d0FYAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Warning sign of man tripping on computer"
+        title=""
+        src="/static/computer-4ef923403e484251b1818ca9feef082e-0055c.png"
+        srcset="/static/computer-4ef923403e484251b1818ca9feef082e-2193e.png 148w,
+/static/computer-4ef923403e484251b1818ca9feef082e-0055c.png 150w"
+        sizes="(max-width: 150px) 100vw, 150px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>UI design is one of the most exciting parts about my job as a developer.  It is art, programming, and psychology at the same time.  A few weeks ago I had the requirement to create a table maintenance program for our business users to maintain a large custom database table.  A few administrators were then going to add, modify and delete entries in this custom table that would in turn be used by other background programs.  Sounds simple, I thought.  It wasn’t.  I learned a lot about creating a table maintenance dialog, not the least of which was how to spell “maintenance” correctly.  I wanted to summarize a few things I learned from this adventure.</p>
+<p>Bad Doctors, T.V. Writers and User Interfaces
+The television show The Walking Dead is getting ready to premiere its fourth season and has the highest viewership among any cable TV show in the U.S.  It also received much criticism for being very slow-moving and having “filler episodes” some weeks with little to no action.  “Our heroes should be fighting off more zombies and rescuing other survivors in the post-apocalyptic world,” said the fans.  But the writers knew better.  An hour of baseball bats and machine guns and blood n’ guts every week would get old quickly.  So the writers added complex father-son relationships, outcasts trying to find their place, and familiar love triangles set amidst an extreme environment.  As a result, people kept watching.</p>
+<p>Likewise, If I went to the doctor and he or she said “I’m not sure what to prescribe, let me know what medicine you want and I’ll give that to you,” I’d run out of the clinic as fast as possible.  Actually I might steal all the tongue depressors on the way out, because I’m never returning to that doctor, and tongue depressors intrigue me.</p>
+<p>What’s the point of these examples?  I’m trying to show that the consumer often doesn’t know what they want.  I’m not going to crowdsource medical advice, and neither will I give the user the interface they tell me they want.  I’m going to tell him or her what’s best, because I’m a designer/developer and they don’t know the appropriate time to use a radiobutton vs. a checkbox, let alone design the screen layout and flow for a program they need.</p>
+<p>Certainly you, the developer, need to listen closely to the user’s needs (and to any functional analyst) but the technical details of the final application, including UI “feel,” ought to be your responsibility.  Users and functional types may strongly disagree with your UI choices, so it is important to communicate as clearly and effectively as possible.  You must convince them why their UI is the wrong choice.  In this age of agile development, it’s not a good excuse to say “But I gave you exactly what the design spec asked for!” when the user whines about your program.</p>
+<p>If you give the user exactly what they want, they’ll likely be back every month wanting some little change in the program.  If you seek to understand their need and argue well for a better (read: more standard) UI, they will be very pleased with the final result, and the program will require less maintenance over its lifecycle.</p>
+<p>Users and Z-Tables
+Now that I’ve got that rant out of the way, one of the toughest UI challenges for me was creating a table maintenance dialog.  TMD’s, as I’ll call them, are programs with a very simple task that are very complicated “under the hood.”  I’ve compiled nine tips and tricks about how to create one well.</p>
+<ol>
+<li>This is 5% Table and 95% User
+Any database table can be maintained by only the four CRUD operations (create, read, update, and delete).  So, how difficult can it be to put a front end on four different database operations?  Not difficult, if you’re okay with annoying everyone in your company, filling the database with bad data, and all-around mediocrity in your life.</li>
+</ol>
+<p>If you want to implement a good table maintenance dialog, however, you need to worry about security, data validation, message handling, view restrictions, and more.  Users (at least the human ones) will do everything they can to screw up and misuse a program.  Some may be downright evil.  As said in a 2008 commentary about Craigslist spammers, “When you fail to design for evil, you have failed your community.”</p>
+<p>Most TMD design requirements will fall into one of two categories:</p>
+<p>Getting the correct slice of data FROM the database to the user’s display.
+Making sure only good user input goes INTO the database.</p>
+<ol start="2">
+<li>Use SAP’s Table Maintenance Generator
+The good news is, the bulk of a good table maintenance dialog will be built by SAP.  This may seem painfully obvious to some, but when I got the requirement to build a table maintenance dialog I was told, “We’ve done this for another Z-table before; here is a program for you to copy.”  The program was a module pool with 1300 lines of code, 7 dynpro screens, and five GUI statuses.  All to create, read, change, and delete entries from one database table!  I would not let that program near children.</li>
+</ol>
+<p>If you didn’t know, SAP transaction SM30 allows end-users to maintain database tables directly.  It’s far prettier than any dialog you have time to create, and you can use the ABAP dictionary to integrate your custom table into this transaction.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-c1cff.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 555px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 94.77477477477477%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAIAAAAf7rriAAAACXBIWXMAAAsSAAALEgHS3X78AAAC8UlEQVQ4y6VS23LaSBDVj+d1/2ErW5XKPjl4TbIhBq+9mJstbJC4CBACJNCM7tJoNLog7N19SEtyEr/kaataXa0zc7pPdw+nu8nHm8f61aDRHn25HX/pCGefbxttodmbXnbFT9d843Z89mf74198vXX36WYI4B/N/vllf7xEnKx7F91Zvbf4fK9cDuXz6+FFe1Zr82c33XpvdjVSW6Pd5cMGfLP0V4LWfNw0hgovmxxyQl7S+AW+m6PRGg9Gc36i3c2VrigNpjvpEK6MeIWZbMSymZRBAvESxzs74WTVrN88NHtisz85bw1qrbsaqGrdNzpioyMA2BU3/al6db+4Hq46wqY5mP39KF8/LDtjidvtsaxiO2C65Y9nK340EeeyoqKD6ZsOefvu4s0vv777/cNEFNcbTd7uH4T5dKGMp9JEWnBbDUlr1aexH6VrVZ9KwNST/F+anoIoFcRln58IwtTAyLLtvY7l7QFSLNaq5dCisiitbZ96NFV2OqSU1jua5IQdA5a5nh/4nuO6pu0YpgHkpaItN9oMPuwBGQlzGchQWZRWinawfBrGOYkLMsImxlhHGGHDNE31gJYbFUySt4REhezZcuvRxGcZSNpoSDfdMMnBgG+7nuO4tuNa4G0HGdZ2jxUNrXcHxtKCvDc9uAqVvTB2wQgDWlW5SAo4TcoggVO4WniaJElekLFDovQElYFQ1CyZFblCgvK3CNixUkSTU5qeOJBRkYurLAPmdyPfkOBVUOEwlDSFynv0P8gaRg6hpexKJ3klu0L8VwF5SZFn2anoGdk/rRwU7eXf+/dLpCADGCbcHplWwFj2VK2Hpj8sTIvhBRFkOSbZMxhLn0p/gsoeibmAMtuPnODFYE9OwNyg9IRZbqgbHvgoSih9sYDEhk08wrg0f/6hlh1h1SFLSFT4kMVhnNFqeWVT5NtQAIlgYFn+DMfQMyiH5z3o1SKzJo1+20nvqfEhCFR2/A9SbDQd9mIVr+kfuAwDjrOnr+K+7rXtg2emAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Table maintenance dialog screenshot"
+        title=""
+        src="/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-c1cff.png"
+        srcset="/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-63669.png 148w,
+/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-b6aa5.png 295w,
+/static/tmd-a5f913316e84b6ec87d0822d3d7c94fe-c1cff.png 555w"
+        sizes="(max-width: 555px) 100vw, 555px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Isn’t it (comparatively) pretty?</p>
+<p>Table maintenance dialogs are deceptively complex.  To keep the amount of code you need to write under control, stay as close to SAP standard as possible.  To save you and your coworkers many headaches, generate a table maintenance dialog the standard way.  If you don’t know how, here’s the documentation.</p>
+<p>SAP Library – Create a Table Maintenance Dialog.</p>
+<p>Now you’ve got a program that allows users to maintain a table.  And you wrote zero lines of code!  You must be an amazing programmer.  You can maintain the table via SM30 (Call View Maintenance) now.</p>
+<ol start="3">
+<li>Use a Custom Transaction Instead of SM30
+At my company, end users do not have access to transaction SM30.  That was the justification given to me when I asked about another custom table maintenance dialog for a different Z-Table (In all fairness, this reinvented wheel was only 300 lines of code and three dynpros).  Instead of using transaction SM30 to maintain a table, there are two better ways to use the table maintenance dialog, and you won’t have to create any dynpro screens.  Have I mentioned I hate dynpros?</li>
+</ol>
+<p>Parameter Transaction: Requires no ABAP.  From SE93, create a new transaction.  When prompted for the type, choose “parameter transaction.”  Set SM30 as the default transaction and check “skip initial screen.”  This works great for tables that won’t have many entries – my rule of thumb is fifty or less.</p>
+<p>Add the following default values:</p>
+<div class="gatsby-highlight">
+      <pre class="language-none"><code>Field     Value                 
+UPDATE    X
+VIEWNAME  (name of your Z-Table)</code></pre>
+      </div>
+<p>ABAP Report: Easier to customize.  Build a custom report and call function module “VIEW<em>MAINTENANCE</em>CALL”.  This requires maintenance of a custom report, but it has all the flexibility of an ABAP program.  This is a big advantage if you want to add a selection screen or build the TMD into another application.</p>
+<ol start="4">
+<li>Widen the Overview Window for Tables With 5-10 Fields.
+Making your users scroll horizontally is as annoying as websites that automatically play music or game invitations from distant friends on Facebook.  If you have more than 4 fields in the table, this is essential!</li>
+</ol>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/candy-110ab5f37d92db6106821da9f0507c0f-a9c05.jpg"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 181px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 97.23756906077348%; position: relative; bottom: 0; left: 0; background-image: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAATABQDASIAAhEBAxEB/8QAGQABAAIDAAAAAAAAAAAAAAAAAAMEAQIF/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgMB/9oADAMBAAIQAxAAAAHS7WsjYkyB5mBCcRH/xAAbEAADAAIDAAAAAAAAAAAAAAAAAQIDExEhMv/aAAgBAQABBQKJ5epFY6bm0k7Ng/RL6//EABoRAAICAwAAAAAAAAAAAAAAAAECABAREmH/2gAIAQMBAT8BRABmb9v/xAAZEQEAAgMAAAAAAAAAAAAAAAABAAIQEjH/2gAIAQIBAT8BbL2bYZ//xAAbEAACAgMBAAAAAAAAAAAAAAAAARARITFBgf/aAAgBAQAGPwIVM1fpXTLhz//EABwQAQADAAIDAAAAAAAAAAAAAAEAESExURBhcf/aAAgBAQABPyGnFo7gVtXOJrD7Qy4W5I6FB4Z+kt7Yldn/2gAMAwEAAgADAAAAEKPQQ//EABkRAQACAwAAAAAAAAAAAAAAAAEAEBExsf/aAAgBAwEBPxB8kzyKo7n/xAAbEQACAQUAAAAAAAAAAAAAAAAAARAhMUGh0f/aAAgBAgEBPxBczThb7Fx//8QAHBABAAMAAgMAAAAAAAAAAAAAAQARITFBUZHR/9oACAEBAAE/EDvh5BdQOkqCb3p9bLFRFWPyJAANhjKJBbaDYeBZ0rrAAMBRblNvWdkT/9k='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Candy crush character"
+        title=""
+        src="/static/candy-110ab5f37d92db6106821da9f0507c0f-a9c05.jpg"
+        srcset="/static/candy-110ab5f37d92db6106821da9f0507c0f-60032.jpg 148w,
+/static/candy-110ab5f37d92db6106821da9f0507c0f-a9c05.jpg 181w"
+        sizes="(max-width: 181px) 100vw, 181px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Rule of thumb: Be less annoying than this.</p>
+<p>To change the standard screen:</p>
+<p>From SE11 (ABAP Dictionary), open the screen to modify your Z-Table.  On the menu, choose Utilities ->Table Maintenance Generator.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/screen1-62008f042e1ffe77f2fcbf989dad8547-811f5.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 310px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 107.0967741935484%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAIAAADJt1n/AAAACXBIWXMAAA7DAAAOwwHHb6hkAAADKElEQVQ4y4VT2ZLdNBD1B8MUUCxVvAB/xAM8hSHJvDAJk9SdzNzFvt43SV6uN9mW5UUce1JTQB7SdUrVanWru49aGkm54WZHi2EFItZErCZpU3HJch6QkiQfLSUsGQ9pRbfTOKk1ktav78w/3+iv7863H7ys4F6U6FYkBllUfG/4tk9Nl8A4z0ucXGAJ4myaF8dnWll30EzbOeqGbpzbXiil5kXJaRnGeVoWnE6LWpQa5wX27XS1xOyiiWHE3rYs13HCIEjThHPeNHXfd+pfshrruiiKckUJC2G5VjaDUovn+ZZlUUp3u50H8f0sz+GxbAIlSRLbRopVoEzjyPtJe7s74CyO4/1+r+u6+pw83dXyxokvmkUqbMqyYixBRd0qPdD3AqsQom1b6NM0PUdujS9h1miGZUGta3TUwLtepeFti+uApuF5fqmqWkqJyHmep00Q4tFSC2ICDQUfjscwjE6nE+rHGgTB4XB4eHi8XAo4RFEEHxzBaBjGNMo455pPclQDimzHdV2PUua4HnLKcRJiQC2DHKUcoa8Y5DBgB76mqhWa7a+ZQbDjrNGMMfCJp/osc2XTb5mVCsMQVSEMtKMq3/fR5DNDn7LdtZzmjVa1vVpm3/dM00R+Sgm6yrL0v5HLM8DaGtzxS8W1kq/zGISx4/hhRFiS64bJkkyIEf0C4/hJdqVQ11r20Q6VGgJXPz7epcwN3JNn78+ne9O4j0NTP7xnxIHzMrVq7p6wTJhcEaaVFlgvlPdjdPv98cWXzs3Xpz+unJtv7Juv4ttvzy+vzFdX+vUX6d13yv15sX5S9orF/kU5PxD3WrsUsep2xLw+vf81sV8au9/sx9+p9apL/q7jNw19W5M3In+n+L1qdh/BP8jsryI7a/TSogfXp4eTlWS1HzIvYHnRPH3MeWMJyjivOiZr2pSmk4SG2tnx4QC28VRgG5xbluk4thD9NosjBFMZhoGuY/geD/u9oeuYMDckWpys00cJQQBjFDEYJSmH/9GLi4ZBYL6wjqMEsqJZh2SQk2Hau/uHh/0Rf0HIaZAz3gjohISl5u2wGQExrmuS5mnB/wEorY85AkVErgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Selection screen screenshot 1"
+        title=""
+        src="/static/screen1-62008f042e1ffe77f2fcbf989dad8547-811f5.png"
+        srcset="/static/screen1-62008f042e1ffe77f2fcbf989dad8547-3db3b.png 148w,
+/static/screen1-62008f042e1ffe77f2fcbf989dad8547-1434c.png 295w,
+/static/screen1-62008f042e1ffe77f2fcbf989dad8547-811f5.png 310w"
+        sizes="(max-width: 310px) 100vw, 310px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>From the menu, choose Environment -> Modification -> Maintenance Screens and select the screen you want to change.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/screen2-c761e3e76fdc90c904766513742a4fe5-b088a.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 529px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 48.960302457466916%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAAsSAAALEgHS3X78AAABJUlEQVQoz5XOSU/CQBQH8PlqJn4Ft5MH/QSoB7+PB+ORcpBoK3LBLoIsMt1bKBSk7ZTpMmya+Ig3t0Dyy8tM3vzfG3R8yR2ccUcXpUNwXtovcHuFItg9ufnHDtTTa1QUnnkJ34vdOxHzMhYUnZc1QdHKT/gH9cttDVcVXWy6qNJ4rbnDB70nmF7FGUphJhMmR7lC2F/gjU8oW6yQJNVfZEVV9W5XNU3bMCw4GKaFVV3VjFa73Wp1ms320B9FJA4jAiZBOBgHIWXIdP0opkGchNP0V9D61oVrRPMIwrY3SWerOJ1Ns/lW1mFnENB8ThIG+a3AcmT13+h6TA75jeU0W5BsibxxzBYfCVvC5zf2PolDr2ehRscwbE+z+hvrmc5Iqj9Wy1efb2ACt6CJL+0AAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Selection screen screenshot 2"
+        title=""
+        src="/static/screen2-c761e3e76fdc90c904766513742a4fe5-b088a.png"
+        srcset="/static/screen2-c761e3e76fdc90c904766513742a4fe5-28aeb.png 148w,
+/static/screen2-c761e3e76fdc90c904766513742a4fe5-4828a.png 295w,
+/static/screen2-c761e3e76fdc90c904766513742a4fe5-b088a.png 529w"
+        sizes="(max-width: 529px) 100vw, 529px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>To widen the overview window, click “Layout” and simply drag the side of the table control to widen it.  If there are a great many fields, you may not be able to fit all of them on the screen.  Your users would have to scroll horizontally, and now would be appropriate for you to shed a tear.  Save and activate the screen.</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/dragscreen-4704b31edd7770b426907655ea535aef-b949b.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 86.12786489746682%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAIAAABSJhvpAAAACXBIWXMAAAsSAAALEgHS3X78AAABfElEQVQ4y8WSS0/CQBSF+6eNS6VE3bjVhdFAEYnRRBPBwtB22tIHlr4ppeUh+icsxLaJtzQYFphATDSZ3JzeM1/nzuQQSofPlsSrsqBK2QKtdPCyj1WZlwQOdGbJQlcWRcwokiCLXLvZIDCLVCnbwSIasy2ebYk8K4u4w7PQ5DmEmWZW2RbXpkGz6Bn21OuPJ0fHhMAhv2/2bb1v9zxHdy1tMhomSRJFURwnb69jx3z5tkDAZzCw725r5CFJwG+WLQ3sdXg+j+JkMxz6zjVVzmC8gqHm3jj04ziOoo/POJ5NR47RXWEaCNvITq5W/hq2e7apBZ5ZLZd2ga2eY2mernqoMeVQ7fKCLBS3hzXH1ocYeYgOXaNWuiIPCtvCMLCrq+HTg8fQoandn5+d7u3vcmcYWxGdrhT4TpUqFbOTmeYuD6bb5tprQ8IGrgEe1FxMx0GapovFPEnT99kEbgsJyS0Phre00dC9qVDLhHEoT89PCXM3Jex3IaH+F/4C0GcuwPuRfusAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="Screenshot of dragging the table wider"
+        title=""
+        src="/static/dragscreen-4704b31edd7770b426907655ea535aef-fb8a0.png"
+        srcset="/static/dragscreen-4704b31edd7770b426907655ea535aef-1a291.png 148w,
+/static/dragscreen-4704b31edd7770b426907655ea535aef-2bc4a.png 295w,
+/static/dragscreen-4704b31edd7770b426907655ea535aef-fb8a0.png 590w,
+/static/dragscreen-4704b31edd7770b426907655ea535aef-b949b.png 829w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>I’ve recently seen another way of doing this via an enhancement which is slightly more complicated, but far more adaptive and robust. It’s described in the blog SM30, change standard width of Tablecontrol.</p>
+<ol start="5">
+<li>Use a Two-Step Dialog for Tables with 10+ fields.</li>
+</ol>
+<p>If the table has more than 10 fields, you’ll be unable to avoid making your users scroll horizontally.  One way to make this easier is to use a two-step dialog.  When the users add a new entry, they will be taken to a separate screen where they can edit all the fields for one record.</p>
+<ol start="6">
+<li>Disable Input for Read-only Fields WITHOUT Creating a Database View.</li>
+</ol>
+<p>One way to disable input is to mark the fields as “Read-Only” in the ABAP dictionary, but this is only possible for database views, not transparent tables.  If you are working with a transparent table and not a maintenance view, customizing this screen is easier than creating and maintaining a separate database view.  Open the screen for modification as in step 4.  Click the “Element List” tab and un-check the boxes in the Input column for those fields you do not want users to control (in case you will be filling them in automatically with custom code).  Examples of this are “Created By” and “Created On.” </p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-b70da.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 88.57938718662952%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADsUlEQVQ4yz1U2W4bRxDk3wd5CZAAfghgGAgCB3oIjMDwEchxLJISKVEU73O5x8zu7H3yEpWnSs3S0kNjyO3emqru6m1YQYVvAxOticS79hpvv87x94OH9kSgM1eQ6QFuuodM9jwP38/z7+d4zunnjVVwwF+3EhdXBj4NQnwZ+bgc+vh4Z6G5SPFtJNGaBeiuU/w7FPXZnge4GrtoThWaEw+3Rlbn2qxrjM0Il905rh426M5cdCYOrkcm2sMNOlOBm7GF7tRhCLQGBnNWXaPz10PWDTZoPhhoMXoLDw1TZXj/4St+evUWr17/iU+XbXhiiclawvETCNvF2pSw9WkJWEJhZXlY2x42jg/Hi2BJH26QwE8rNJyoYpGHu14fy5WBNM3gKh+WFyIpDwjjFLbLF6ISflIiLXawVAoV83+UY3d8QrU7odoekVSPaFhBAVt6GI3GSLMMGWM8nUH4McJsiyjN4fpkEZQIysf6ma0Ssk8hVIT98REpL88dj7VbNGwWGpaDZqsFpRR830f39g4GJUX5DlIFMB0Xlp8jJGCUb8merQgyEvEJeELOuiKrED8zdFyF8WSCOElQFAWMjfXCMEzYAv62Q0rMj/UzS50BNcPdgQwpN2NExYEMWWja9FynU7OL4xij8RSWG9Qv+xHleQH0xcEzwxfAEIfHJxT7/1Ay4urpLNl0JLrdLsIowul0gucHWJmiBvTCtJ6g4FBmhmQLIpgyJCAHw1ycVzwVwlAgSMIzww0Z9u7vOaltzdDiBXqiz0PR0lScY2HYcAkiOBAvzKA4ZU8JjO9/R6/5C1az92eGGvD65gZlWUJKifliRVZpDahCXiBVPdnRbE35Idb0X82cvZWuBvwNnX9+gDF/d2ZoCRcPgwG2ZBhRtmHaNaMX21Cy5AULRyEYTOD2hvBS7cOM7ZEY9y8wuPkV68Xn77YxHbTabVTVlgxdjCYzSi4IWCFK8pqVZjxlX4P7Adw7BnMeN0lLHvXe4ObLj1hOydAJK2zow37/AY4jaoaCRq/XSfeLk9RedKMCg6UJb76GoHRXK0j0UlBy/w/0Wz/DXH44r57u4Ww+h2FskKQprXCiRE6WDCT75AYMDkAbWQ/LpMm1dQLtSeFgNrzAsPsaxvKzZljWLwh6Te+ljrTc1X6Lubdauk82XrKtWfrZHpvoyDhAxHtEWcmFcBmS/ebnS69UUu5pTgJVh3Pwo5BVx/rjkPLMuQVedkBQcFO4DUa4h0FAi4A6n21p7h2NXZ7wP567GMj9ownjAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="disableinput"
+        title=""
+        src="/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-fb8a0.png"
+        srcset="/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-1a291.png 148w,
+/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-2bc4a.png 295w,
+/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-fb8a0.png 590w,
+/static/disableinput-20d5acf1d3cbab344fa56eb001d9f5b7-b70da.png 718w"
+        sizes="(max-width: 590px) 100vw, 590px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<ol start="7">
+<li>Use Custom Logic When Appropriate.
+A good database table needs validated, clean data.  If you cannot ensure this via check tables in the table definition, there are many points in the SAP standard dialog where you can add custom code to validate entries or do whatever else you need.  Enhancing a table maintenance dialog can get complicated, however, so the ins and outs will not be discussed here.</li>
+</ol>
+<p>Some great resources for those who are interested:</p>
+<p>Table Maintenance Generator and its Modifications</p>
+<p>SAP Library – Extended Table Maintenance Events.</p>
+<ol start="8">
+<li>Add a Custom Selection Screen for 50+ Records
+If the custom table is large, its administrators may not want to see every entry on the overview screen.  They want to see if specific entries exist before adding new ones. This was a requirement by my business, and based on an SCN search for “filter sm30 selection screen,” I saw others had the same need.</li>
+</ol>
+<p>It’s quite easy to restrict the display via SM30, but this is only after everything has been loaded.  The built-in selection criteria also gives only a small dialog box (not to mention you’re directly using SM30).</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-a621d.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 428px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 82.00934579439252%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAIAAACZeshMAAAACXBIWXMAAAsSAAALEgHS3X78AAACU0lEQVQoz3WRS2/TQBRG5z+xKXuWLNtN2bJjRf8OUsWiSNCipmpLqKhEHwJRSNI0fozf70xiu36NHdtxnKbckE2UEunIGo3u8b3zXZSWdVpMQlo6/giwvTlw6N/n5H84fgbFcTYHybrjB8G7/d8v3xxuvj3e2jnZ3Dl58fpgY/vDxvbeCs9f7T3b2m1eCtV0GtICibJuOeT7RevwrHV03oFv41v70+mvxnn36zVuXvHLnF3jRrPVE8yyqumoRJw2YDWXYWRCiKobsqopmo5F0e6TycND/TBbZjp7zNMRr7mamwHooiVddpSrP1hSzS4rMFhWDEe3h/PnxPC8YpkoLd0gbWPC2RRAej+w3JiVLFk1eEnlRCWkOURI82qRyjLJaOxFmWz5Pq28ZIwEY6CTEGRR0cEUFQPkKIUmxTpZMj03GQ/jEmkkkCwXZNW023dsjxMGfpjk1TrZjzLRcAdxScICecnES2rJcFXDvuMETlCIF0LRejlVncCnNYDC0IwCg8dYNZwui3u8aBGXru/sRSMssFFoDIcqSobNwG502ucWuWexBJ37brC+c+nFxc3PA986lJiPKMom8ajWbBinAAd46gBRmodpDgcvpCaBUKZgoTgrkqxQzSFcLEJe6QkarDcrZ/l4lk8e79OJbrswAohoUaHBrvOKwnpXqbKyjtIMyzdt5gfL9RSuBTL9NyCCv9J8zIkGJ5miZgvqKpJOOEH4crb7+ej98fH+xemepDlpMU8U5AKytfpep8d3GeEptwy+ZUVOtLBs8ZLZE82BHy2i+QspmkuBWsASNgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="no sel screen"
+        title=""
+        src="/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-a621d.png"
+        srcset="/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-b6e32.png 148w,
+/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-f64d6.png 295w,
+/static/no_sel_screen-edded5bc4de333a11a93994df5a5b311-a621d.png 428w"
+        sizes="(max-width: 428px) 100vw, 428px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>This is no selection screen for end users!</p>
+<p>Instead, it’s better to create a custom report with select-options that calls the function module “VIEW<em>MAINTENANCE</em>CALL” I mentioned above. The FM requires all the select-options to be in one parameter.  Here are the highlights of the code needed for that.</p>
+<p>Add a Selection Screen to a Table Maintenance Dialog</p>
+<ol start="9">
+<li>Integrate Your TMD Into a View Cluster or Config Table
+Once the INNER workings of a table maintenance dialog are optimized for user pleasure, give it context in the OUTSIDE environment.  Add it to a view cluster so multiple related tables can be maintained at once, or add it to the IMG config settings if appropriate.</li>
+</ol>
+<p>These activities are detailed in two entries from my favorite series on SCN (so far):</p>
+<p>Getting the basics right – Creating the perfect config table (Part 2, View Clusters)</p>
+<p>Getting the basics right – Creating the perfect config table (Part 4, IMG integration)</p>
+<p>Good UI Goes a Long Way</p>
+<p>If this is done well, users will be happy, or at least not angry, and that’s what we developers all hope for.  Less time will be spent responding to users’ little requests in the future, and you will be far better off for it.</p>
+<p>So, what other ways have you been able to improve upon the standard TMD?</p></div><a class="css-14bfekg" href="/posts/a-dream-for-se80-github-integration" data-reactid="41"><!-- react-text: 42 -->Previous: <!-- /react-text --><!-- react-text: 43 -->A Dream for SE80: Github Integration<!-- /react-text --></a><a class="css-14bfekg" href="/posts/what-would-a-developer-friendly-application-log-look-like" data-reactid="44"><!-- react-text: 45 -->Next: <!-- /react-text --><!-- react-text: 46 -->What Would a Developer-Friendly Application Log Look Like?<!-- /react-text --></a></main><footer class="css-ipvwo3" data-reactid="47"><div class="css-1ma9wke" data-reactid="48">This part is the website footer. Thanks for reading.</div></footer></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-adfa04370a6928757521.js","107818501498521":"component---src-templates-blog-post-js-8be1b4e5aebd6aca75c4.js","162898551421021":"component---src-pages-404-js-5c31f059bb47f688d27a.js","70144966829960":"component---src-pages-contact-js-d8cbeed5b73e07bb9160.js","35783957827783":"component---src-pages-index-js-6e6ca35b3b20897edf1a.js","261085952541737":"component---src-pages-posts-js-e0bbb23c08b545cead9c.js","154390308055273":"component---src-pages-privacypolicy-js-ac99576ecdae0fc91333.js","60335399758886":"path----dcbdccf5979b303f796d.js","257117948281382":"path---posts-add-a-selection-screen-to-a-table-maintenance-dialog-c933bf377e5d0994dc8e.js","168098600235396":"path---posts-a-dream-for-se-80-github-integration-72dfd3d816da62db67bb.js","180789317030754":"path---posts-best-practices-for-users-to-maintain-a-z-table-863540778e9fcf2da9f6.js","254653695262067":"path---posts-what-would-a-developer-friendly-application-log-look-like-4f4ee7409fcd3610e4ac.js","109252900942149":"path---posts-show-scn-the-better-logger-i-promised-b8619d861727310dddf0.js","69727726944223":"path---posts-recursive-javascript-promises-for-the-win-12ba1f67ddd962317964.js","254022195166212":"path---404-a0e39f21c11f6a62c5ab.js","184662623972074":"path---contact-a0e39f21c11f6a62c5ab.js","142629428675168":"path---index-e292e589110fb35d5e57.js","140933230050240":"path---posts-788709d5a01dfe991fc3.js","226088960998090":"path---privacypolicy-a0e39f21c11f6a62c5ab.js","178698757827068":"path---404-html-a0e39f21c11f6a62c5ab.js","114276838955818":"component---src-layouts-index-js-c89aacc004d040eeec80.js"}/*]]>*/</script><script>/*<![CDATA[*/!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",["/commons-c7dfb9dbded02cafe817.js","/app-adfa04370a6928757521.js","/path---posts-best-practices-for-users-to-maintain-a-z-table-863540778e9fcf2da9f6.js","/component---src-templates-blog-post-js-8be1b4e5aebd6aca75c4.js","/component---src-layouts-index-js-c89aacc004d040eeec80.js"])/*]]>*/</script></body></html>
