@@ -19,6 +19,7 @@ export default ({ children, data }) => (
           name: 'keywords', content: data.site.siteMetadata.keywords,
         },
       ]}
+      htmlAttributes={{ lang: 'en' }}
     />
     <Header />
     {children()}
