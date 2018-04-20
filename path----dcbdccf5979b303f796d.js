@@ -1,2 +1,0 @@
-webpackJsonp([60335399758886],{128:function(e,t){e.exports={data:{site:{siteMetadata:{title:"Eric Peterson — I write software",description:"The blog and portfolio of Eric Peterson, a software engineer in northern Virginia.",keywords:"software, engineering, Virginia, Washington, javascript"}}},layoutContext:{}}}});
-//# sourceMappingURL=path----dcbdccf5979b303f796d.js.map
