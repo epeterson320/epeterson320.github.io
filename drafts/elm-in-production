@@ -1,0 +1,13 @@
+---
+title: Elm in production: a mixed bag.
+---
+
+Elm is a really cool new-ish language I heard about on the Software Engineering Daily podcast
+JSON deserializing was an intellectual joy. It was difficult, but I am a better programmer because of it.
+
+Writing an effects library was too painful. Couldn't get a mouse wheel library working properly.
+The need for a mouse wheel library wouldn't have been necessary if there was a good grid component. 
+So I was held back by the lack of libraries too.
+
+Since I was coming from a JS background, not Haskell or any other ML language, it was a great
+experience to learn its syntax and see the strongest type safety I've ever seen so far.
