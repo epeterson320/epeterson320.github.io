@@ -1,13 +1,14 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import g from 'glamorous';
 import 'prismjs/themes/prism-solarizedlight.css';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './global.css';
 
-export default ({ children, data }) => (
-  <div id="root">
+const Page = ({ children, data }) => (
+  <RootDiv>
     <Helmet
       title={data.site.siteMetadata.title}
       meta={[
@@ -16,7 +17,8 @@ export default ({ children, data }) => (
           content: data.site.siteMetadata.description,
         },
         {
-          name: 'keywords', content: data.site.siteMetadata.keywords,
+          name: 'keywords',
+          content: data.site.siteMetadata.keywords,
         },
       ]}
       htmlAttributes={{ lang: 'en' }}
@@ -24,8 +26,16 @@ export default ({ children, data }) => (
     <Header />
     {children()}
     <Footer />
-  </div>
+  </RootDiv>
 );
+
+export default Page;
+
+const RootDiv = g.div({
+  minHeight: '100vh',
+  display: 'flex',
+  flexFlow: 'column nowrap',
+});
 
 export const query = graphql`
   query LayoutQuery {
