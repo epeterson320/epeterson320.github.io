@@ -7,4 +7,5 @@ export default g.main({
   maxWidth: '60em',
   padding: '0 32px',
   paddingTop: rhythm(3),
+  flex: 1,
 });
