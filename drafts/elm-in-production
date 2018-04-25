@@ -11,3 +11,6 @@ So I was held back by the lack of libraries too.
 
 Since I was coming from a JS background, not Haskell or any other ML language, it was a great
 experience to learn its syntax and see the strongest type safety I've ever seen so far.
+
+The whole "Maybe" type is so verbose. It's a great idea but could be way simpler. Kotlin does
+well with the elvis operator ?. but having to use "map" just seems pedantic.
