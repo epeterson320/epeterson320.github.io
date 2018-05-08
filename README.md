@@ -1,13 +1,3 @@
-```
- _=+#+_
-(#*   '
- |#=-
-(#    . 
- *######+=_
-      #  *#
-   _=####*
-      #
-     _#_
-```
+[![Deploys by Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com)
 
-Mark my words, world, one day I'm going to have my very own website, and then I'll [be somebody](https://www.youtube.com/watch?v=-7aIf1YnbbU).
+I have my own website! I'm [somebody](https://www.youtube.com/watch?v=-7aIf1YnbbU)!
