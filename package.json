@@ -49,6 +49,9 @@
   "name": "erics-blog",
   "repository": "https://github.com/epeterson320/epeterson320.github.io",
   "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ignore-path .gitignore ."

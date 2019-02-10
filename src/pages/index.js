@@ -40,8 +40,23 @@ export default ({ data }) => (
         keep that to myself.
       </p>
 
-      {data.allMarkdownRemark.edges.map(({ node }) => (
-        <BlogExcerpt key={node.fields.slug} {...node} />
+      {data.allMarkdownRemark.edges.map(({
+        node: {
+          frontmatter: { title },
+          fields: {
+            slug, datetime, date, previewText,
+          },
+          excerpt,
+        },
+      }) => (
+        <BlogExcerpt
+          key={slug}
+          slug={slug}
+          title={title}
+          previewText={previewText || excerpt}
+          dateTime={datetime}
+          date={date}
+        />
       ))}
     </g.Section>
   </Main>
@@ -97,6 +112,7 @@ export const query = graphql`
             title
           }
           fields {
+            previewText
             slug
             date: date(formatString: "MMMM DD, YYYY")
             datetime: date

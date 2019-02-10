@@ -15,6 +15,7 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
     const date = new Date(year, month - 1, day);
     const slugSegment = titleWords.join('-');
     const slug = path.posix.join('/posts', slugSegment);
+    const previewText = node.frontmatter.previewText || '';
 
     createNodeField({
       node,
@@ -26,6 +27,12 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
       node,
       name: 'date',
       value: date,
+    });
+
+    createNodeField({
+      node,
+      name: 'previewText',
+      value: previewText,
     });
   }
 };
