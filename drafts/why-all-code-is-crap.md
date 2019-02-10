@@ -1,5 +1,17 @@
 ---
-title: Why All Code is Crap, or, It's not Your Fault, Will Hunting
+title: Why All Code is Crap, or, It's not Your Fault, Will Hunting, or, I Have no Clue What Business Model is Right for your Company
 ---
 
-Exploring problems as we code them.
+What business model is right for your company? Should you deliver your product as SaaS? What is the perfect thing to say to get your mother-in-law to stop hating you? These are just a sample of the many questions to which I am the least qualified person in the world to answer.
+
+However, one thing I know intimately is source code. Especially really crappy legacy code. I've dealt with it in large and small companies. At one place I worked, they had a million lines of code. Most of it was terrible and contributed by other idiots, but some of it was terrible and contributed by me. Why is it that seemingly every software business that has existed for more than six months has a pile of absolute garbage for at least one of their codebases?
+
+I mean, can't we just write tests? Can we document code better? Can we have better specs for our software? I'll be honest, half the time I'm not sure what I'm supposed to be building. That's why I try to stick to front-end work: I can show something to the boss, point at it, say "How's this?" and respond appropriately to any praise, screaming, or passive-agressive rhetorical questions like, "How do you think the user will perceive the unique design, Eric?"
+
+But I overlooked something. There's a class of software that's not complete crap. It's so perfectly the opposite, actually. I'm talking about open-source libraries. Small libraries, specifically — I heard recently that Linux is a mess. Look at Redux, though. Now _there's_ a codebase. 2kB minified including dependencies, and it does one thing, "State Management", so perfectly well that I could cry a little. It knows _exactly_ what it does.
+
+That's the difference between Redux.js and your business. Redux, and every other popular open-source library, knows exactly what it does, and your business likely doesn't. Impossibly perfect code on Github with oodles of stars doesn't have to worry about the right business model, or how to monetize, because it's not a business and it doesn't need to compete for profit in the brutal world of commerce. _Your_ company, the one that pays your bills, has to figure out how to make a profit. The unix philosophy is "do one thing well." Your business is the opposite of a unix program. If it were doing something simple and well-defined, it would be providing a commodity, and it wouldn't make enough to keep you on the payroll. So the reason you don't have a spec is because your boss is still trying to figure out the problem domain, because your business is solving hard problems and adding value in some obscure, bleeding-edge domain. Or it was, at one point, and you've inherited the codebase.
+
+So the reason all code is crap is because you have to iterate and change directions frequently, and not just you, and not just your team. The _business_ has to change and iterate to become profitable, and to stay profitable. Multiple times I've heard my boss say something basically along the lines of, "We're taking the software in a new direction. All those assumptions you had are now invalid. The parts of the product I told you wouldn't change? Yeah, we need to change them and make more." And you know what? He had the right to do that, because that's what it takes to compete in any non-commodity marketplace. I did the best I could, but there are sections of 
+
+So
