@@ -41,5 +41,6 @@ export default function LoadingMessage() {
 }
 ```
 
-I'll leave a gif of Buddy the Elf exclaiming "Composable!"
-as an exercise for the reader.
+The first file, the `useTimeout` hook, is very flexible. Notice that it's
+used twice in the `LoadingMessage` component to easily give it different
+behavior depending on how long it's been mounted.
