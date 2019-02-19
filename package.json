@@ -1,60 +1,39 @@
 {
-  "author": "Eric Douglas Peteron <eric@ericp.co>",
-  "browserslist": [
-    "> 1%",
-    "IE >= 11",
-    "last 2 versions"
-  ],
+  "name": "gatsby-starter-default",
+  "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "version": "0.1.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "gatsby": "^1.9.207",
-    "gatsby-cli": "^1.1.45",
-    "gatsby-image": "^1.0.41",
-    "gatsby-link": "^1.6.37",
-    "gatsby-plugin-canonical-urls": "^1.0.14",
-    "gatsby-plugin-feed": "^1.3.19",
-    "gatsby-plugin-glamor": "^1.6.13",
-    "gatsby-plugin-react-helmet": "^2.0.5",
-    "gatsby-plugin-sharp": "^1.6.41",
-    "gatsby-plugin-sitemap": "^1.2.14",
-    "gatsby-plugin-typography": "^1.7.16",
-    "gatsby-remark-autolink-headers": "^1.4.13",
-    "gatsby-remark-images": "^1.5.53",
-    "gatsby-remark-prismjs": "^1.2.16",
-    "gatsby-remark-smartypants": "^1.4.12",
-    "gatsby-source-filesystem": "^1.5.24",
-    "gatsby-transformer-remark": "^1.7.34",
-    "gatsby-transformer-sharp": "^1.6.22",
-    "gatsby-transformer-yaml": "^1.5.16",
-    "glamorous": "^4.11.6",
-    "prismjs": "^1.11.0",
-    "react": "^16.2.0",
-    "react-helmet": "^5.2.0",
-    "typography": "^0.16.6"
-  },
-  "description": "Eric's Blog",
-  "devDependencies": {
-    "eslint": "^4.18.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
-    "gh-pages": "^1.1.0",
-    "prettier": "^1.10.2"
+    "gatsby": "^2.1.4",
+    "gatsby-image": "^2.0.29",
+    "gatsby-plugin-manifest": "^2.0.17",
+    "gatsby-plugin-offline": "^2.0.23",
+    "gatsby-plugin-react-helmet": "^3.0.6",
+    "gatsby-plugin-sharp": "^2.0.20",
+    "gatsby-source-filesystem": "^2.0.20",
+    "gatsby-transformer-sharp": "^2.1.13",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-helmet": "^5.2.0"
   },
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
-  "main": "n/a",
-  "name": "erics-blog",
-  "repository": "https://github.com/epeterson320/epeterson320.github.io",
   "scripts": {
-    "start": "gatsby develop",
     "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
     "serve": "gatsby serve",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ignore-path .gitignore ."
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
-  "version": "1.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  }
 }

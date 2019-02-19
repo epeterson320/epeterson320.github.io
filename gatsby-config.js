@@ -1,72 +1,34 @@
-const rssConfig = require('./gatsby-plugin-feed');
-
 module.exports = {
   siteMetadata: {
-    title: 'Eric Peterson — I write software',
-    description:
-      'The blog and portfolio of Eric Peterson, a ' +
-      'software engineer in northern Virginia.',
-    keywords: 'software, engineering, Virginia, Washington, javascript',
-    siteUrl: 'https://www.ericp.co',
+    title: `Gatsby Default Starter`,
+    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    author: `@gatsbyjs`,
   },
   plugins: [
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
-    'gatsby-plugin-react-helmet',
+    `gatsby-plugin-react-helmet`,
     {
-      resolve: 'gatsby-plugin-canonical-urls',
-      options: { siteUrl: 'https://www.ericp.co' },
-    },
-    'gatsby-plugin-glamor',
-    {
-      resolve: 'gatsby-plugin-typography',
+      resolve: `gatsby-source-filesystem`,
       options: {
-        pathToConfigModule: 'src/utils/typography',
+        name: `images`,
+        path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'assets',
-        path: `${__dirname}/assets`,
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'posts',
-        path: `${__dirname}/posts/`,
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'projects',
-        path: `${__dirname}/projects/`,
-      },
-    },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          {
-            resolve: 'gatsby-remark-smartypants',
-            options: { dashes: 'oldschool' },
-          },
-          'gatsby-remark-prismjs',
-          {
-            resolve: 'gatsby-remark-images',
-            options: { maxWidth: 590 },
-          },
-          'gatsby-remark-autolink-headers',
-        ],
-      },
-    },
-    'gatsby-transformer-yaml',
-    {
-      resolve: 'gatsby-plugin-feed',
-      options: rssConfig,
-    },
-    'gatsby-plugin-sitemap',
+    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // To learn more, visit: https://gatsby.app/offline
+    // 'gatsby-plugin-offline',
   ],
-};
+}
