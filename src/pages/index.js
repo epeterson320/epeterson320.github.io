@@ -1,5 +1,5 @@
 import React from "react"
-
+import { StaticQuery, graphql } from 'gatsby';
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Projects from '../projects';
@@ -35,24 +35,31 @@ const IndexPage = () => (
         keep that to myself.
       </p>
 
-      {/*data.allMarkdownRemark.edges.map(({
-        node: {
-          frontmatter: { title },
-          fields: {
-            slug, datetime, date, previewText,
+      <StaticQuery
+        query={graphql`
+          query {
+            allMarkdownRemark {
+              edges {
+                node {
+                  frontmatter { title }
+                  excerpt
+                }
+              }
+            }
+          }
+        `}
+        render={data => data.allMarkdownRemark.edges.map(({
+          node: {
+            frontmatter: { title } = {},
+            excerpt,
           },
-          excerpt,
-        },
-      }) => (
-        <BlogExcerpt
-          key={slug}
-          slug={slug}
-          title={title}
-          previewText={previewText || excerpt}
-          dateTime={datetime}
-          date={date}
+        }) => (
+          <>
+            <h3>{title}</h3>
+            <div>{excerpt}</div>
+          </>
+        ))}
         />
-      ))*/}
     </section>
   </Layout>
 );

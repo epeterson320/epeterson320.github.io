@@ -13,8 +13,18 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/posts`,
+      }
+    },
+    // _Sharp_ is an image processing library
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    // Remark parses markdown files
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

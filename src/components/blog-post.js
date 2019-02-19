@@ -1,49 +1,36 @@
 import React from 'react';
-import g from 'glamorous';
 import Link from 'gatsby-link';
 
-import Main from '../components/Main';
-import Headline from '../components/Headline';
-import { rhythm } from '../utils/typography';
-
-export default ({ data }) => {
+const BlogPostTemplate = ({ data }) => {
   const { post, next, previous } = data;
-  const { html, frontmatter, fields } = post;
+  const { html, frontmatter, fields = {}} = post;
   const { date, datetime } = fields;
+
   return (
-    <Main>
-      <Headline>{frontmatter.title}</Headline>
-      <g.Div
-        color="rgba(0,0,0,0.54)"
-        textAlign="center"
-        marginBottom={rhythm(3)}
-      >
+    <main>
+      <h1>{frontmatter.title}</h1>
+      <div>
         <time dateTime={datetime}>{date}</time>
-      </g.Div>
+      </div>
       {/* eslint-disable react/no-danger */}
       {/* it's recommended in gatsbyjs.org/docs/adding-markdown-pages */}
       <div dangerouslySetInnerHTML={{ __html: html }} />
       {/* eslint-enable react/no-danger */}
       {previous ? (
-        <PrevNextLink to={previous.fields.slug}>
+        <Link to={previous.fields.slug}>
           Previous: {previous.frontmatter.title}
-        </PrevNextLink>
+        </Link>
       ) : null}
       {next ? (
-        <PrevNextLink to={next.fields.slug}>
+        <Link to={next.fields.slug}>
           Next: {next.frontmatter.title}
-        </PrevNextLink>
+        </Link>
       ) : null}
-    </Main>
+    </main>
   );
 };
 
-const PrevNextLink = g(Link)({
-  display: 'inline-block',
-  textDecoration: 'none',
-  width: '15em',
-  margin: rhythm(0.5),
-});
+export default BlogPostTemplate;
 
 export const query = graphql`
   query BlogPostQuery($id: String!, $prevId: String, $nextId: String) {
@@ -52,19 +39,19 @@ export const query = graphql`
       frontmatter {
         title
       }
-      fields {
+      ${/*fields {
         slug
         date: date(formatString: "MMMM DD, YYYY")
         datetime: date
-      }
+      }*/''}
     }
     previous: markdownRemark(id: { eq: $prevId }) {
       frontmatter {
         title
       }
-      fields {
+      ${/*fields {
         slug
-      }
+      }*/''}
     }
     next: markdownRemark(id: { eq: $nextId }) {
       frontmatter { title }
