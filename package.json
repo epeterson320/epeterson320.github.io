@@ -1,14 +1,18 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "erics-blog",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "Eric's Blog",
+  "version": "1.1.0",
+  "browserslist": [
+    "> 0.25%",
+    "last 2 versions"
+  ],
+  "author": "Eric Douglas Peteron <eric@ericp.co>",
   "dependencies": {
-    "gatsby": "^2.1.4",
+    "gatsby": "^2.1.5",
     "gatsby-image": "^2.0.29",
-    "gatsby-plugin-manifest": "^2.0.17",
-    "gatsby-plugin-offline": "^2.0.23",
+    "gatsby-plugin-manifest": "^2.0.18",
+    "gatsby-plugin-offline": "^2.0.24",
     "gatsby-plugin-react-helmet": "^3.0.6",
     "gatsby-plugin-sharp": "^2.0.20",
     "gatsby-source-filesystem": "^2.0.20",
@@ -23,17 +27,13 @@
   ],
   "license": "MIT",
   "scripts": {
+    "start": "gatsby develop",
     "build": "gatsby build",
-    "develop": "gatsby develop",
-    "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
+  "repository": "https://github.com/epeterson320/epeterson320.github.io",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/epeterson320/epeterson320.github.io/issues"
   }
 }

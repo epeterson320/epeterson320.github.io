@@ -7,14 +7,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run Dev Server",
-      "program": "${workspaceFolder}/node_modules/gatsby-cli/lib/index.js",
-      "args": ["develop"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run Build",
+      "name": "Debug Build",
       "program": "${workspaceFolder}/node_modules/gatsby-cli/lib/index.js",
       "args": ["build"]
     }

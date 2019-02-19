@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => (
+const PrivacyPolicyPage = () => (
   <div>
     <h1>Occam's Flashlight Privacy Policy</h1>
     <p>Occam's Flashlight will not collect any personal information, anonymous
@@ -10,3 +10,5 @@ device or on remote servers.
     </p>
   </div>
 );
+
+export default PrivacyPolicyPage;
