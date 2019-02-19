@@ -39,19 +39,19 @@ export const query = graphql`
       frontmatter {
         title
       }
-      ${/*fields {
+      fields {
         slug
         date: date(formatString: "MMMM DD, YYYY")
         datetime: date
-      }*/''}
+      }
     }
     previous: markdownRemark(id: { eq: $prevId }) {
       frontmatter {
         title
       }
-      ${/*fields {
+      fields {
         slug
-      }*/''}
+      }
     }
     next: markdownRemark(id: { eq: $nextId }) {
       frontmatter { title }

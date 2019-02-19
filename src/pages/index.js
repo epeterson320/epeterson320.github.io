@@ -42,6 +42,7 @@ const IndexPage = () => (
               edges {
                 node {
                   frontmatter { title }
+                  fields { slug }
                   excerpt
                 }
               }
@@ -50,12 +51,13 @@ const IndexPage = () => (
         `}
         render={data => data.allMarkdownRemark.edges.map(({
           node: {
-            frontmatter: { title } = {},
+            frontmatter: { title },
+            fields: { slug },
             excerpt,
           },
         }) => (
           <>
-            <h3>{title}</h3>
+            <h3><a href={slug}>{title}</a></h3>
             <div>{excerpt}</div>
           </>
         ))}
