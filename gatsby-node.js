@@ -14,7 +14,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const [year, month, day, ...titleWords] = dirName.split('-');
     const date = new Date(year, month - 1, day);
     const slugSegment = titleWords.join('-');
-    const slug = createFilePath({ node, getNode, basePath: 'posts' });
+    const slug = path.posix.join('/posts', slugSegment);
     const previewText = node.frontmatter.previewText || '';
 
     createNodeField({
@@ -38,22 +38,30 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 exports.createPages = async ({ actions, graphql }) => {
-  const { createPage } = actions;
-  const blogPostTemplate = path.resolve(`src/components/blog-post.js`);
-
   const result = await graphql(`
-    {
+    query BlogPostQuery {
       allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] }
+        sort: { order: ASC, fields: [fields___date] }
         limit: 1000
       ) {
         edges {
-          previous { id }
           node {
-            id
+            html
+            frontmatter { title }
+            fields {
+              slug
+              date: date(formatString: "MMMM DD, YYYY")
+              datetime: date
+            }
+          }
+          previous {
+            frontmatter { title }
             fields { slug }
           }
-          next { id }
+          next {
+            frontmatter { title }
+            fields { slug }
+          }
         }
       }
     }
@@ -62,15 +70,16 @@ exports.createPages = async ({ actions, graphql }) => {
     return Promise.reject(result.errors);
   }
 
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  const { createPage } = actions;
+  const blogPostTemplate = path.resolve(`${__dirname}/src/components/blog-post.js`);
+
+  const { edges } = result.data.allMarkdownRemark;
+
+  edges.forEach(edge => {
     createPage({
-      path: node.fields.slug,
+      path: edge.node.fields.slug,
       component: blogPostTemplate,
-      context: {
-        id: node.id,
-        prevId: previous && previous.id,
-        nextId: next && next.id,
-      },
+      context: edge,
     });
   });
 };

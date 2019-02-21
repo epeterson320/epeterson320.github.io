@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'gatsby-link';
 
-const BlogPostTemplate = ({ data }) => {
-  const { post, next, previous } = data;
-  const { html, frontmatter, fields = {}} = post;
+const BlogPost = ({ pageContext }) => {
+  const { node, next, previous } = pageContext;
+  const { html, frontmatter, fields } = node;
   const { date, datetime } = fields;
 
   return (
@@ -30,32 +30,4 @@ const BlogPostTemplate = ({ data }) => {
   );
 };
 
-export default BlogPostTemplate;
-
-export const query = graphql`
-  query BlogPostQuery($id: String!, $prevId: String, $nextId: String) {
-    post: markdownRemark(id: { eq: $id }) {
-      html
-      frontmatter {
-        title
-      }
-      fields {
-        slug
-        date: date(formatString: "MMMM DD, YYYY")
-        datetime: date
-      }
-    }
-    previous: markdownRemark(id: { eq: $prevId }) {
-      frontmatter {
-        title
-      }
-      fields {
-        slug
-      }
-    }
-    next: markdownRemark(id: { eq: $nextId }) {
-      frontmatter { title }
-      fields { slug }
-    }
-  }
-`;
+export default BlogPost;
