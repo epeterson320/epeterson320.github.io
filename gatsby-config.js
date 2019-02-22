@@ -1,11 +1,18 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Eric Peterson — I write software`,
+    description:
+      'The blog and portfolio of Eric Peterson, a ' +
+      'software engineer in northern Virginia.',
+    author: `Eric Peterson`,
+    keywords: 'software, engineering, Virginia, Washington, javascript',
+    siteUrl: 'https://www.ericp.co',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    // gatsby-source-filesystem makes files in
+    // the specified directories available in
+    // graphQL at build time.
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -20,11 +27,35 @@ module.exports = {
         path: `${__dirname}/posts`,
       }
     },
-    // _Sharp_ is an image processing library
-    `gatsby-transformer-sharp`,
+    // _Sharp_ is an image processing library.
+    // The plugin creates graphQL nodes at build time,
+    // the transformer does...other stuff, idk.
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     // Remark parses markdown files
-    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          // Resolve markdown images and generate
+          // responsive versions
+          'gatsby-remark-images',
+          // Prismjs adds code syntax highlighting
+          // at build time.
+          'gatsby-remark-prismjs',
+          // Smartypants adds typographically correct
+          // punctuation (curly quotes, em dashes, ellipses)
+          {
+            resolve: 'gatsby-remark-smartypants',
+            options: {
+              // convert two hyphens to en dash
+              // convert three hyphens to em dash
+              dashes: 'oldschool',
+            },
+          },
+        ]
+      }
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -37,6 +68,8 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    // Adds a sitemap.xml to the build.
+    'gatsby-plugin-sitemap',
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     // 'gatsby-plugin-offline',
