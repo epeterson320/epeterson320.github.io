@@ -8,7 +8,7 @@ const BlogPost = ({
     previous,
   },
 }) => (
-  <main>
+  <main className="container">
     <h1>{frontmatter.title}</h1>
     <div>
       <time dateTime={fields.datetime}>{fields.date}</time>
