@@ -3,10 +3,7 @@
   "private": true,
   "description": "Eric's Blog",
   "version": "1.1.0",
-  "browserslist": [
-    "> 0.25%",
-    "last 2 versions"
-  ],
+  "browserslist": ["> 0.2%", "not dead"],
   "author": "Eric Douglas Peteron <eric@ericp.co>",
   "dependencies": {
     "gatsby": "^2.1.14",
