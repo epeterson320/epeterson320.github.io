@@ -9,6 +9,8 @@ module.exports = {
     siteUrl: 'https://www.ericp.co',
   },
   plugins: [
+    // Support server-rendering data added with
+    // React Helmet.
     `gatsby-plugin-react-helmet`,
     // gatsby-source-filesystem makes files in
     // the specified directories available in
@@ -30,8 +32,8 @@ module.exports = {
     // _Sharp_ is an image processing library.
     // The plugin creates graphQL nodes at build time,
     // the transformer does...other stuff, idk.
-    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     // Remark parses markdown files
     {
       resolve: `gatsby-transformer-remark`,

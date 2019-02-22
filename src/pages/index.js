@@ -1,12 +1,17 @@
 import React from "react"
-import { StaticQuery, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Projects from '../projects';
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <Layout>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+    <Img
+      fixed={data.file.childImageSharp.fixed}
+      alt="Portrait photo of Eric's face"
+    />
     <h1>Software engineer in the D.C. Metro area,</h1>
     <span>or,</span>
     <h2>Blogger and 1x developer,</h2>
@@ -34,36 +39,41 @@ const IndexPage = () => (
         statements and implement custom OAuth 2.0 authorization flows, but I'll
         keep that to myself.
       </p>
-
-      <StaticQuery
-        query={graphql`
-          query {
-            allMarkdownRemark {
-              edges {
-                node {
-                  frontmatter { title }
-                  fields { slug }
-                  excerpt
-                }
-              }
-            }
-          }
-        `}
-        render={data => data.allMarkdownRemark.edges.map(({
-          node: {
-            frontmatter: { title },
-            fields: { slug },
-            excerpt,
-          },
-        }) => (
-          <>
-            <h3><a href={slug}>{title}</a></h3>
-            <div>{excerpt}</div>
-          </>
-        ))}
-        />
+      {data.allMarkdownRemark.edges.map(({
+        node: {
+          frontmatter: { title },
+          fields: { slug },
+          excerpt,
+        },
+      }) => (
+        <React.Fragment key={slug}>
+          <h3><a href={slug}>{title}</a></h3>
+          <div>{excerpt}</div>
+        </React.Fragment>
+      ))}
     </section>
   </Layout>
 );
 
-export default IndexPage
+export default IndexPage;
+
+export const query = graphql`
+  query HomePageQuery {
+    allMarkdownRemark {
+      edges {
+        node {
+          frontmatter { title }
+          fields { slug }
+          excerpt
+        }
+      }
+    }
+    file(relativePath: { eq: "ericp-sq.jpg" }) {
+      childImageSharp {
+        fixed(width: 125, height: 125) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`;
