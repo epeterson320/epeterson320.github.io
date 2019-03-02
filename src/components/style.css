@@ -1,3 +1,6 @@
+/** GLOBAL STYLESHEET **/
+/* Most styles should just be with the components. */
+
 /**
  * This injects Tailwind's base styles, which is a combination of
  * Normalize.css and some additional base styles.
@@ -60,3 +63,41 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+body {
+  @apply font-serif;
+  @apply bg-white;
+  @apply text-base;
+  @apply text-black;
+  @apply leading-normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-sans;
+  @apply font-medium;
+}
+
+a {
+  @apply text-indigo-dark;
+}
+
+a:hover {
+  @apply text-orange-dark;
+}
+
+a * {
+  transition: color 0.1s ease-in-out;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  @apply text-black;
+}

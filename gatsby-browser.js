@@ -3,6 +3,3 @@
  *
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
-
-import 'prismjs/themes/prism.css' ;
-import './src/styles.css';

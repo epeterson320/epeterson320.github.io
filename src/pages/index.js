@@ -1,56 +1,72 @@
-import React from "react"
+import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import Layout from '../components/layout';
+import SEO from '../components/seo';
 import Projects from '../projects';
 
 const IndexPage = ({ data }) => (
-  <Layout>
+  <Layout className="mx-auto pt-20 px-4">
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+    <div className="text-center pb-6">
+      <h1 className="font-medium text-center">
+        Software engineer in the D.C. Metro area,
+      </h1>
+      <em className="text-grey-darker">or,</em>
+      <h2 className="font-serif">Blogger and 1x developer,</h2>
+      <em className="text-grey-darker">or,</em>
+      <h2 className="font-serif">Deft wielder of JavaScript and duct tape.</h2>
+    </div>
+    {/*<img resolutions={data.file.childImageSharp.resolutions} />*/}
     <Img
+      className="float-right"
       fixed={data.file.childImageSharp.fixed}
       alt="Portrait photo of Eric's face"
     />
-    <h1>Software engineer in the D.C. Metro area,</h1>
-    <span>or,</span>
-    <h2>Blogger and 1x developer,</h2>
-    <span>or,</span>
-    <h2>Deft wielder of JavaScript and duct tape.</h2>
-    {/*<img resolutions={data.file.childImageSharp.resolutions} />*/}
-    <p>
-      <em>I'm Eric, and </em>
+    <p className="mb-4">
+      <em className="text-2xl">I'm Eric, and </em>
       I'm a mobile and web app developer in Northern Virginia. I've worked for
       enterprises and small companies in the energy, publishing, and healthcare
       industries. I build highly interactive web applications, with a focus on
       data visualization and clean UI.
     </p>
 
-    <section>
-      <h2>Projects</h2>
+    <section className="mb-10">
+      <h2 className="font-bold mb-3">Projects</h2>
       <Projects />
     </section>
 
     <section>
-      <h2>Latest Blog Posts</h2>
-      <p>
+      <h2 className="font-bold mb-3">Latest Blog Posts</h2>
+      <p className="mb-5">
         Career experts say you should know your niche, so I focus on modern app
         development. I know other things, like how to write performant SQL
         statements and implement custom OAuth 2.0 authorization flows, but I'll
         keep that to myself.
       </p>
-      {data.allMarkdownRemark.edges.map(({
-        node: {
-          frontmatter: { title },
-          fields: { slug },
-          excerpt,
-        },
-      }) => (
-        <React.Fragment key={slug}>
-          <h3><a href={slug}>{title}</a></h3>
-          <div>{excerpt}</div>
-        </React.Fragment>
-      ))}
+      {data.allMarkdownRemark.edges.map(
+        ({
+          node: {
+            frontmatter: { title },
+            fields: { date, slug, dateTime, previewText },
+            excerpt,
+          },
+        }) => (
+          <a key={slug} href={slug} className="block group no-underline">
+            <h3 className="inline font-bold text-xl text-black group-hover:text-orange-dark mb-6">
+              {title}
+            </h3>
+            <span className="text-black">
+              {' '}
+              —{' '}
+              <time className="text-grey-dark" datetime={dateTime}>
+                {date}
+              </time>
+            </span>
+            <p className="text-black mt-3 mb-6">{previewText || excerpt}</p>
+          </a>
+        ),
+      )}
     </section>
   </Layout>
 );
@@ -62,15 +78,22 @@ export const query = graphql`
     allMarkdownRemark {
       edges {
         node {
-          frontmatter { title }
-          fields { slug }
+          frontmatter {
+            title
+          }
+          fields {
+            previewText
+            slug
+            date: date(formatString: "MMMM DD, YYYY")
+            dateTime: date
+          }
           excerpt
         }
       }
     }
     file(relativePath: { eq: "ericp-sq.jpg" }) {
       childImageSharp {
-        fixed(width: 125, height: 125) {
+        fixed(width: 150, height: 150) {
           ...GatsbyImageSharpFixed
         }
       }
