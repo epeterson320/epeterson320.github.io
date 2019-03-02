@@ -89,7 +89,7 @@ a:hover {
   @apply text-orange-dark;
 }
 
-a * {
+a {
   transition: color 0.1s ease-in-out;
 }
 
