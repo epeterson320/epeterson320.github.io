@@ -13,22 +13,30 @@ const BlogPost = ({
   <>
     <Header />
     <main className="container">
-      <h1>{frontmatter.title}</h1>
-      <div>
-        <time dateTime={fields.datetime}>{fields.date}</time>
+      <div className="py-12">
+        <h1 className="text-center">{frontmatter.title}</h1>
+        <time dateTime={fields.datetime} className="float-right text-grey-dark">
+          {fields.date}
+        </time>
       </div>
       {/* eslint-disable react/no-danger */}
       {/* it's recommended in gatsbyjs.org/docs/adding-markdown-pages */}
       <div dangerouslySetInnerHTML={{ __html: html }} />
       {/* eslint-enable react/no-danger */}
-      {previous ? (
-        <Link to={previous.fields.slug}>
-          Previous: {previous.frontmatter.title}
-        </Link>
-      ) : null}
-      {next ? (
-        <Link to={next.fields.slug}>Next: {next.frontmatter.title}</Link>
-      ) : null}
+      <div className="flex justify-between mt-8">
+        {previous ? (
+          <span className="inline-block">
+            <strong className="block">Previous</strong>
+            <Link to={previous.fields.slug}>{previous.frontmatter.title}</Link>
+          </span>
+        ) : null}
+        {next ? (
+          <span className="inline-block">
+            <strong className="block">Next</strong>
+            <Link to={next.fields.slug}>{next.frontmatter.title}</Link>
+          </span>
+        ) : null}
+      </div>
     </main>
     <Footer />
   </>
