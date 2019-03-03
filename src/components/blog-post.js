@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Header from './Navbar';
+import Footer from './Footer';
 
 const BlogPost = ({
   pageContext: {
@@ -29,6 +30,7 @@ const BlogPost = ({
         <Link to={next.fields.slug}>Next: {next.frontmatter.title}</Link>
       ) : null}
     </main>
+    <Footer />
   </>
 );
 

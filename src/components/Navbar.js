@@ -3,14 +3,17 @@ import Link from 'gatsby-link';
 import { GitHubIcon, RssIcon, EmailIcon, CodePenIcon } from './icons';
 
 const Header = () => (
-  <header className="border-b border-grey-darker">
-    <nav className="h-12 flex items-center px-2">
-      <h2 className="font-bold flex-1">
-        <Link to="/" className="no-underline hover:text-black">
+  <header className="border-b border-grey-darker bg-grey-lighter">
+    <nav className="flex px-2">
+      <h2 className="font-bold py-2">
+        <Link
+          to="/"
+          className="no-underline whitespace-no-wrap hover:text-black"
+        >
           Eric Peterson
         </Link>
       </h2>
-      <ul className="flex items-center">
+      <ul className="flex-1 flex flex-wrap items-center justify-end">
         <ListLink to="/posts">Blog</ListLink>
         <ListLink to="https://www.github.com/epeterson320">
           <GitHubIcon />
