@@ -103,5 +103,5 @@ h6 a {
 }
 
 p {
-  max-width: 38rem;
+  @apply max-w-md;
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
+import Layout from '../components/layout';
 
 const AllPosts = (props) => (
-  <main>
+  <Layout>
     <h1>All Posts</h1>
     {props.data.allMarkdownRemark.edges.map(({ node }) => (
       <div key={node.fields.slug}>
@@ -10,7 +11,7 @@ const AllPosts = (props) => (
         <p>{node.excerpt}</p>
       </div>
     ))}
-  </main>
+  </Layout>
 );
 
 const AllPostsPage = () => (

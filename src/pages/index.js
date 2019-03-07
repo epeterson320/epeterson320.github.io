@@ -6,7 +6,7 @@ import SEO from '../components/seo';
 import Projects from '../projects';
 
 const IndexPage = ({ data }) => (
-  <Layout className="mx-auto pt-20 px-4">
+  <Layout className="pt-20 px-4 flex flex-col items-center">
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
     <div className="text-center pb-6">
       <h1 className="font-medium text-center">
@@ -36,7 +36,7 @@ const IndexPage = ({ data }) => (
       <Projects />
     </section>
 
-    <section>
+    <section className="max-w-md flex-col flex items-center">
       <h2 className="font-bold mb-3">Latest Blog Posts</h2>
       <p className="mb-5">
         Career experts say you should know your niche, so I focus on modern app
@@ -56,7 +56,7 @@ const IndexPage = ({ data }) => (
             <h3 className="inline font-bold text-xl text-black group-hover:text-orange-dark mb-6">
               {title}
             </h3>
-            <span className="text-black">
+            <span className="text-black inline-block">
               {' '}
               —{' '}
               <time className="text-grey-dark" datetime={dateTime}>

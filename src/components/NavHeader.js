@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'gatsby-link';
 import { GitHubIcon, RssIcon, EmailIcon, CodePenIcon } from './icons';
 
-const Header = () => (
+const NavHeader = () => (
   <header className="border-b border-grey-darker bg-grey-lighter">
     <nav className="flex px-2">
       <h2 className="font-bold py-2">
@@ -35,7 +35,7 @@ const Header = () => (
   </header>
 );
 
-export default Header;
+export default NavHeader;
 
 const ListLink = ({ to, label, children }) => (
   <li className="inline">
