@@ -15,11 +15,11 @@ const NavHeader = () => (
       </h2>
       <ul className="flex-1 flex flex-wrap items-center justify-end">
         <ListLink to="/posts">Blog</ListLink>
-        <ListLink to="https://www.github.com/epeterson320">
+        <ListLink to="https://www.github.com/epeterson320" external>
           <GitHubIcon />
           &nbsp;Github
         </ListLink>
-        <ListLink to="https://codepen.io/epeterson320/">
+        <ListLink to="https://codepen.io/epeterson320/" external>
           <CodePenIcon />
           &nbsp;CodePen
         </ListLink>
@@ -37,14 +37,11 @@ const NavHeader = () => (
 
 export default NavHeader;
 
-const ListLink = ({ to, label, children }) => (
-  <li className="inline">
-    <Link
-      to={to}
-      aria-label={label}
-      className="no-underline text-black p-3 flex items-center"
-    >
-      {children}
-    </Link>
-  </li>
-);
+const linkCls = "no-underline text-black p-3 flex items-center";
+const ListLink = ({ to, label, children, external = false }) => {
+  const link = (external) 
+    ? <a href={to} aria-label={label} className={linkCls}>{children}</a>
+    : <Link to={to} aria-label={label} className={linkCls}>{children}</Link>;
+
+  return <li className="inline">{link}</li>;
+}

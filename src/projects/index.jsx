@@ -1,14 +1,14 @@
 import React from 'react';
 
 const Project = ({ title, link, children }) => (
-  <a href={link} className="block group no-underline">
     <section className="mb-4">
-      <h3 className="font-bold text-base text-black group-hover:text-orange-dark">
-        {title}
-      </h3>
+      <a href={link} className="no-underline text-black hover:text-orange-dark">
+        <h3 className="font-bold text-base">
+          {title}
+        </h3>
+      </a>
       <p className="text-black">{children}</p>
     </section>
-  </a>
 );
 
 export const Codeck = () => (

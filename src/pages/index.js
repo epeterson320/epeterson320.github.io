@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import Page from '../components/Page';
-import SEO from '../components/mSEO';
+import SEO from '../components/SEO';
 import Projects from '../projects';
 
 const IndexPage = ({ data }) => (
@@ -59,7 +59,7 @@ const IndexPage = ({ data }) => (
             <span className="text-black inline-block">
               {' '}
               —{' '}
-              <time className="text-grey-dark" datetime={dateTime}>
+              <time className="text-grey-dark" dateTime={dateTime}>
                 {date}
               </time>
             </span>
