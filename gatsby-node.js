@@ -70,7 +70,7 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   const { createPage } = actions;
-  const blogPostTemplate = path.resolve(`${__dirname}/src/components/blog-post.js`);
+  const blogPostTemplate = path.resolve(`${__dirname}/src/components/BlogPost.js`);
 
   const { edges } = result.data.allMarkdownRemark;
 

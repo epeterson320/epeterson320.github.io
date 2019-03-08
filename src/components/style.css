@@ -101,7 +101,3 @@ h5 a,
 h6 a {
   @apply text-black;
 }
-
-p {
-  @apply max-w-md;
-}

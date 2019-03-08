@@ -10,7 +10,9 @@ import 'prismjs/themes/prism.css';
 const Page = ({ children, className = '' }) => (
   <>
     <NavHeader />
-    <main className={`flex flex-col ${className}`}>{children}</main>
+    <main className={`pt-20 px-4 pb-6 flex flex-col ${className}`}>
+      {children}
+    </main>
     <Footer />
   </>
 );

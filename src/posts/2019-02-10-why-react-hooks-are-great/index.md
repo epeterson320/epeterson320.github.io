@@ -2,6 +2,13 @@
 title: Why React Hooks are Great
 ---
 
+Here's a pretty neat example of how React hooks allow
+for abstractions in really neat directions.
+
+The example use case is for a loading spinner. A good loading UX won't show a spinner for the first second or so, because the page might load near-instantly. In that case, you don't want to show a quick flash of a loading spinner, since that would be jarring when you could just wait a big for the screen to show. If the app or data is taking longer than one second to load, _then_ you want to show a loading spinner. And if the user has been waiting for more than _five_ seconds, the component changes the text so the user doesn't load interest.
+
+The first file, the `useTimeout` hook, is very flexible. Notice that it's used twice in the `LoadingMessage` component to easily give it different behavior depending on how long it's been mounted.
+
 **useTimeout.js**
 
 ```javascript
@@ -41,6 +48,4 @@ export default function LoadingMessage() {
 }
 ```
 
-The first file, the `useTimeout` hook, is very flexible. Notice that it's
-used twice in the `LoadingMessage` component to easily give it different
-behavior depending on how long it's been mounted.
+Here's a [working example on CodePen](https://codepen.io/epeterson320/pen/pGLVLV?editors=0010).
