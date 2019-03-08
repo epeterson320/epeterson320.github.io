@@ -7,7 +7,7 @@ import Footer from './Footer';
 import './style.css';
 import 'prismjs/themes/prism.css';
 
-const Layout = ({ children, className = '' }) => (
+const Page = ({ children, className = '' }) => (
   <>
     <NavHeader />
     <main className={`flex flex-col ${className}`}>{children}</main>
@@ -15,8 +15,8 @@ const Layout = ({ children, className = '' }) => (
   </>
 );
 
-Layout.propTypes = {
+Page.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Layout;
+export default Page;

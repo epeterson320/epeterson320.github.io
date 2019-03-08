@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Layout from './layout';
+import Page from './Page';
 
 const BlogPost = ({
   pageContext: {
@@ -9,7 +9,7 @@ const BlogPost = ({
     previous,
   },
 }) => (
-  <Layout>
+  <Page>
     <div className="py-12">
       <h1 className="text-center">{frontmatter.title}</h1>
       <time dateTime={fields.datetime} className="float-right text-grey-dark">
@@ -34,7 +34,7 @@ const BlogPost = ({
         </span>
       ) : null}
     </div>
-  </Layout>
+  </Page>
 );
 
 export default BlogPost;

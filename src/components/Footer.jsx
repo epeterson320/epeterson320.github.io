@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => (
+const Footer = () => (
   <footer className="bg-grey-darkest text-white h-24 mt-16 flex flex-col justify-end items-end md:flex-row md:justify-center">
     <p className="self-center md:self-end mx-1">
       This part is the website footer. Thanks for reading.
@@ -13,3 +13,5 @@ export default () => (
     </span>
   </footer>
 );
+
+export default Footer;

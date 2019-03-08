@@ -1,12 +1,12 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import Layout from '../components/layout';
-import SEO from '../components/seo';
+import Page from '../components/Page';
+import SEO from '../components/mSEO';
 import Projects from '../projects';
 
 const IndexPage = ({ data }) => (
-  <Layout className="pt-20 px-4 flex flex-col items-center">
+  <Page className="pt-20 px-4 flex flex-col items-center">
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
     <div className="text-center pb-6">
       <h1 className="font-medium text-center">
@@ -68,7 +68,7 @@ const IndexPage = ({ data }) => (
         ),
       )}
     </section>
-  </Layout>
+  </Page>
 );
 
 export default IndexPage;
