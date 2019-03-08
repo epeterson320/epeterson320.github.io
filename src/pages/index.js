@@ -4,6 +4,7 @@ import Img from 'gatsby-image';
 import Page from '../components/Page';
 import SEO from '../components/SEO';
 import Projects from '../projects';
+import BlogExcerpt from '../components/BlogExcerpt';
 import { PageTitleArea, Title, SubTitle, Or } from '../components/titles';
 
 const IndexPage = ({ data }) => (
@@ -48,23 +49,17 @@ const IndexPage = ({ data }) => (
         ({
           node: {
             frontmatter: { title },
-            fields: { date, slug, dateTime, previewText },
+            fields: { date, slug },
             excerpt,
           },
         }) => (
-          <a key={slug} href={slug} className="block group no-underline">
-            <h3 className="inline font-bold text-xl text-black group-hover:text-orange-dark mb-6">
-              {title}
-            </h3>
-            <span className="text-black inline-block">
-              {' '}
-              —{' '}
-              <time className="text-grey-dark" dateTime={dateTime}>
-                {date}
-              </time>
-            </span>
-            <p className="text-black mt-3 mb-6">{previewText || excerpt}</p>
-          </a>
+          <BlogExcerpt
+            key={slug}
+            slug={slug}
+            title={title}
+            date={date}
+            previewText={excerpt}
+          />
         ),
       )}
     </section>
@@ -82,10 +77,8 @@ export const query = graphql`
             title
           }
           fields {
-            previewText
             slug
-            date: date(formatString: "MMMM DD, YYYY")
-            dateTime: date
+            date
           }
           excerpt
         }

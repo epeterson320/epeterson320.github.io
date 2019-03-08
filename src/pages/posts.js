@@ -1,15 +1,21 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import Page from '../components/Page';
+import BlogExcerpt from '../components/BlogExcerpt';
+import { PageTitleArea, Title } from '../components/titles';
 
 const AllPosts = (props) => (
-  <Page>
-    <h1>All Posts</h1>
+  <Page className="max-w-md mx-auto">
+    <PageTitleArea>
+      <Title>All Posts</Title>
+    </PageTitleArea>
     {props.data.allMarkdownRemark.edges.map(({ node }) => (
-      <div key={node.fields.slug}>
-        <h1>{node.frontmatter.title}</h1>
-        <p>{node.excerpt}</p>
-      </div>
+      <BlogExcerpt
+        title={node.frontmatter.title}
+        slug={node.fields.slug}
+        date={node.fields.date}
+        previewText={node.excerpt}
+        />
     ))}
   </Page>
 );
@@ -33,8 +39,7 @@ const query = graphql`
           }
           fields {
             slug
-            date: date(formatString: "MMMM DD, YYYY")
-            datetime: date
+            date
           }
           excerpt(pruneLength: 200)
         }

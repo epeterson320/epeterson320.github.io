@@ -71,6 +71,12 @@ body {
   @apply leading-normal;
 }
 
+#___gatsby > div {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 h1,
 h2,
 h3,
