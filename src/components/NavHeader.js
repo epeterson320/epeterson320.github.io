@@ -3,8 +3,8 @@ import Link from 'gatsby-link';
 import { GitHubIcon, RssIcon, EmailIcon, CodePenIcon } from './icons';
 
 const NavHeader = () => (
-  <header className="border-b border-grey-darker bg-grey-lighter">
-    <nav className="flex px-2">
+  <header className="border-b border-grey-darker bg-grey-lighter flex justify-center">
+    <nav className="max-w-xl flex px-2 w-full">
       <h2 className="font-bold py-2">
         <Link
           to="/"

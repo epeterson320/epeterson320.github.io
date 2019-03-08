@@ -1,16 +1,16 @@
 import React from 'react';
+import Page from '../components/Page';
+import { Title } from '../components/titles';
 
-export default () => (
-  <main>
-    <h1>I'd love to get in touch.</h1>
+const ContactPage = () => (
+  <Page>
+    <Title>I'd love to get in touch.</Title>
     <form
       action="https://formspree.io/editor@ericp.co"
       method="POST"
     >
-      {/* Visible fields */}
       <input name="name" label="Name" autoFocus />
       <input name="_replyto" label="Email" type="email" />
-      {/* Subject of email that I will get */}
       <input name="_subject" label="Subject" />
       <label htmlFor="message" display="block">
         Message
@@ -34,7 +34,7 @@ export default () => (
         boxShadow="0 4px 4px rgba(0,0,0,0.3)"
       />
 
-      {/* Honeypot field to deter spambots */}
+      {/* Invisible honeypot field to deter spambots */}
       <input type="text" name="_gotcha" style={{ display: 'none' }} />
 
       {/* After submission, the user will be redirected here */}
@@ -46,5 +46,7 @@ export default () => (
         */
       }
     </form>
-  </main>
+  </Page>
 );
+
+export default ContactPage;
