@@ -27,7 +27,7 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/src/posts`,
-      }
+      },
     },
     // _Sharp_ is an image processing library.
     // The plugin creates graphQL nodes at build time,
@@ -55,8 +55,8 @@ module.exports = {
               dashes: 'oldschool',
             },
           },
-        ]
-      }
+        ],
+      },
     },
     'gatsby-plugin-postcss',
     {
@@ -71,10 +71,63 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    // Add an RSS feed.
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+        {
+          site {
+            siteMetadata {
+              title
+              description
+              siteUrl
+              site_url: siteUrl
+            }
+          }
+        }`,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) =>
+              allMarkdownRemark.edges.map(edge =>
+                Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.fields.date,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  custom_elements: [{ 'content:encoded': edge.node.html }],
+                }),
+              ),
+            query: `
+            {
+              allMarkdownRemark(
+                sort: { order: DESC, fields: [fields___date] },
+              ) {
+                edges {
+                  node {
+                    excerpt
+                    html
+                    fields {
+                      slug
+                      date
+                    }
+                    frontmatter {
+                      title
+                    }
+                  }
+                }
+              }
+            }`,
+            output: '/rss.xml',
+            title: "Your Site's RSS Feed",
+          },
+        ],
+      },
+    },
     // Adds a sitemap.xml to the build.
     'gatsby-plugin-sitemap',
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     // 'gatsby-plugin-offline',
   ],
-}
+};
