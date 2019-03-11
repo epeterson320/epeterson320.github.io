@@ -27,7 +27,7 @@ const IndexPage = ({ data }) => (
       I'm a mobile and web app developer in Northern Virginia. I've worked for
       enterprises and small companies in the energy, publishing, and healthcare
       industries. I build highly interactive web applications, with a focus on
-      data visualization and clean UI. I have 25 years of experience with
+      data visualization and clean UI. I have over 25 years of experience with
       React.js, in dog years.
     </p>
 

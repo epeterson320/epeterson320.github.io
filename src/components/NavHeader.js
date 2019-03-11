@@ -27,7 +27,7 @@ const NavHeader = () => (
           <EmailIcon />
           &nbsp;Contact
         </ListLink>
-        <ListLink to="https://www.ericp.co/rss.xml" label="RSS" external>
+        <ListLink to="/rss.xml" label="RSS" external>
           <RssIcon />
         </ListLink>
       </ul>
