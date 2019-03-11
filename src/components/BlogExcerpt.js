@@ -1,32 +1,24 @@
 import React from 'react';
-import g from 'glamorous';
-import Link from 'gatsby-link';
+import { Link } from 'gatsby';
 
-import { rhythm } from '../utils/typography';
-
-export default ({
-  slug,
-  title,
-  previewText,
-  dateTime,
-  date,
-}) => (
-  <g.Section marginBottom={rhythm(2)}>
-    <g.H3 display="inline">
-      <Link to={slug} rel="bookmark">
+export default function BlogExcerpt({ slug, title, date, previewText }) {
+  return (
+    <Link to={slug} className="block group no-underline">
+      <h3 className="inline font-bold text-xl text-black group-hover:text-orange-dark mb-6">
         {title}
-      </Link>
-    </g.H3>
-    <g.P display="inline" color="rgba(0,0,0,0.54)">
-      {' — '}
-      <time dateTime={dateTime}>{date}</time>
-    </g.P>
-    <g.P paddingTop={rhythm(0.5)}>
-      {previewText}
-      {' '}
-      <Link to={slug} rel="bookmark">
-        (Read more...)
-      </Link>
-    </g.P>
-  </g.Section>
-);
+      </h3>
+      <span className="text-black inline-block">
+        {' '}
+        —{' '}
+        <time className="text-grey-dark" dateTime={date}>
+          {new Date(date).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
+        </time>
+      </span>
+      <p className="text-black mt-3 mb-6">{previewText}</p>
+    </Link>
+  );
+}

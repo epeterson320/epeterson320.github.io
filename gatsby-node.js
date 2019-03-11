@@ -5,9 +5,8 @@
  */
 const path = require('path');
 
-exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
-  const { createNodeField } = boundActionCreators;
-
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
   if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent);
     const dirName = fileNode.relativeDirectory;
@@ -37,38 +36,49 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   }
 };
 
-exports.createPages = async ({ graphql, boundActionCreators }) => {
-  const queryResult = await graphql(`
-    {
-      allMarkdownRemark(sort: { fields: [fields___date], order: ASC }) {
+exports.createPages = async ({ actions, graphql }) => {
+  const result = await graphql(`
+    query BlogPostQuery {
+      allMarkdownRemark(
+        sort: { order: ASC, fields: [fields___date] }
+        limit: 1000
+      ) {
         edges {
-          previous {
-            id
-          }
           node {
-            id
+            html
+            frontmatter { title }
+            fields {
+              slug
+              date: date(formatString: "MMMM DD, YYYY")
+              datetime: date
+            }
+          }
+          previous {
+            frontmatter { title }
             fields { slug }
           }
           next {
-            id
+            frontmatter { title }
+            fields { slug }
           }
         }
       }
     }
   `);
-  const { createPage } = boundActionCreators;
-  const { edges } = queryResult.data.allMarkdownRemark;
+  if (result.errors) {
+    return Promise.reject(result.errors);
+  }
 
-  edges.forEach(({ node, previous, next }) => {
+  const { createPage } = actions;
+  const blogPostTemplate = path.resolve(`${__dirname}/src/components/BlogPost.js`);
+
+  const { edges } = result.data.allMarkdownRemark;
+
+  edges.forEach(edge => {
     createPage({
-      path: node.fields.slug,
-      component: path.resolve('./src/templates/blog-post.js'),
-      context: {
-        // Data passed to context is available in page queries as GraphQL data
-        id: node.id,
-        prevId: previous && previous.id,
-        nextId: next && next.id,
-      },
+      path: edge.node.fields.slug,
+      component: blogPostTemplate,
+      context: edge,
     });
   });
 };

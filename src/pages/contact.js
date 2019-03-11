@@ -1,74 +1,53 @@
 import React from 'react';
-import g from 'glamorous';
+import Page from '../components/Page';
+import { Title } from '../components/titles';
 
-import Main from '../components/Main';
-import Headline from '../components/Headline';
-import { rhythm, scale } from '../utils/typography';
+const ContactPage = () => (
+  <Page>
+    <Title>I'd love to get in touch.</Title>
+    <NetlifyForm name="contact">
+      <HiddenInput label="Form Name" name="form-name" value="contact" />
+      <LabeledInput type="text" name="name" label="Name" autoFocus />
+      <LabeledInput type="email" name="email" label="Email" />
+      <LabeledInput name="message" label="Message" tag="textarea" className="w-full" />
+      <PrimaryButton type="submit">Send</PrimaryButton>
+    </NetlifyForm>
+  </Page>
+);
 
-const Input = ({
-  name, label, type = 'text', ...props
-}) => (
-  <g.Label htmlFor={name} display="block">
+const NetlifyForm = ({ name, children }) => (
+  <form
+    name={name}
+    method="POST"
+    data-netlify
+    data-netlify-honeypot="eric-says-plz-no-bots"
+    className="font-sans max-w-md w-full mx-auto"
+  >
+    {children}
+  </form>
+);
+
+const HiddenInput = ({ label, name, value }) => (
+  <label className="hidden">{label}<input type="hidden" name={name} value={value} /></label>
+);
+
+const LabeledInput = ({ label, className = '', tag: Tag = 'input', ...inputProps }) => (
+  <label className="block text-grey-darker text-sm font-bold mb-2">
     {label}
-    <g.Input
-      id={name}
-      type={type}
-      name={name}
-      {...props}
-      display="block"
-      width="15em"
+    <Tag
+      className={`block shadow appearance-none border rounded py-2 px-3 mt-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline ${className}`}
+      {...inputProps}
     />
-  </g.Label>
+  </label>
 );
 
-export default () => (
-  <Main>
-    <Headline {...scale(-0.333)}>I'd love to get in touch.</Headline>
-    <g.Form
-      action="https://formspree.io/editor@ericp.co"
-      method="POST"
-      marginTop={rhythm(2)}
-      maxWidth="38em"
-    >
-      {/* Visible fields */}
-      <Input name="name" label="Name" autoFocus />
-      <Input name="_replyto" label="Email" type="email" />
-      {/* Subject of email that I will get */}
-      <Input name="_subject" label="Subject" />
-      <g.Label htmlFor="message" display="block">
-        Message
-        <g.Textarea
-          id="message"
-          name="message"
-          cols="8"
-          display="block"
-          width="100%"
-        />
-      </g.Label>
-      <g.Input
-        type="submit"
-        value="Send"
-        backgroundColor="#00449e"
-        color="white"
-        border="0"
-        marginTop={rhythm(0.333)}
-        minWidth="72px"
-        minHeight="40px"
-        borderRadius="2px"
-        boxShadow="0 4px 4px rgba(0,0,0,0.3)"
-      />
-
-      {/* Honeypot field to deter spambots */}
-      <input type="text" name="_gotcha" style={{ display: 'none' }} />
-
-      {/* After submission, the user will be redirected here */}
-      {/* <input
-        *   type="hidden"
-        *   name="_next"
-        *   value={`${location}#sentLetter`}
-        * />
-        */
-      }
-    </g.Form>
-  </Main>
+const PrimaryButton = ({ children, type }) => (
+  <button
+    className="block bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    type={type}
+  >
+    {children}
+  </button>
 );
+
+export default ContactPage;
