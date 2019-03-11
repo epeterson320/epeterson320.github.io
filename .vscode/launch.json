@@ -5,11 +5,26 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Build",
+      "name": "Gatsby develop",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/node_modules/gatsby/dist/bin/gatsby.js",
-      "args": ["build"]
+      "protocol": "inspector",
+      "program": "${workspaceRoot}/node_modules/gatsby/dist/bin/gatsby",
+      "args": ["develop"],
+      "stopOnEntry": false,
+      "runtimeArgs": ["--nolazy"],
+      "sourceMaps": false
+    },
+    {
+      "name": "Gatsby build",
+      "type": "node",
+      "request": "launch",
+      "protocol": "inspector",
+      "program": "${workspaceRoot}/node_modules/gatsby/dist/bin/gatsby",
+      "args": ["build"],
+      "stopOnEntry": false,
+      "runtimeArgs": ["--nolazy"],
+      "sourceMaps": false
     }
   ]
 }
