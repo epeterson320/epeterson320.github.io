@@ -37,11 +37,17 @@ const NavHeader = () => (
 
 export default NavHeader;
 
-const linkCls = "no-underline text-black p-3 flex items-center";
+const linkCls = 'no-underline text-black p-3 flex items-center';
 const ListLink = ({ to, label, children, external = false }) => {
-  const link = (external) 
-    ? <a href={to} aria-label={label} className={linkCls}>{children}</a>
-    : <Link to={to} aria-label={label} className={linkCls}>{children}</Link>;
+  const link = external ? (
+    <a href={to} aria-label={label} className={linkCls}>
+      {children}
+    </a>
+  ) : (
+    <Link to={to} aria-label={label} className={linkCls}>
+      {children}
+    </Link>
+  );
 
   return <li className="inline">{link}</li>;
-}
+};

@@ -4,7 +4,7 @@ import Page from '../components/Page';
 import BlogExcerpt from '../components/BlogExcerpt';
 import { PageTitleArea, Title } from '../components/titles';
 
-const AllPosts = (props) => (
+const AllPosts = props => (
   <Page className="max-w-md mx-auto">
     <PageTitleArea>
       <Title>All Posts</Title>
@@ -15,16 +15,13 @@ const AllPosts = (props) => (
         slug={node.fields.slug}
         date={node.fields.date}
         previewText={node.excerpt}
-        />
+      />
     ))}
   </Page>
 );
 
 const AllPostsPage = () => (
-  <StaticQuery
-    query={query}
-    render={(data) => <AllPosts data={data} />}
-  />
+  <StaticQuery query={query} render={data => <AllPosts data={data} />} />
 );
 
 export default AllPostsPage;

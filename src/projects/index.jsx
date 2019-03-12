@@ -1,14 +1,12 @@
 import React from 'react';
 
 const Project = ({ title, link, children }) => (
-    <section className="mb-4">
-      <a href={link} className="no-underline text-black hover:text-orange-dark">
-        <h3 className="font-bold text-base">
-          {title}
-        </h3>
-      </a>
-      <p className="text-black">{children}</p>
-    </section>
+  <section className="mb-4">
+    <a href={link} className="no-underline text-black hover:text-orange-dark">
+      <h3 className="font-bold text-base">{title}</h3>
+    </a>
+    <p className="text-black">{children}</p>
+  </section>
 );
 
 export const Codeck = () => (

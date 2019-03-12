@@ -17,7 +17,10 @@ const BlogPost = ({
     </PageTitleArea>
     {/* eslint-disable react/no-danger */}
     {/* it's recommended in gatsbyjs.org/docs/adding-markdown-pages */}
-    <div className="container max-w-md" dangerouslySetInnerHTML={{ __html: html }} />
+    <div
+      className="container max-w-md"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
     {/* eslint-enable react/no-danger */}
     <div className="flex justify-between mt-8">
       {previous ? (

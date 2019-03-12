@@ -9,7 +9,12 @@ const ContactPage = () => (
       <HiddenInput label="Form Name" name="form-name" value="contact" />
       <LabeledInput type="text" name="name" label="Name" autoFocus />
       <LabeledInput type="email" name="email" label="Email" />
-      <LabeledInput name="message" label="Message" tag="textarea" className="w-full" />
+      <LabeledInput
+        name="message"
+        label="Message"
+        tag="textarea"
+        className="w-full"
+      />
       <PrimaryButton type="submit">Send</PrimaryButton>
     </NetlifyForm>
   </Page>
@@ -28,10 +33,18 @@ const NetlifyForm = ({ name, children }) => (
 );
 
 const HiddenInput = ({ label, name, value }) => (
-  <label className="hidden">{label}<input type="hidden" name={name} value={value} /></label>
+  <label className="hidden">
+    {label}
+    <input type="hidden" name={name} value={value} />
+  </label>
 );
 
-const LabeledInput = ({ label, className = '', tag: Tag = 'input', ...inputProps }) => (
+const LabeledInput = ({
+  label,
+  className = '',
+  tag: Tag = 'input',
+  ...inputProps
+}) => (
   <label className="block text-grey-darker text-sm font-bold mb-2">
     {label}
     <Tag
