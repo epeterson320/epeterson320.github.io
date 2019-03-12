@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Page from './Page';
-import { PageTitleArea, Title, PostTime } from './titles';
+import { PageTitleArea, Title, PostTime } from './titles.jsx';
 
 const BlogPost = ({
   pageContext: {

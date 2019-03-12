@@ -7,6 +7,9 @@ module.exports = {
     'eslint:recommended', // enforce syntax & detect problems
     'plugin:react/recommended', // add react rules
     'plugin:prettier/recommended', // check code style
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:react/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -19,7 +22,6 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react'],
   rules: {
     'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
     'react/prop-types': 'off',
@@ -27,6 +29,11 @@ module.exports = {
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx'],
+      },
     },
   },
 };
