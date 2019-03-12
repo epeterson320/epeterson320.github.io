@@ -11,6 +11,7 @@ const AllPosts = props => (
     </PageTitleArea>
     {props.data.allMarkdownRemark.edges.map(({ node }) => (
       <BlogExcerpt
+        key={node.fields.slug}
         title={node.frontmatter.title}
         slug={node.fields.slug}
         date={node.fields.date}

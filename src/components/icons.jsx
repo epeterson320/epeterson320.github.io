@@ -1,7 +1,7 @@
 import React from 'react';
 import { merge, pipe } from 'ramda';
 
-const Icon = ({ path, className = '', ...restProps }) => (
+const Icon = ({ path, ...restProps }) => (
   <svg
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
