@@ -132,11 +132,11 @@ module.exports = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Eric Peterson — I write software.',
-        short_name: 'Eric Peterson',
+        short_name: 'E. Peterson',
         start_url: '/',
         background_color: '#f7f0eb',
         theme_color: '#a2466c',
-        display: 'browser',
+        display: 'minimal-ui',
         include_favicon: true,
       },
     },
