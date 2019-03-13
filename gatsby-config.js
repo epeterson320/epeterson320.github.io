@@ -139,6 +139,7 @@ module.exports = {
         display: 'browser',
         icon: 'src/images/gatsby-icon.png',
         include_favicon: true,
+        cache_busting_mode: 'name',
       },
     },
     'gatsby-plugin-offline',
