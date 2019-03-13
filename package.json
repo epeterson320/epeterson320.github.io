@@ -50,7 +50,6 @@
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "postbuild": "for i in public/icons/*.png?*; do mv $i ${i/.png?*/.png}; done",
     "serve": "gatsby serve",
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
