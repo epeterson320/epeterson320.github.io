@@ -10,7 +10,7 @@ export default function BlogExcerpt({ slug, title, date, previewText }) {
       <span className="text-black inline-block">
         {' '}
         —{' '}
-        <time className="text-grey-dark" dateTime={date}>
+        <time className="text-grey-darker" dateTime={date}>
           {new Date(date).toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'long',

@@ -128,6 +128,20 @@ module.exports = {
     'gatsby-plugin-sitemap',
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'Eric Peterson — I write software.',
+        short_name: 'Eric Peterson',
+        start_url: '/',
+        background_color: '#f7f0eb',
+        theme_color: '#a2466c',
+        display: 'browser',
+        icon: 'src/images/gatsby-icon.png',
+        include_favicon: true,
+      },
+    },
+    'gatsby-plugin-offline',
+    'gatsby-plugin-netlify',
   ],
 };
