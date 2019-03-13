@@ -22,6 +22,7 @@ const IndexPage = ({ data }) => (
         className="float-right m-1"
         fixed={data.file.childImageSharp.fixed}
         alt="Portrait photo of Eric's face"
+        Tag="span"
       />
       <em className="text-2xl">I'm Eric, and </em>
       I'm a mobile and web app developer in Northern Virginia. I've worked for
