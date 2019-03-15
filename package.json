@@ -51,7 +51,7 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "lint": "eslint src --ext .js --ext .jsx",
+    "lint": "eslint . --ext .js,.jsx --ignore-path .gitignore",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "repository": "https://github.com/epeterson320/epeterson320.github.io",

@@ -46,7 +46,9 @@ exports.createPages = async ({ actions, graphql }) => {
         edges {
           node {
             html
-            frontmatter { title }
+            frontmatter {
+              title
+            }
             fields {
               slug
               date: date(formatString: "MMMM DD, YYYY")
@@ -54,12 +56,20 @@ exports.createPages = async ({ actions, graphql }) => {
             }
           }
           previous {
-            frontmatter { title }
-            fields { slug }
+            frontmatter {
+              title
+            }
+            fields {
+              slug
+            }
           }
           next {
-            frontmatter { title }
-            fields { slug }
+            frontmatter {
+              title
+            }
+            fields {
+              slug
+            }
           }
         }
       }
@@ -70,7 +80,9 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   const { createPage } = actions;
-  const blogPostTemplate = path.resolve(`${__dirname}/src/components/BlogPost.js`);
+  const blogPostTemplate = path.resolve(
+    `${__dirname}/src/components/BlogPost.js`,
+  );
 
   const { edges } = result.data.allMarkdownRemark;
 

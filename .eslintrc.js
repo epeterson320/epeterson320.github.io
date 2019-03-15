@@ -15,6 +15,17 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
+  overrides: [{
+    files: '*.js',
+    excludedFiles: ['src/**', 'gatsby-browser.js'],
+    env: {
+      node: true,
+      browser: false,
+    },
+    parserOptions: {
+      sourceType: 'script',
+    },
+  }],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
