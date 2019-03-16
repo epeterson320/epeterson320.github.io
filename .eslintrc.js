@@ -15,17 +15,19 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
-  overrides: [{
-    files: '*.js',
-    excludedFiles: ['src/**', 'gatsby-browser.js'],
-    env: {
-      node: true,
-      browser: false,
+  overrides: [
+    {
+      files: '*.js',
+      excludedFiles: ['src/**', 'gatsby-browser.js'],
+      env: {
+        node: true,
+        browser: false,
+      },
+      parserOptions: {
+        sourceType: 'script',
+      },
     },
-    parserOptions: {
-      sourceType: 'script',
-    },
-  }],
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -34,7 +36,9 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    // Don't require escaped apostrophes and quotes
     'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
+    // Types are for chumps
     'react/prop-types': 'off',
   },
   settings: {

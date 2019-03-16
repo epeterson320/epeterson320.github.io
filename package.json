@@ -41,7 +41,9 @@
     "ramda": "^0.26.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.2.0"
   },
   "keywords": [
     "gatsby"
@@ -51,7 +53,9 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "lint": "eslint . --ext .js,.jsx --ignore-path .gitignore",
+    "lint-js": "eslint . --ext .js,.jsx --ignore-path .gitignore",
+    "lint-style": "stylelint src/**/*{css,js,jsx}",
+    "lint": "npm run lint-js && npm run lint-style",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "repository": "https://github.com/epeterson320/epeterson320.github.io",

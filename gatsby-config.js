@@ -58,12 +58,7 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: 'gatsby-plugin-postcss',
-      options: {
-        postCssPlugins: [require('postcss-normalize')()],
-      },
-    },
+    'gatsby-plugin-postcss',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

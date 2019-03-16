@@ -22,7 +22,9 @@ const Page = ({ children, centered }) => (
         flexDirection: 'column',
         flex: '1',
         padding: '5rem 1rem 1.5rem',
+        /* stylelint-disable property-no-unknown */
         [centered && 'alignItems']: 'center',
+        /* stylelint-enable */
         maxWidth: '40rem',
         width: '100%',
         margin: '0 auto',
