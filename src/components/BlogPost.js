@@ -10,7 +10,7 @@ const BlogPost = ({
     previous,
   },
 }) => (
-  <Page className="items-center">
+  <Page>
     <PageTitleArea>
       <Title>{frontmatter.title}</Title>
       <PostTime date={fields.date} dateTime={fields.datetime} />
@@ -18,20 +18,26 @@ const BlogPost = ({
     {/* eslint-disable react/no-danger */}
     {/* it's recommended in gatsbyjs.org/docs/adding-markdown-pages */}
     <div
-      className="container max-w-md"
+      style={{ width: '100%', maxWidth: '40rem' }}
       dangerouslySetInnerHTML={{ __html: html }}
     />
     {/* eslint-enable react/no-danger */}
-    <div className="flex justify-between mt-8">
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: '2rem',
+      }}
+    >
       {previous ? (
-        <span className="inline-block m-4">
-          <strong className="block">Previous</strong>
+        <span style={{ display: 'inline-block', margin: '1rem' }}>
+          <strong style={{ display: 'block' }}>Previous</strong>
           <Link to={previous.fields.slug}>{previous.frontmatter.title}</Link>
         </span>
       ) : null}
       {next ? (
-        <span className="inline-block m-4">
-          <strong className="block">Next</strong>
+        <span style={{ display: 'inline-block', margin: '1rem' }}>
+          <strong style={{ display: 'block' }}>Next</strong>
           <Link to={next.fields.slug}>{next.frontmatter.title}</Link>
         </span>
       ) : null}

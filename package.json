@@ -35,13 +35,13 @@
     "gatsby-source-filesystem": "^2.0.21",
     "gatsby-transformer-remark": "^2.2.5",
     "gatsby-transformer-sharp": "^2.1.17",
+    "postcss-normalize": "^7.0.1",
     "prismjs": "^1.15.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-helmet": "^5.2.0",
-    "tailwindcss": "^0.7.4"
+    "react-helmet": "^5.2.0"
   },
   "keywords": [
     "gatsby"

@@ -13,9 +13,12 @@ const ContactPage = () => (
         name="message"
         label="Message"
         tag="textarea"
-        className="w-full"
+        style={{ width: '100%' }}
+        rows={5}
       />
-      <PrimaryButton type="submit">Send</PrimaryButton>
+      <button style={{ display: 'block' }} type="submit">
+        Send
+      </button>
     </NetlifyForm>
   </Page>
 );
@@ -26,41 +29,32 @@ const NetlifyForm = ({ name, children }) => (
     method="POST"
     data-netlify
     data-netlify-honeypot="eric-says-plz-no-bots"
-    className="font-sans max-w-md w-full mx-auto"
+    style={{ fontFamily: 'var(--sans-stack)' }}
   >
     {children}
   </form>
 );
 
 const HiddenInput = ({ label, name, value }) => (
-  <label className="hidden">
+  <label style={{ display: 'none' }}>
     {label}
     <input type="hidden" name={name} value={value} />
   </label>
 );
 
-const LabeledInput = ({
-  label,
-  className = '',
-  tag: Tag = 'input',
-  ...inputProps
-}) => (
-  <label className="block text-grey-darker text-sm font-bold mb-2">
-    {label}
-    <Tag
-      className={`block shadow appearance-none border rounded py-2 px-3 mt-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline ${className}`}
-      {...inputProps}
-    />
-  </label>
-);
-
-const PrimaryButton = ({ children, type }) => (
-  <button
-    className="block bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    type={type}
+const LabeledInput = ({ label, tag: Tag = 'input', ...inputProps }) => (
+  <label
+    style={{
+      display: 'block',
+      color: 'darkslategray',
+      fontSize: '0.875rem',
+      fontWeight: 'bold',
+      marginBottom: '0.5rem',
+    }}
   >
-    {children}
-  </button>
+    {label}
+    <Tag {...inputProps} />
+  </label>
 );
 
 export default ContactPage;

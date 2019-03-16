@@ -1,3 +1,5 @@
+const postcssNormalize = require('postcss-normalize');
+
 module.exports = () => ({
-  plugins: [require('tailwindcss')('./tailwind.js')],
+  plugins: [postcssNormalize()],
 });

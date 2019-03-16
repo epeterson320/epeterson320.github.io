@@ -1,10 +1,17 @@
+@import-normalize;
+
 body {
-  @apply font-serif;
-  @apply bg-white;
-  @apply text-base;
-  @apply text-black;
-  @apply leading-normal;
+  --serif-stack: Constantia, Lucida Bright, Lucidabright, Lucida Serif, Lucida, DejaVu Serif, Bitstream Vera Serif, Liberation Serif, Georgia, serif;
+  --sans-stack: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --mono-stack: Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  font-family: var(--serif-stack);
+  background-color: white;
+  font-size: 1rem;
+  color: black;
+  line-height: 1.5;
 }
+
+body, h1, h2, p, ul { margin: 0; }
 
 h1,
 h2,
@@ -12,20 +19,17 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-sans;
-  @apply font-medium;
+  font-family: var(--sans-stack);
+  font-weight: 500;
 }
 
 a {
-  @apply text-indigo-dark;
+  color: darkblue;
+  transition: color 0.1s ease-in-out;
 }
 
 a:hover {
-  @apply text-orange-dark;
-}
-
-a {
-  transition: color 0.1s ease-in-out;
+  color: darkgoldenrod;
 }
 
 h1 a,
@@ -34,5 +38,44 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  @apply text-black;
+  color: black;
+  text-decoration: none;
+}
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
+  color: darkgoldenrod;
+}
+
+button {
+  background-color: dodgerblue;
+  border-radius: 0.25rem;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.1s ease-in-out;
+}
+
+button:hover {
+  background-color: darkblue;
+}
+
+input, textarea {
+  display: block;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+  border: 1px solid lightgray;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  color: darkslategray;
+  line-height: 1.25;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52,144,220,0.5);
 }

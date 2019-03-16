@@ -3,17 +3,43 @@ import Link from 'gatsby-link';
 import { GitHubIcon, RssIcon, EmailIcon, CodePenIcon } from './icons';
 
 const NavHeader = () => (
-  <header className="border-b border-grey-darker bg-grey-lighter flex justify-center">
-    <nav className="max-w-xl flex px-2 w-full">
-      <h2 className="font-bold py-2">
-        <Link
-          to="/"
-          className="no-underline whitespace-no-wrap hover:text-black"
-        >
-          Eric Peterson
-        </Link>
-      </h2>
-      <ul className="flex-1 flex flex-wrap items-center justify-end">
+  <header
+    style={{
+      borderBottom: '1px solid silver',
+      backgroundColor: 'aliceblue',
+      display: 'flex',
+      justifyContent: 'center',
+    }}
+  >
+    <nav
+      style={{
+        maxWidth: '60rem',
+        display: 'flex',
+        width: '100%',
+        padding: '0 0.5rem',
+      }}
+    >
+      <Link
+        to="/"
+        style={{
+          textDecoration: 'none',
+          whiteSpace: 'nowrap',
+          color: 'black',
+          padding: '0.25rem 0',
+          alignSelf: 'center',
+        }}
+      >
+        <h2 style={{ fontWeight: 'bold' }}>Eric Peterson</h2>
+      </Link>
+      <ul
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          flex: '1',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}
+      >
         <ListLink to="/posts">Blog</ListLink>
         <ListLink to="https://www.github.com/epeterson320" external>
           <GitHubIcon />
@@ -37,17 +63,24 @@ const NavHeader = () => (
 
 export default NavHeader;
 
-const linkCls = 'no-underline text-black p-3 flex items-center';
+const linkStyle = {
+  textDecoration: 'none',
+  color: 'black',
+  padding: '0.75rem',
+  display: 'flex',
+  alignItems: 'center',
+};
+
 const ListLink = ({ to, label, children, external = false }) => {
   const link = external ? (
-    <a href={to} aria-label={label} className={linkCls}>
+    <a href={to} aria-label={label} style={linkStyle}>
       {children}
     </a>
   ) : (
-    <Link to={to} aria-label={label} className={linkCls}>
+    <Link to={to} aria-label={label} style={linkStyle}>
       {children}
     </Link>
   );
 
-  return <li className="inline">{link}</li>;
+  return <li style={{ display: 'inline' }}>{link}</li>;
 };

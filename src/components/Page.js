@@ -4,10 +4,30 @@ import PropTypes from 'prop-types';
 import NavHeader from './NavHeader';
 import Footer from './Footer';
 
-const Page = ({ children, className = '' }) => (
-  <div className="flex flex-col min-h-screen">
+import '../styles/global.css';
+import 'prismjs/themes/prism.css';
+
+const Page = ({ children, centered }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+    }}
+  >
     <NavHeader />
-    <main className={`pt-20 px-4 pb-6 flex-1 flex flex-col ${className}`}>
+    <main
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flex: '1',
+        padding: '5rem 1rem 1.5rem',
+        [centered && 'alignItems']: 'center',
+        maxWidth: '40rem',
+        width: '100%',
+        margin: '0 auto',
+      }}
+    >
       {children}
     </main>
     <Footer />

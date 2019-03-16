@@ -8,7 +8,7 @@ import BlogExcerpt from '../components/BlogExcerpt';
 import { PageTitleArea, Title, SubTitle, Or } from '../components/titles';
 
 const IndexPage = ({ data }) => (
-  <Page className="items-center">
+  <Page style={{ maxWidth: '40rem', margin: '0 auto' }}>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
     <PageTitleArea>
       <Title>Software engineer in the D.C. Metro area,</Title>
@@ -17,14 +17,14 @@ const IndexPage = ({ data }) => (
       <Or />
       <SubTitle>Deft wielder of JavaScript and duct tape.</SubTitle>
     </PageTitleArea>
-    <p className="mb-4 max-w-md">
+    <p style={{ marginBottom: '1rem' }}>
       <Img
-        className="float-right m-1"
+        style={{ float: 'right', margin: '0.25rem' }}
         fixed={data.file.childImageSharp.fixed}
         alt="Portrait photo of Eric's face"
         Tag="span"
       />
-      <em className="text-2xl">I'm Eric, and </em>
+      <em style={{ fontSize: '1.5rem' }}>I'm Eric, and </em>
       I'm a mobile and web app developer in Northern Virginia. I've worked for
       enterprises and small companies in the energy, publishing, and healthcare
       industries. I build highly interactive web applications, with a focus on
@@ -32,15 +32,17 @@ const IndexPage = ({ data }) => (
       React.js, in dog years.
     </p>
 
-    <section className="mb-10 max-w-md">
-      <h2 className="font-bold mb-3">Projects</h2>
+    <section style={{ marginBottom: '2.5rem' }}>
+      <h2 style={{ fontWeight: 'bold', marginBottom: '0.75rem' }}>Projects</h2>
       <p>Some stuff I've built over the years.</p>
       <Projects />
     </section>
 
-    <section className="max-w-md flex-col flex items-center">
-      <h2 className="font-bold mb-3">Latest Blog Posts</h2>
-      <p className="mb-5">
+    <section>
+      <h2 style={{ fontWeight: 'bold', marginBottom: '0.75rem' }}>
+        Latest Blog Posts
+      </h2>
+      <p style={{ marginBottom: '1.25rem' }}>
         Career experts say you should know your niche, so I focus on modern app
         development. I know other things, like how to write performant SQL
         statements and implement custom OAuth 2.0 authorization flows, but I'll

@@ -9,9 +9,9 @@ The example use case is for a loading spinner. A good loading UX won't show a sp
 
 The first file, the `useTimeout` hook, is very flexible. Notice that it's used twice in the `LoadingMessage` component to easily give it different behavior depending on how long it's been mounted.
 
-**useTimeout.js**
 
 ```javascript
+// useTimeout.js
 import { useEffect, useState } from 'react';
 
 export default function useTimeout(ms) {
@@ -29,8 +29,8 @@ export default function useTimeout(ms) {
 }
 ```
 
-**LoadingMessage.jsx**
 ```javascript
+// LoadingMessage.jsx
 import React from 'react';
 import useTimeout from './useTimeout';
 

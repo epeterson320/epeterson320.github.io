@@ -5,7 +5,7 @@ import BlogExcerpt from '../components/BlogExcerpt';
 import { PageTitleArea, Title } from '../components/titles';
 
 const AllPosts = props => (
-  <Page className="max-w-md mx-auto">
+  <Page style={{ maxWidth: '40rem', margin: '0 auto' }}>
     <PageTitleArea>
       <Title>All Posts</Title>
     </PageTitleArea>

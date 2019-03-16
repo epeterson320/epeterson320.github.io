@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Project = ({ title, link, children }) => (
-  <section className="mb-4">
-    <a href={link} className="no-underline text-black hover:text-orange-dark">
-      <h3 className="font-bold text-base">{title}</h3>
-    </a>
-    <p className="text-black">{children}</p>
+  <section style={{ marginBottom: '1rem' }}>
+    <h3 style={{ fontWeight: 'bold', fontSize: '1rem' }}>
+      <a href={link}>{title}</a>
+    </h3>
+    <p>{children}</p>
   </section>
 );
 

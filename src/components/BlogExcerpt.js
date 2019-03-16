@@ -3,14 +3,23 @@ import { Link } from 'gatsby';
 
 export default function BlogExcerpt({ slug, title, date, previewText }) {
   return (
-    <Link to={slug} className="block group no-underline">
-      <h3 className="inline font-bold text-xl text-black group-hover:text-orange-dark mb-6">
-        {title}
+    <div>
+      <h3
+        style={{
+          display: 'inline',
+          fontWeight: 'bold',
+          fontSize: '1.25rem',
+          marginBottom: '1.5rem',
+        }}
+      >
+        <Link to={slug} style={{ display: 'block', textDecoration: 'none' }}>
+          {title}
+        </Link>
       </h3>
-      <span className="text-black inline-block">
+      <span style={{ display: 'inline-block', color: 'dimgray' }}>
         {' '}
         —{' '}
-        <time className="text-grey-darker" dateTime={date}>
+        <time dateTime={date}>
           {new Date(date).toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'long',
@@ -18,7 +27,9 @@ export default function BlogExcerpt({ slug, title, date, previewText }) {
           })}
         </time>
       </span>
-      <p className="text-black mt-3 mb-6">{previewText}</p>
-    </Link>
+      <p style={{ color: 'black', margin: '0.75rem 0 1.5rem' }}>
+        {previewText}
+      </p>
+    </div>
   );
 }

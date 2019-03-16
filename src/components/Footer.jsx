@@ -1,13 +1,14 @@
 import React from 'react';
+import style from './Footer.module.css';
 
 const Footer = () => (
-  <footer className="bg-grey-darkest text-white h-24 mt-16 flex-no-shrink flex flex-col justify-end items-end md:flex-row md:justify-center">
-    <p className="self-center md:self-end px-1">
+  <footer className={style.footer}>
+    <p className={style.middle}>
       This part is the website footer. Thanks for reading.
     </p>
-    <span className="text-xs md:absolute pin-r px-1">
+    <span className={style.side}>
       © {new Date().getFullYear()}, Built with&nbsp;
-      <a className="text-orange-lighter" href="https://www.gatsbyjs.org">
+      <a style={{ color: 'navajowhite' }} href="https://www.gatsbyjs.org">
         Gatsby
       </a>
     </span>
