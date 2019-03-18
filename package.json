@@ -54,7 +54,8 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "lint-js": "eslint . --ext .js,.jsx --ignore-path .gitignore",
-    "lint-style": "stylelint src/**/*{css,js,jsx}",
+    "lint-style": "stylelint src/**/*.{css,js,jsx}",
+    "format": "prettier src/**/*.{css,js,jsx} --write",
     "lint": "npm run lint-js && npm run lint-style",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
