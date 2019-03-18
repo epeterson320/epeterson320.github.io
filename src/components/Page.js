@@ -21,13 +21,11 @@ const Page = ({ children, centered }) => (
         display: 'flex',
         flexDirection: 'column',
         flex: '1',
-        padding: '5rem 1rem 1.5rem',
-        /* stylelint-disable property-no-unknown */
-        [centered && 'alignItems']: 'center',
-        /* stylelint-enable */
+        padding: '5rem 0.5rem 1.5rem',
+        width: 'calc(100% - 1rem)',
         maxWidth: '40rem',
-        width: '100%',
         margin: '0 auto',
+        ...(centered && { alignItems: 'center' }),
       }}
     >
       {children}

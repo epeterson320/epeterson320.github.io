@@ -19,18 +19,15 @@ const NavHeader = () => (
         padding: '0 0.5rem',
       }}
     >
-      <Link
-        to="/"
+      <h2
         style={{
-          textDecoration: 'none',
-          whiteSpace: 'nowrap',
-          color: 'black',
-          padding: '0.25rem 0',
-          alignSelf: 'center',
+          fontWeight: 'bold',
+          padding: '0.4rem 0',
+          alignSelf: 'start',
         }}
       >
-        <h2 style={{ fontWeight: 'bold' }}>Eric Peterson</h2>
-      </Link>
+        <Link to="/">Eric Peterson</Link>
+      </h2>
       <ul
         style={{
           display: 'flex',
@@ -66,7 +63,7 @@ export default NavHeader;
 const linkStyle = {
   textDecoration: 'none',
   color: 'black',
-  padding: '0.75rem',
+  padding: '0.5rem',
   display: 'flex',
   alignItems: 'center',
 };

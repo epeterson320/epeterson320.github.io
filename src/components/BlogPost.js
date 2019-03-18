@@ -17,10 +17,7 @@ const BlogPost = ({
     </PageTitleArea>
     {/* eslint-disable react/no-danger */}
     {/* it's recommended in gatsbyjs.org/docs/adding-markdown-pages */}
-    <div
-      style={{ width: '100%', maxWidth: '40rem' }}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div dangerouslySetInnerHTML={{ __html: html }} />
     {/* eslint-enable react/no-danger */}
     <div
       style={{
