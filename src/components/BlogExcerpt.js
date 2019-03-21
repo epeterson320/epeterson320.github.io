@@ -8,7 +8,7 @@ export default function BlogExcerpt({ slug, title, date, previewText }) {
         style={{
           display: 'inline',
           fontWeight: 'bold',
-          fontSize: '1.25rem',
+          fontSize: 'var(--fs-1)',
           marginBottom: '1.5rem',
         }}
       >

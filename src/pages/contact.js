@@ -47,7 +47,7 @@ const LabeledInput = ({ label, tag: Tag = 'input', ...inputProps }) => (
     style={{
       display: 'block',
       color: 'darkslategray',
-      fontSize: '0.875rem',
+      fontSize: 'var(--fs-neg1)',
       fontWeight: 'bold',
       marginBottom: '0.5rem',
     }}

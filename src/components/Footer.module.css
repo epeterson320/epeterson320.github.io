@@ -15,9 +15,10 @@
 }
 
 .side {
-  font-size: 0.75rem;
+  font-size: var(--fs-neg1);
   align-self: flex-end;
   padding: 0 0.25rem;
+  white-space: nowrap;
 }
 
 @media (min-width: 768px) {

@@ -11,7 +11,7 @@ const IndexPage = ({ data }) => (
   <Page style={{ maxWidth: '40rem', margin: '0 auto' }}>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
     <PageTitleArea>
-      <Title>Software engineer in the D.C. Metro area,</Title>
+      <Title>Software engineer in northern Virginia,</Title>
       <Or />
       <SubTitle>Blogger and 1x developer,</SubTitle>
       <Or />
@@ -24,7 +24,7 @@ const IndexPage = ({ data }) => (
         alt="Portrait photo of Eric's face"
         Tag="span"
       />
-      <em style={{ fontSize: '1.5rem' }}>I'm Eric, and </em>
+      <em style={{ fontSize: 'var(--fs-1)' }}>I'm Eric, and </em>
       I'm a mobile and web app developer in Northern Virginia. I've worked for
       enterprises and small companies in the energy, publishing, and healthcare
       industries. I build highly interactive web applications, with a focus on

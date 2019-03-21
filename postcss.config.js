@@ -1,5 +1,6 @@
-const postcssNormalize = require('postcss-normalize');
-
 module.exports = () => ({
-  plugins: [postcssNormalize()],
+  plugins: [
+    require('postcss-responsive-type')(),
+    require('postcss-normalize')(),
+  ],
 });
