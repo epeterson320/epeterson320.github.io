@@ -2,17 +2,23 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Page from './Page';
 import { PageTitleArea, Title, PostTime } from './titles.jsx';
+import SEO from './SEO';
 
 const BlogPost = ({
   pageContext: {
-    node: { html, frontmatter, fields },
+    node: {
+      html,
+      frontmatter: { title },
+      fields,
+    },
     next,
     previous,
   },
 }) => (
   <Page>
+    <SEO title={title} />
     <PageTitleArea>
-      <Title>{frontmatter.title}</Title>
+      <Title>{title}</Title>
       <PostTime date={fields.date} dateTime={fields.datetime} />
     </PageTitleArea>
     {/* eslint-disable react/no-danger */}

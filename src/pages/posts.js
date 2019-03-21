@@ -3,9 +3,11 @@ import { graphql, StaticQuery } from 'gatsby';
 import Page from '../components/Page';
 import BlogExcerpt from '../components/BlogExcerpt';
 import { PageTitleArea, Title } from '../components/titles';
+import SEO from '../components/SEO';
 
 const AllPosts = props => (
   <Page style={{ maxWidth: '40rem', margin: '0 auto' }}>
+    <SEO title="Blog" keywords={[`gatsby`, `application`, `react`]} />
     <PageTitleArea>
       <Title>All Posts</Title>
     </PageTitleArea>

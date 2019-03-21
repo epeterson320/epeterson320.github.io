@@ -1,9 +1,11 @@
 import React from 'react';
 import Page from '../components/Page';
 import { Title } from '../components/titles';
+import SEO from '../components/SEO';
 
 const ContactPage = () => (
   <Page>
+    <SEO title="Contact" />
     <Title>I'd love to get in touch.</Title>
     <NetlifyForm name="contact">
       <HiddenInput label="Form Name" name="form-name" value="contact" />

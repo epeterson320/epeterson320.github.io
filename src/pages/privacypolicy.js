@@ -1,8 +1,10 @@
 import React from 'react';
 import Page from '../components/Page';
+import SEO from '../components/SEO';
 
 const PrivacyPolicyPage = () => (
   <Page>
+    <SEO title="Occam's Flashlight Privacy Policy" />
     <h1>Occam's Flashlight Privacy Policy</h1>
     <p>
       Occam's Flashlight will not collect any personal information, anonymous or
