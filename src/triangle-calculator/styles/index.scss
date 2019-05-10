@@ -1,0 +1,19 @@
+// Define Mixins
+@import 'breakpoints';
+@import 'gridlines';
+// Apply styles to tags
+@import 'globals';
+// Style the page and grid
+@import 'layout';
+// Style the components
+.Page__container {
+  @import 'Checkbox';
+  @import 'DebouncedTextInput';
+  @import 'DisplayPrefsForm';
+  @import 'CharInput';
+  @import 'MeasurementsForm';
+  @import 'PointInput';
+  @import 'RadioList';
+  @import 'SideInput';
+  @import 'TriangleDrawing';
+}
