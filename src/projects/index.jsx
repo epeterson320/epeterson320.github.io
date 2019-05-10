@@ -10,13 +10,16 @@ const Project = ({ title, link, children }) => (
 );
 
 export const Codeck = () => (
-  <Project title="Codeck" link="codeck">
+  <Project title="Codeck" link="https://codeck.ericp.co">
     A tool to encode and decode a message in an ordered deck of cards.
   </Project>
 );
 
 export const Triangles = () => (
-  <Project title="Triangle Calculator" link="triangle-calculator">
+  <Project
+    title="Triangle Calculator"
+    link="https://triangle-calculator.ericp.co"
+  >
     A web app that solves and displays triangles based on partially known
     measurements.
   </Project>

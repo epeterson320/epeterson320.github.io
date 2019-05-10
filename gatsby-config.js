@@ -58,7 +58,6 @@ module.exports = {
         ],
       },
     },
-    'gatsby-plugin-sass',
     'gatsby-plugin-postcss',
     {
       resolve: `gatsby-plugin-manifest`,
