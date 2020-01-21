@@ -46,7 +46,8 @@ export const OccamsFlashlight = () => (
     title="Occam's Flashlight"
     link="https://play.google.com/store/apps/details?id=co.ericp.flashlight"
   >
-    The simplest possible Android flashlight.
+    The simplest possible Android flashlight, developed as an excuse to play
+    around with a devops pipeline for an Android app.
   </Project>
 );
 
